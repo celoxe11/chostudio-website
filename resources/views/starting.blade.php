@@ -11,11 +11,11 @@
 <div class="contentbox flex flex-col items-center p-7 rounded-4xl outline outline-4 outline-black rounded-2xl shadow-[3vh_3vh_0_black]">
     <div class="title">
         <h1>
-            Cho's Studio
+            <b>CHO'S STUDIO</b>
         </h1>
     </div>
-    <div class="button rounded-4xl outline outline-4 outline-black rounded-1xl shadow-[1vh_1vh_0_black]">
-        <a href="/login" class="go-button">Get Started</a>
+    <div class="button rounded-4xl outline outline-4 outline-black rounded-1xl shadow-[1vh_1vh_0_black] [transform:rotate(-5deg)]">
+        <a href="/login" class="go-button"><b>Let's Go!</b></a>
     </div>
 </div>
 
