@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LoginPageController;
@@ -20,4 +21,6 @@ Route::get('/', function () {
     return view('starting');
 });
 Route::get('/login', [LoginPageController::class, 'index'])->name('login');
+Route::get('/register', [LoginPageController::class, 'index'])->name('register');
 Route::get('/home', [HomePageController::class, 'index'])->name('home');
+Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');

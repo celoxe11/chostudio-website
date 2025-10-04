@@ -49,7 +49,7 @@
             <ul class="m-3">
                 <li class="m-3"> <button
                         class="flex justify-center items-center bg-[#a2e1db] hover:bg-[#b4a6d5] p-3 rounded-2xl w-[30vh]"><a
-                            href="http://">Gallery</a></button>
+                            href="/gallery">Gallery</a></button>
                 </li>
                 <li class="m-3">
                     <button
