@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{{-- HALAMAN HOME AKU MIGRASI KE SINI --}}
 <html lang="en">
 
 <head>
