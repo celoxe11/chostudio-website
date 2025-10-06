@@ -15,7 +15,7 @@
         class="flex flex-col justify-center items-center bg-[#f0ebe3] w-[60%] h-[70%] p-7 rounded-3xl outline outline-4 outline-black">
         {{-- judul --}}
         <div class="flex justify-center mb-6 font-[HammersmithOne-Regular] mt-[5vh]">
-            <h1 class="text-3xl md:text-5xl lg:text-7xl">LOGIN</h1>
+            <h1 class="text-3xl md:text-5xl lg:text-7xl">Register</h1>
         </div>
 
         <form class="flex flex-col gap-3" action="" method="post">
@@ -26,7 +26,7 @@
         <div class="forgotPassword flex ml-[80vh] mr-[5vh] w-fit ">
             <a href="/login"
                 class="flex justify-center text-2xl font-semibold text-[3vh] w-[50vh] p-2 text-black hover:text-[#ffac81] transition">
-                Forgot Password?
+                Already a member?
             </a>
         </div>
     </div>
