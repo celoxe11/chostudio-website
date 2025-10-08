@@ -12,9 +12,6 @@
             margin-left: 20vh;
             margin-top: 10vh;
         }
-        .buttons{
-            margin-right: 0;
-        }
         body {
             overflow: hidden;
         }
@@ -23,19 +20,19 @@
 
 <body class="h-screen">
 
-    <div class="navbar absolute  flex flex-row ml-[50%]">
-        <div class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black">
+        <div class="navbar absolute  flex flex-row ml-[50%] mt-[0.5vh]">
+        <button class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out">
             Home
-        </div>
-        <div class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black">
+        </button>
+        <button class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out">
             Gallery
-        </div>
-        <div class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black">
+        </button>
+        <button class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out">
             Shop
-        </div>
-        <div class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black">
+        </button>
+        <button class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out">
             Commission
-        </div>
+        </button>
     </div>
 
     {{-- isi konten halaman --}}
@@ -52,9 +49,16 @@
             </div>
             <div
                 class="folder flex justify-center flex-col bg-[#f0ebe3] w-[80%] h-[80%] mt-[-5%] p-10 rounded-3xl outline outline-4 outline-black shadow-[3vh_3vh_0_black]">
-                
+                {{-- gallery pictures --}}
+                <div class="grid grid-cols-4 gap-4 flex-grow mt-8">
+                    <div class="col-span-2 row-span-2 bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]"></div>
+                    <div class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]"></div>
+                    <div class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]"></div>
+                    <div class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]"></div>
+                    <div class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]"></div>
+                </div>
             </div>
-    
+            
 </body>
 
 </html>

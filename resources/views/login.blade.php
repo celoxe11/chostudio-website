@@ -18,13 +18,14 @@
             <h1 class="text-3xl md:text-5xl lg:text-7xl">LOGIN</h1>
         </div>
 
-        <form class="flex flex-col gap-3" action="" method="post">
+        <form class="flex flex-col items-center gap-3" action="" method="post">
             <input class="bg-[#a2e1db] placeholder-[#7dc8c1] placeholder:font-bold rounded-2xl p-3 text-[3vh]" type="" name="" id="" placeholder="Username">
             <input class="bg-[#a2e1db] placeholder-[#7dc8c1] placeholder:font-bold rounded-2xl p-3 text-[3vh]" type="password" name="" id="" placeholder="Password">
+            <button type="submit" class="font-[HammersmithOne-Regular] bg-[#b4a6d5] w-[50%] rounded outline hover:bg-[#7dc8c1] transition-colors duration-300 ease-in-out">Login</button>
         </form>
 
         <div class="forgotPassword flex ml-[80vh] mr-[5vh] w-fit ">
-            <a href="/login"
+            <a href="/register"
                 class="flex justify-center text-2xl font-semibold text-[3vh] w-[50vh] p-2 text-black hover:text-[#ffac81] transition">
                 Forgot Password?
             </a>
