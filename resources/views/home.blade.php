@@ -13,10 +13,13 @@
 <body class="flex flex-row items-center h-screen">
 
     {{-- sidebar --}}
-    <div class="flex flex-col items-center h-full bg-[#f0ebe3] w-[25%]">
-        <div class="personaImage bg-[#a2e1db] w-[30vh] h-[30vh] m-3">
-            OC Brenda
+    <div class="flex flex-col items-center h-full bg-[#f0ebe3] w-[25%] border-r-4 border-black">
+        <div
+            class="personaImage bg-[#a2e1db] w-[30vh] h-[30vh] m-3">
+            <img src="{{ asset('assets/cho_asset/Talking cho.png') }}" alt="Cho's OC"
+                class="w-full h-full object-contain">
         </div>
+
         <div class="title w-[70%] h-fit m-3">
             <a href="/home"
                 class="flex items-center h-[12vh] p-2 bg-[#ffac81] rounded-2xl outline outline-3 outline-black 
@@ -48,22 +51,22 @@
         <div class="button-group flex justify-center font-[HammersmithOne-Regular]">
             <ul class="m-3">
                 <li class="m-3"> <button
-                        class="flex justify-center items-center bg-[#a2e1db] hover:bg-[#b4a6d5] p-3 rounded-2xl w-[30vh]"><a
+                        class="flex justify-center items-center bg-[#a2e1db] hover:bg-[#b4a6d5] p-3 rounded-2xl w-[30vh] outline"><a
                             href="/gallery">Gallery</a></button>
                 </li>
                 <li class="m-3">
                     <button
-                        class="flex justify-center items-center bg-[#a2e1db] hover:bg-[#b4a6d5] p-3 rounded-2xl w-[30vh]"><a
+                        class="flex justify-center items-center bg-[#a2e1db] hover:bg-[#b4a6d5] p-3 rounded-2xl w-[30vh] outline"><a
                             href="http://">Commission</a></button>
                 </li>
                 <li class="m-3">
                     <button
-                        class="flex justify-center items-center bg-[#a2e1db] hover:bg-[#b4a6d5] p-3 rounded-2xl w-[30vh]"><a
+                        class="flex justify-center items-center bg-[#a2e1db] hover:bg-[#b4a6d5] p-3 rounded-2xl w-[30vh] outline"><a
                             href="http://">Shop</a></button>
                 </li>
                 <li class="m-3">
                     <button
-                        class="flex justify-center items-center bg-[#a2e1db] hover:bg-[#b4a6d5] p-3 rounded-2xl w-[30vh]"><a
+                        class="flex justify-center items-center bg-[#a2e1db] hover:bg-[#b4a6d5] p-3 rounded-2xl w-[30vh] outline"><a
                             href="http://">Work Progress</a></button>
                 </li>
             </ul>
@@ -78,8 +81,9 @@
             class="flex flex-col justify-center bg-[#f0ebe3] w-[80%] h-[80%] p-10 rounded-3xl outline outline-4 outline-black shadow-[3vh_3vh_0_black]">
             {{-- About Artist --}}
             <div class="about flex flex-col mb-6 font-[HammersmithOne-Regular] mt-[5vh]">
-                    <h1 class="text-2xl md:text-3xl lg:text-4xl">About The Artist</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero eum esse in provident dignissimos reiciendis molestias assumenda nesciunt autem expedita.</p>
+                <h1 class="text-2xl md:text-3xl lg:text-4xl">About The Artist</h1>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero eum esse in provident dignissimos
+                    reiciendis molestias assumenda nesciunt autem expedita.</p>
             </div>
 
             {{-- Recent Works --}}
@@ -91,7 +95,8 @@
             {{-- Description --}}
             <div class="work-description about flex flex-col font-[HammersmithOne-Regular] mt-[5vh]">
                 <p>Judul</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero eum esse in provident dignissimos reiciendis molestias assumenda nesciunt autem expedita.</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero eum esse in provident dignissimos
+                    reiciendis molestias assumenda nesciunt autem expedita.</p>
             </div>
         </div>
     </div>

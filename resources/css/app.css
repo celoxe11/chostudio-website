@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-pastel-turqoise: #a2e1db; 
+  --color-turquoise: #7dc8c1;
+  --color-background: #efeae4;
+
+  --status-danger: #f46958; /* merah: buat cancel, pending, havent paid */
+  --status-warning: #ffba09; /* kuning: buat revision,  */
+  --status-info: #91fff5; /* biru: buat in progress, already dp */
+  --status-success: #a2e1a6; /* hijau: buat completed, paid */
+  --status-neutral: #b4a6d5; /* ungu: buat waiting for payment */
+}
