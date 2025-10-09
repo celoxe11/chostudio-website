@@ -11,26 +11,25 @@
 
 <body class="flex justify-center items-center h-screen">
     <div
-        class="flex flex-col justify-center items-center bg-[#f0ebe3] w-[60%] h-[70%] p-7 rounded-3xl outline outline-4 outline-black">
+        class="flex flex-col justify-center items-center bg-[#f0ebe3] w-[95%] max-w-5xl min-h-[70%] p-8 rounded-3xl border-4 border-black">
         {{-- judul --}}
         <div class="flex justify-center mb-6 font-[HammersmithOne-Regular] mt-[5vh]">
-            <h1 class="text-3xl md:text-5xl lg:text-7xl">LOGIN</h1>
+            <h1 class="text-3xl md:text-5xl lg:text-5xl">LOGIN</h1>
         </div>
 
-        <form class="flex flex-col items-center gap-3" action="" method="post">
-            <input class="bg-[#a2e1db] placeholder-[#7dc8c1] placeholder:font-bold rounded-2xl p-3 text-[3vh]" type="" name="" id="" placeholder="Username">
-            <input class="bg-[#a2e1db] placeholder-[#7dc8c1] placeholder:font-bold rounded-2xl p-3 text-[3vh]" type="password" name="" id="" placeholder="Password">
-            <button type="submit" class="font-[HammersmithOne-Regular] bg-[#b4a6d5] w-[50%] rounded outline hover:bg-[#7dc8c1] transition-colors duration-300 ease-in-out">Login</button>
+        <form class="flex flex-col items-center gap-4 w-full max-w-md" action="" method="post">
+            @csrf
+            <input class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full" type="text" name="username" id="username" placeholder="Username" required>
+            <input class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full" type="password" name="password" id="password" placeholder="Password" required>
+            <button type="submit" class="font-[HammersmithOne-Regular] bg-[#b4a6d5] w-full py-4 text-xl rounded-2xl outline hover:bg-[#477c77] transition-colors duration-300 ease-in-out">Login</button>
         </form>
 
-        <div class="forgotPassword flex ml-[80vh] mr-[5vh] w-fit ">
+        <div class="flex flex-col items-center gap-3 mt-6">
             <a href="/register"
-                class="flex justify-center text-2xl font-semibold text-[3vh] w-[50vh] p-2 text-black hover:text-[#ffac81] transition">
-                Forgot Password?
+                class="text-lg font-semibold text-black hover:text-[#ffac81] transition-colors duration-300">
+                Don't have an account? Register here
             </a>
         </div>
-    </div>
-
     </div>
 </body>
 
