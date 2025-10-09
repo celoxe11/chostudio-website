@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtistAdoptionController;
 use App\Http\Controllers\ArtistCommisionController;
 use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\HomePageController;
@@ -30,4 +31,13 @@ Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery')
 // TODO: Kasih middleware nanti
 Route::prefix('artist')->group(function () {
     Route::get('/commisions', [ArtistCommisionController::class, 'index'])->name('artist.commisions');
+    Route::get('/commision-detail', [ArtistCommisionController::class, 'detail'])->name('artist.commision_detail');
+    Route::get('/adoptions', [ArtistAdoptionController::class, 'index'])->name('artist.adoptions');
+    Route::get('/adoption-detail', [ArtistAdoptionController::class, 'detail'])->name('artist.adoption_detail');
 });
+
+// todo: ganti ini nanti 
+Route::post('/logout', function () {
+    // Logic for logging out the user
+    return redirect()->route('/');
+})->name('logout');
