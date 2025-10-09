@@ -7,7 +7,6 @@
     <title>Cho Studio</title>
     <link rel="stylesheet" href="{{ asset('assets/css/background.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    {{-- WIP --}}
 </head>
 
 <body class="flex justify-center items-center h-screen">
