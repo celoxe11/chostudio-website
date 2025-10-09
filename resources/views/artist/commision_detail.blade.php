@@ -218,16 +218,23 @@
                                         Decline Commission
                                     </button>
                                 @elseif($commission->progres_status === 'In Progress')
-                                    <button
-                                        class="px-4 py-2 rounded-lg border-2 border-yellow-500 text-yellow-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
-                                        style="background-color: var(--status-warning);">
-                                        Request Revision
-                                    </button>
-                                    <button
-                                        class="px-4 py-2 rounded-lg border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
-                                        style="background-color: var(--status-success);">
-                                        Mark Complete
-                                    </button>
+                                    <!-- Progress Status Update -->
+                                    <div class="space-y-3">
+                                        <label for="progress_status" class="block text-sm font-semibold text-gray-700">Update Progress Status:</label>
+                                        <div class="flex gap-2">
+                                            <select id="progress_status" name="progress_status" 
+                                                class="flex-1 px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none font-medium">
+                                                <option value="In Progress" {{ $commission->progres_status === 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                                                <option value="Revision" {{ $commission->progres_status === 'Revision' ? 'selected' : '' }}>Request Revision</option>
+                                                <option value="Completed" {{ $commission->progres_status === 'Completed' ? 'selected' : '' }}>Mark Complete</option>
+                                            </select>
+                                            <button type="button" onclick="updateProgressStatus()" 
+                                                class="px-4 py-2 rounded-lg border-2 border-blue-500 text-blue-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
+                                                style="background-color: var(--status-info);">
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
                                 @elseif($commission->progres_status === 'Revision')
                                     <button
                                         class="px-4 py-2 rounded-lg border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
@@ -257,4 +264,61 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function updateProgressStatus() {
+            const selectElement = document.getElementById('progress_status');
+            const newStatus = selectElement.value;
+            const currentStatus = '{{ $commission->progres_status }}';
+            
+            if (newStatus === currentStatus) {
+                alert('Status is already set to: ' + newStatus);
+                return;
+            }
+            
+            // Show confirmation dialog
+            const confirmMessage = `Are you sure you want to change the status to "${newStatus}"?`;
+            if (!confirm(confirmMessage)) {
+                // Reset select to current status if user cancels
+                selectElement.value = currentStatus;
+                return;
+            }
+            
+            // Here you would typically make an AJAX request to update the status
+            // For now, we'll just show a success message and potentially redirect
+            
+            // Example AJAX call (uncomment and modify as needed):
+            /*
+            fetch('/artist/commissions/{{ $commission->commision_id }}/update-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    progress_status: newStatus
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Status updated successfully!');
+                    location.reload(); // Reload page to show updated status
+                } else {
+                    alert('Error updating status: ' + data.message);
+                    selectElement.value = currentStatus; // Reset on error
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating the status.');
+                selectElement.value = currentStatus; // Reset on error
+            });
+            */
+            
+            // Temporary success message (remove when implementing actual backend)
+            alert(`Status would be updated to: ${newStatus}`);
+            console.log('Commission ID:', '{{ $commission->commision_id }}', 'New Status:', newStatus);
+        }
+    </script>
 @endsection
