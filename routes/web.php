@@ -4,6 +4,7 @@ use App\Http\Controllers\ArtistCommisionController;
 use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LoginPageController;
+use App\Http\Controllers\AdminGalleryController;
 use Illuminate\Support\Facades\Route;
 
 /*
