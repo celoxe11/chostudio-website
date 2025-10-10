@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cho's Studio</title>
     <link rel="stylesheet" href="{{ asset('assets/css/background.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"  crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
