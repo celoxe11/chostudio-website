@@ -38,6 +38,10 @@
             class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1.5rem]">
             Commission
         </button>
+        <button
+            class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1.5rem]">
+            Are you a member yet?
+        </button>
     </div>
 
     {{-- isi konten halaman --}}
