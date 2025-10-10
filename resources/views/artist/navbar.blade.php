@@ -5,18 +5,18 @@
             <p class="text-xl max-lg:text-lg max-m:text-base">ARTIST</p>
         </div>
 
-        <div class="">
+        <div class="flex gap-5 items-center">
             <!-- Desktop nav -->
             <nav class="hidden md:block text-xl max-xl:text-lg font-bold">
                 <ul class="flex gap-8 items-center">
-                    <li><a href="" class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('artist.gallery') ? 'text-(--color-pastel-turqoise)' : '' }}">Gallery</a></li>
+                    <li><a href="{{route('artist.gallery')}}" class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('artist.gallery') ? 'text-(--color-pastel-turqoise)' : '' }}">Gallery</a></li>
                     <li><a href="{{ route('artist.adoptions') }}" class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('artist.adoptions') ? 'text-(--color-pastel-turqoise)' : '' }}">Adoptions</a></li>
                     <li><a href="{{ route('artist.commisions') }}"
                             class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('artist.commisions') ? 'text-(--color-pastel-turqoise)' : '' }}">Commisions</a></li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
-                            <button type="submit" class="py-2 px-4 rounded bg-[var(--status-danger)] text-white font-bold">LOGOUT</button>
+                            <button type="submit" class="py-2 px-4 rounded bg-(--status-danger) text-white text-2xl max-xl:text-base font-bold hover:scale-105 transition-transform duration-300">LOGOUT</button>
                         </form>
                     </li>
                 </ul>
