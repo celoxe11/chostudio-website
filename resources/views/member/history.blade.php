@@ -1,9 +1,8 @@
 @extends('member.member_template')
 
 @section('content')
-<div class="flex justify-center items-center h-screen overflow-hidden">
-    <div class="flex flex-col w-[85vw] h-[90vh] bg-[#f0ebe3] outline-4 rounded-2xl overflow-hidden font-[HammersmithOne-Regular] p-10">
-
+<div class="flex justify-center items-start  h-[89vh] overflow-hidden pt-10">
+    <div class="flex flex-col w-[85vw] max-h-[80vh] bg-[#f0ebe3] outline-4 rounded-2xl overflow-y-auto font-[HammersmithOne-Regular] p-10">
         {{-- Header --}}
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl text-[#2c2c2c]">History (Payment)</h1>
@@ -14,11 +13,12 @@
                     <select id="filterSelect"
                         class="appearance-none bg-[#c8f6e7] w-[20vw] text-[#2c2c2c] rounded px-4 py-2 pr-8 focus:outline-none cursor-pointer font-[HammersmithOne-Regular]">
                         <option value="recently" selected>recently add</option>
-                        <option value="commision">commision</option>
+                        <option value="commission">commission</option>
                         <option value="oc art">oc art</option>
                         <option value="pending">pending</option>
                         <option value="on progress">on progress</option>
                         <option value="finished">finished</option>
+                        <option value="confirmed">confirmed</option>
                     </select>
                     <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-[#2c2c2c]"></i>
                 </div>
@@ -30,10 +30,10 @@
             @foreach ($historyData as $item)
                 @php
                     // Warna berdasarkan tipe
-                    $bgColor = strtolower($item['type']) === 'commision' ? '#e1d8f7' : // putih
+                    $bgColor = strtolower($item['type']) === 'commision' ? '#e1d8f7' :
                                (strtolower($item['type']) === 'oc art' ? '#fce0ca' : '#e1d8f7');
 
-                    $borderColor = strtolower($item['type']) === 'commision' ? '#c2b4e2' :
+                    $borderColor = strtolower($item['type']) === 'commision' ? '#ad91f2' :
                                    (strtolower($item['type']) === 'oc art' ? '#f7c49c' : '#ccc');
 
                     // Warna tombol status (solid)
