@@ -4,7 +4,7 @@ use App\Http\Controllers\ArtistCommisionController;
 use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LoginPageController;
-use App\Http\Controllers\AdminGalleryController;
+use App\Http\Controllers\ArtistGalleryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +30,5 @@ Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery')
 // TODO: Kasih middleware nanti
 Route::prefix('artist')->group(function () {
     Route::get('/commisions', [ArtistCommisionController::class, 'index'])->name('artist.commisions');
+    Route::get('/gallery', [ArtistGalleryController::class, 'index'])->name('artist.gallery');
 });

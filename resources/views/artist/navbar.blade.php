@@ -9,12 +9,12 @@
              <!-- Desktop nav -->
         <nav class="hidden md:block text-3xl max-xl:text-base font-bold">
             <ul class="flex gap-8">
-                <li><a href="" class="hover:underline underline-offset-1 decoration-2">Gallery</a></li>
-                <li><a href="" class="hover:underline underline-offset-1 decoration-2">Adoptions</a></li>
+                <li><a href="{{route('artist.gallery')}}" class="hover:underline underline-offset-1 decoration-2">Gallery</a></li>
+                <li><a href="" class="hover:underline underline-offset-1 decoration-2">History</a></li>
                 <li><a href="{{ route('artist.commisions') }}" class="hover:underline underline-offset-1 decoration-2">Commisions</a></li>
             </ul>
         </nav>
-            <button class="py-2 px-4 rounded bg-(--status-danger) text-white text-2xl max-xl:text-base font-bold">
+            <button class="py-2 px-4 rounded bg-(--status-danger) text-white text-2xl max-xl:text-base font-bold hover:scale-105 transition-transform duration-300">
                 LOGOUT
             </button>
         </div>
@@ -43,8 +43,8 @@
         </div>
         <nav class="p-4 text-lg">
             <ul class="flex flex-col gap-4">
-                <li><a href="" class="block">Gallery</a></li>
-                <li><a href="" class="block">Adoptions</a></li>
+                <li><a href="{{ route('artist.gallery') }}" class="block">Gallery</a></li>
+                <li><a href="" class="block">History</a></li>
                 <li><a href="{{ route('artist.commisions') }}" class="block">Commisions</a></li>
             </ul>
         </nav>
@@ -55,7 +55,7 @@
 
     <!-- Inline script to toggle sidebar (keeps change local and simple) -->
     <script>
-        (function(){
+        (function () {
             const toggles = document.querySelectorAll('[data-nav-toggle]');
             const sidebar = document.getElementById('mobileSidebar');
             const closeBtn = document.getElementById('navClose');
@@ -64,31 +64,59 @@
             function openSidebar() {
                 sidebar.classList.remove('-translate-x-full');
                 sidebar.setAttribute('aria-hidden', 'false');
-                toggles.forEach(t=>t.setAttribute('aria-expanded','true'));
+                toggles.forEach(t => t.setAttribute('aria-expanded', 'true'));
                 backdrop.classList.remove('opacity-0', 'pointer-events-none');
             }
 
             function closeSidebar() {
                 sidebar.classList.add('-translate-x-full');
                 sidebar.setAttribute('aria-hidden', 'true');
-                toggles.forEach(t=>t.setAttribute('aria-expanded','false'));
+                toggles.forEach(t => t.setAttribute('aria-expanded', 'false'));
                 backdrop.classList.add('opacity-0', 'pointer-events-none');
             }
 
-            toggles.forEach(function(toggle){
-                toggle.addEventListener('click', function(e){
+            toggles.forEach(function (toggle) {
+                toggle.addEventListener('click', function () {
                     const expanded = this.getAttribute('aria-expanded') === 'true';
-                    if(expanded) closeSidebar(); else openSidebar();
+                    expanded ? closeSidebar() : openSidebar();
                 });
             });
             closeBtn && closeBtn.addEventListener('click', closeSidebar);
             backdrop && backdrop.addEventListener('click', closeSidebar);
-
-            // close on Escape
-            document.addEventListener('keydown', function(e){
-                if(e.key === 'Escape') closeSidebar();
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeSidebar();
             });
         })();
-    </script>
+
+        // =============================
+        // 💰 Auto-format harga (contoh: 100000 -> 100.000)
+        // =============================
+        const priceInput = document.getElementById('priceInput');
+        if (priceInput) {
+            // Format angka ke format Indonesia
+            function formatRupiah(value) {
+                if (!value) return '';
+                return new Intl.NumberFormat('id-ID').format(value.replace(/\D/g, ''));
+            }
+
+            priceInput.addEventListener('input', (e) => {
+                const value = e.target.value.replace(/\D/g, ''); // Hapus non-digit
+                if (!value) {
+                    e.target.value = '';
+                    return;
+                }
+                e.target.value = formatRupiah(value);
+            });
+
+            // Saat submit form: ubah ke angka mentah (tanpa titik)
+            const form = priceInput.closest('form');
+            if (form) {
+                form.addEventListener('submit', () => {
+                    priceInput.value = priceInput.value.replace(/\./g, '');
+                });
+            }
+        }
+        </script>
+
 </div>
 
