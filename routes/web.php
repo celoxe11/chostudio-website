@@ -40,7 +40,7 @@ Route::prefix('artist')->group(function () {
 
 Route::prefix('member')->group(function () {
     Route::get('/history', [HistoryMemberController::class, 'index'])->name('member.history');
-    Route::get('/member/history/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
+    Route::get('/history/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
 });
 
 // todo: ganti ini nanti 
