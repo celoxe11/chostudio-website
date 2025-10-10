@@ -55,7 +55,7 @@
                 $buttons = [
                     ['Gallery', '/gallery'],
                     ['Shop', '#'],
-                    ['Are you a Member yet?', '#'],
+                    ['Member', '#'],
                 ];
             @endphp
 
