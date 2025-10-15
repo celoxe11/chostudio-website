@@ -7,6 +7,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('assets/css/background.css') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- icon: font awesome --}}
+    <script src="https://kit.fontawesome.com/2773bd903f.js" crossorigin="anonymous"></script>
 </head>
 <body>
     @include('artist.navbar')

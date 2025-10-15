@@ -3,7 +3,16 @@
 @section('content')
     <div class="flex justify-center items-center min-h-screen py-4">
         <div
-            class="flex flex-col justify-center items-center bg-[#f0ebe3] w-[95%] max-w-5xl min-h-[70%] p-8 rounded-3xl border-4 border-black">
+            class="flex flex-col relative justify-center items-center bg-[#f0ebe3] w-[95%] max-w-5xl min-h-[70%] p-8 rounded-3xl border-4 border-black">
+            {{-- Back to home --}}
+            <div class="absolute top-10 left-10 w-full flex justify-start mb-4">
+                <a href={{ route('home') }}
+                    class="font-[HammersmithOne-Regular] bg-[#a2e1db] hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-sm sm:text-base px-4 py-2 rounded-2xl border-4 border-black">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+
             {{-- judul --}}
             <div class="flex justify-center mb-6 font-[HammersmithOne-Regular] mt-[5vh]">
                 <h1 class="text-3xl md:text-5xl lg:text-5xl">Register</h1>
