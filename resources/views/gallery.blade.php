@@ -85,20 +85,20 @@
 
     {{-- <div class="navbar absolute flex flex-row ml-[50%] mt-[0.5vh]">
         <button
-            class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1.5rem]">
+            class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1rem]">
             Home
         </button>
         <button
-            class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1.5rem]">
+            class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1rem]">
             Gallery
         </button>
         <button
-            class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1.5rem]">
+            class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1rem]">
             Shop
         </button>
         <button
-            class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1.5rem]">
-            Commission
+            class="flex justify-center items-center font-[HammersmithOne-Regular] bg-[#a2e1db] w-[20vh] h-[8.5vh] rounded-t-2xl outline border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-[1rem]">
+            Member
         </button>
     </div> --}}
 
@@ -106,8 +106,8 @@
     {{-- <div class="folder block flex-row bg-black rounded-3xl w-[30%] h-[20%]"></div>
 
     <div
-        class="fixed flex flex-col justify-center items-center bg-[#f0ebe3] rounded-3xl w-[29.5%] h-[19.5%] ml-[20.5vh] mt-[-19.5vh]">
-        <h1 class="text-2xl md:text-3xl lg:text-5xl text-bold font-[HammersmithOne-Regular]">Cho's Studio</h1>
+        class="fixed flex flex-col justify-center items-center bg-[#f0ebe3] rounded-3xl w-[28.5%] h-[19.5%] ml-[20.5vh] mt-[-18vh]">
+        <h1 class="text-2xl md:text-3xl lg:text-5xl text-bold font-[HammersmithOne-Regular] mt-[5%]">Cho's Studio</h1>
         <ul class="flex flex-row font-[HammersmithOne-Regular] text-[1rem] gap-4 m-4">
             <li>Illustrator / Artist</li>
             <li>Graphic Designer</li>
