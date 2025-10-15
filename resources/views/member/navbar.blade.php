@@ -2,17 +2,16 @@
     <div class="flex justify-between items-center p-4 xl:w-[80%] mx-auto lg:w-full">
         <div class="flex gap-3 items-end">
             <a href="{{ route('artist.commisions') }}" class="text-3xl font-bold max-lg:text-2xl">Cho's Studio</a>
-            <p class="text-xl max-lg:text-lg max-m:text-base">ARTIST</p>
+            <p class="text-xl max-lg:text-lg max-m:text-base">MEMBER</p>
         </div>
 
         <div class="flex gap-5 items-center">
             <!-- Desktop nav -->
             <nav class="hidden md:block text-xl max-xl:text-lg font-bold">
                 <ul class="flex gap-8 items-center">
-                    <li><a href="{{route('artist.gallery')}}" class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('artist.gallery') ? 'text-(--color-pastel-turqoise)' : '' }}">Gallery</a></li>
-                    <li><a href="{{ route('artist.adoptions') }}" class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('artist.adoptions') ? 'text-(--color-pastel-turqoise)' : '' }}">Adoptions</a></li>
-                    <li><a href="{{ route('artist.commisions') }}"
-                            class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('artist.commisions') ? 'text-(--color-pastel-turqoise)' : '' }}">Commisions</a></li>
+                    <li><a href="{}" class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('member.commisions') ? 'text-(--color-pastel-turqoise)' : '' }}">Commision</a></li>
+                    <li><a href="{{ route('member.history') }}"
+                            class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('member.history') ? 'text-(--color-pastel-turqoise)' : '' }}">History</a></li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
@@ -51,10 +50,9 @@
             </button>
         </div>
         <nav class="mt-4 p-4 text-lg">
-            <ul class="flex flex-col gap-4">
-                <li><a href="" class="block {{ request()->routeIs('artist.gallery') ? 'text-yellow-400 font-bold' : '' }}">Gallery</a></li>
-                <li><a href="{{ route('artist.adoptions') }}" class="block {{ request()->routeIs('artist.adoptions') ? 'text-yellow-400 font-bold' : '' }}">Adoptions</a></li>
-                <li><a href="{{ route('artist.commisions') }}" class="block {{ request()->routeIs('artist.commisions') ? 'text-yellow-400 font-bold' : '' }}">Commisions</a></li>
+            <ul class="flex flex-col gap-4">              
+                <li><a href="{}" class="block {{ request()->routeIs('member.commisions') ? 'text-yellow-400 font-bold' : '' }}">Commisions</a></li>
+                <li><a href="{{ route('member.history') }}" class="block {{ request()->routeIs('member.history') ? 'text-yellow-400 font-bold' : '' }}">History</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
