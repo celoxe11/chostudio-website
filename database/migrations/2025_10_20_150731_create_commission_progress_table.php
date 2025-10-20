@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+        Schema::create('commission_progress', function (Blueprint $table) {
+            $table->id('com_progress_id'); // PK
+            $table->foreignId('commission_id')->constrained('commisions', 'commission_id')->onDelete('cascade'); // FK ke commisions.commission_id
+            $table->string('image_link');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('commission_progress');
     }
 };
