@@ -4,7 +4,7 @@
     <div class="mt-8 max-xl:mt-3 p-4 xl:w-[80%] mx-auto lg:w-full">
         <div class="shadow font-[HammersmithOne-Regular] overflow-x-auto">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-3 border-stone-900"
-                style="background-color: var(--color-turquoise);">
+                style="background-color: var(--color-pastel-gray-turquoise);">
                 <div class="text-2xl sm:text-4xl">Commisions</div>
                 <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
                     <div class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"

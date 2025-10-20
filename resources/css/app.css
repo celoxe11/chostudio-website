@@ -3,6 +3,7 @@
 @theme {
   --color-pastel-turqoise: #a2e1db; 
   --color-turquoise: #7dc8c1;
+  --color-pastel-gray-turquoise: #9edad4;
   --color-background: #efeae4;
 
   --status-danger: #f46958; /* merah: buat cancel, pending, havent paid */

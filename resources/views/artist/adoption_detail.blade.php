@@ -27,7 +27,7 @@
         <div class="shadow font-[HammersmithOne-Regular]">
             <!-- Header Section -->
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-2 border-stone-900"
-                style="background-color: var(--color-turquoise);">
+                style="background-color: var(--color-pastel-gray-turquoise);">
                 <a href="{{ route('artist.adoptions') }}"
                     class="px-6 py-3 rounded-lg border-2 border-stone-500 bg-stone-100 text-stone-700 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 text-center">
                     Back to Adoptions
