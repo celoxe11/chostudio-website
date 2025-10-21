@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,13 @@
     {{-- icon: font awesome --}}
     <script src="https://kit.fontawesome.com/2773bd903f.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     @include('artist.navbar')
 
     @yield('content')
+
+    @yield('scripts')
 </body>
+
 </html>

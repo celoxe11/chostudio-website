@@ -28,19 +28,19 @@
                         </p>
                         <div class="space-y-4">
                             <input
-                                class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full"
+                                class="bg-[#a2e1db] font-[HammersmithOne-Regular] placeholder-[#477c77] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
                                 type="text" name="name" id="name" placeholder="Full Name" required>
                             <input
-                                class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full"
+                                class="bg-[#a2e1db] font-[HammersmithOne-Regular] placeholder-[#477c77] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
                                 type="text" name="username" id="username" placeholder="Username" required>
                             <input
-                                class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full"
+                                class="bg-[#a2e1db] font-[HammersmithOne-Regular] placeholder-[#477c77] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
                                 type="email" name="email" id="email" placeholder="Email Address" required>
                             <input
-                                class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full"
+                                class="bg-[#a2e1db] font-[HammersmithOne-Regular] placeholder-[#477c77] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
                                 type="password" name="password" id="password" placeholder="Password" required>
                             <input
-                                class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full"
+                                class="bg-[#a2e1db] font-[HammersmithOne-Regular] placeholder-[#477c77] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
                                 type="password" name="password_confirmation" id="password_confirmation"
                                 placeholder="Confirm Password" required>
                         </div>
@@ -57,11 +57,11 @@
                             <div class="space-y-2">
                                 <label class="flex items-center gap-3 cursor-pointer">
                                     <input type="checkbox" name="has_line_id" id="has_line_id"
-                                        class="w-5 h-5 rounded border-2 border-black accent-[#a2e1db]">
+                                        class="w-5 h-5 rounded border-2 border-black ">
                                     <span class="text-base font-semibold text-gray-800">Line ID</span>
                                 </label>
                                 <input
-                                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full hidden contact-field"
+                                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full hidden contact-field focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
                                     type="text" name="line_id" id="line_id" placeholder="Enter your Line ID">
                             </div>
 
@@ -69,11 +69,11 @@
                             <div class="space-y-2">
                                 <label class="flex items-center gap-3 cursor-pointer">
                                     <input type="checkbox" name="has_phone" id="has_phone"
-                                        class="w-5 h-5 rounded border-2 border-black accent-[#a2e1db]">
+                                        class="w-5 h-5 rounded border-2 border-black ">
                                     <span class="text-base font-semibold text-gray-800">Phone Number</span>
                                 </label>
                                 <input
-                                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full hidden contact-field"
+                                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full hidden contact-field focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
                                     type="tel" name="phone_number" id="phone_number"
                                     placeholder="Enter your phone number">
                             </div>
@@ -82,11 +82,11 @@
                             <div class="space-y-2">
                                 <label class="flex items-center gap-3 cursor-pointer">
                                     <input type="checkbox" name="has_instagram" id="has_instagram"
-                                        class="w-5 h-5 rounded border-2 border-black accent-[#a2e1db]">
+                                        class="w-5 h-5 rounded border-2 border-black ">
                                     <span class="text-base font-semibold text-gray-800">Instagram</span>
                                 </label>
                                 <input
-                                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full hidden contact-field"
+                                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full hidden contact-field focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
                                     type="text" name="instagram" id="instagram"
                                     placeholder="Enter your Instagram handle">
                             </div>
@@ -100,7 +100,7 @@
 
                 <div class="flex justify-center mt-8">
                     <button type="submit"
-                        class="font-[HammersmithOne-Regular] bg-[#b4a6d5] w-full max-w-md py-4 text-xl rounded-2xl outline hover:bg-[#477c77] transition-colors duration-300 ease-in-out">Register</button>
+                        class="font-[HammersmithOne-Regular] bg-[#b4a6d5] w-full max-w-md py-4 text-xl rounded-2xl border-3 border-black hover:bg-[#8b7db8] focus:outline-none focus:ring-4 focus:ring-[#ffac81] transition-colors duration-300 ease-in-out">Register</button>
                 </div>
             </form>
 
@@ -112,47 +112,49 @@
             </div>
         </div>
     </div>
+@endsection
 
-    {{-- Added JavaScript to handle checkbox toggle and form validation --}}
+@section('scripts') 
     <script>
-        $(function () {
-            const $lineIdCheckbox = $('#has_line_id');
-            const $phoneCheckbox = $('#has_phone');
-            const $instagramCheckbox = $('#has_instagram');
+        $(document).ready(function() {
+            const lineIdCheckbox = $('#has_line_id');
+            const phoneCheckbox = $('#has_phone');
+            const instagramCheckbox = $('#has_instagram');
 
-            const $lineIdInput = $('#line_id');
-            const $phoneInput = $('#phone_number');
-            const $instagramInput = $('#instagram');
+            const lineIdInput = $('#line_id');
+            const phoneInput = $('#phone_number');
+            const instagramInput = $('#instagram');
 
-            const $contactError = $('#contact-error');
-            const $registerForm = $('#registerForm');
+            const contactError = $('#contact-error');
+            const registerForm = $('#registerForm');
 
-            $lineIdCheckbox.on('change', function () {
-                $lineIdInput.toggleClass('hidden');
-                if (!this.checked) $lineIdInput.val('');
-                $contactError.addClass('hidden');
+            lineIdCheckbox.on('change', function() {
+                lineIdInput.toggleClass('hidden');
+                if (!this.checked) lineIdInput.val('');
+                contactError.addClass('hidden');
             });
 
-            $phoneCheckbox.on('change', function () {
-                $phoneInput.toggleClass('hidden');
-                if (!this.checked) $phoneInput.val('');
-                $contactError.addClass('hidden');
+            phoneCheckbox.on('change', function() {
+                phoneInput.toggleClass('hidden');
+                if (!this.checked) phoneInput.val('');
+                contactError.addClass('hidden');
             });
 
-            $instagramCheckbox.on('change', function () {
-                $instagramInput.toggleClass('hidden');
-                if (!this.checked) $instagramInput.val('');
-                $contactError.addClass('hidden');
+            instagramCheckbox.on('change', function() {
+                instagramInput.toggleClass('hidden');
+                if (!this.checked) instagramInput.val('');
+                contactError.addClass('hidden');
             });
 
-            $registerForm.on('submit', function (e) {
-                const hasLineId = $lineIdCheckbox.is(':checked') && $.trim($lineIdInput.val()) !== '';
-                const hasPhone = $phoneCheckbox.is(':checked') && $.trim($phoneInput.val()) !== '';
-                const hasInstagram = $instagramCheckbox.is(':checked') && $.trim($instagramInput.val()) !== '';
+            registerForm.on('submit', function(e) {
+                const hasLineId = lineIdCheckbox.is(':checked') && $.trim(lineIdInput.val()) !== '';
+                const hasPhone = phoneCheckbox.is(':checked') && $.trim(phoneInput.val()) !== '';
+                const hasInstagram = instagramCheckbox.is(':checked') && $.trim(instagramInput.val()) !==
+                    '';
 
                 if (!hasLineId && !hasPhone && !hasInstagram) {
                     e.preventDefault();
-                    $contactError.removeClass('hidden');
+                    contactError.removeClass('hidden');
                 }
             });
         });

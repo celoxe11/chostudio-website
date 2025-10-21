@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cho's Studio</title>
     <link rel="stylesheet" href="{{ asset('assets/css/background.css') }}">
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- icon: font awesome --}}
@@ -18,6 +17,8 @@
     @include('member.navbar')
 
     @yield('content')
+
+    @yield('scripts')
 </body>
 
 </html>
