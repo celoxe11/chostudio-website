@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex justify-center items-center h-screen">
         <div
-            class="flex flex-col relative justify-center items-center bg-[#f0ebe3] w-[95%] max-w-5xl min-h-[70%] p-8 rounded-3xl border-4 border-black">
+            class="flex flex-col relative justify-center items-center bg-[#f0ebe3] w-[95%] md:w-[85%] lg:w-[80%] h-[80%] p-8 rounded-3xl border-4 border-black">
             {{-- Back to home --}}
             <div class="absolute top-10 left-10 w-full flex justify-start mb-4">
                 <a href={{ route("home") }}

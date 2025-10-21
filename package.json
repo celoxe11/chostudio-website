@@ -13,5 +13,11 @@
         "postcss": "^8.5.6",
         "tailwindcss": "^4.1.14",
         "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "jquery": "^3.7.1",
+        "notie": "^4.3.1",
+        "sweetalert2": "^11.26.3",
+        "vue-toastification": "^2.0.0-rc.5"
     }
 }

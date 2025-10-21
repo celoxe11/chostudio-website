@@ -1,9 +1,9 @@
 @extends('template')
 
 @section('content')
-    <div class="flex justify-center items-center min-h-screen py-4">
+    <div class="flex justify-center items-center h-screen">
         <div
-            class="flex flex-col relative justify-center items-center bg-[#f0ebe3] w-[95%] max-w-5xl min-h-[70%] p-8 rounded-3xl border-4 border-black">
+            class="flex flex-col relative justify-center items-center bg-[#f0ebe3] w-[95%] md:w-[85%] lg:w-[80%] h-[80%] p-8 rounded-3xl border-4 border-black">
             {{-- Back to home --}}
             <div class="absolute top-10 left-10 w-full flex justify-start mb-4">
                 <a href={{ route('home') }}
@@ -24,6 +24,8 @@
                     <!-- Basic Information -->
                     <div class="space-y-4">
                         <h3 class="text-xl font-semibold text-center text-gray-800 mb-4">Basic Information</h3>
+                        <p class="text-sm text-center text-gray-600 mb-4">Please provide your basic details below
+                        </p>
                         <div class="space-y-4">
                             <input
                                 class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full"
@@ -46,20 +48,48 @@
 
                     <!-- Contact Information -->
                     <div class="space-y-4">
-                        <h3 class="text-xl font-semibold text-center text-gray-800 mb-2">Contact Information</h3>
+                        <h3 class="text-xl font-semibold text-center text-gray-800 mb-4">Contact Information</h3>
                         <p class="text-sm text-center text-gray-600 mb-4">Please provide at least one contact method below
                         </p>
 
                         <div class="space-y-4">
-                            <input
-                                class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full contact-field"
-                                type="text" name="line_id" id="line_id" placeholder="Line ID (Optional)">
-                            <input
-                                class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full contact-field"
-                                type="tel" name="phone_number" id="phone_number" placeholder="Phone Number (Optional)">
-                            <input
-                                class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full contact-field"
-                                type="text" name="instagram" id="instagram" placeholder="Instagram Handle (Optional)">
+                            {{-- Added checkbox for Line ID with show/hide functionality --}}
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" name="has_line_id" id="has_line_id"
+                                        class="w-5 h-5 rounded border-2 border-black accent-[#a2e1db]">
+                                    <span class="text-base font-semibold text-gray-800">Line ID</span>
+                                </label>
+                                <input
+                                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full hidden contact-field"
+                                    type="text" name="line_id" id="line_id" placeholder="Enter your Line ID">
+                            </div>
+
+                            {{-- Added checkbox for Phone Number with show/hide functionality --}}
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" name="has_phone" id="has_phone"
+                                        class="w-5 h-5 rounded border-2 border-black accent-[#a2e1db]">
+                                    <span class="text-base font-semibold text-gray-800">Phone Number</span>
+                                </label>
+                                <input
+                                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full hidden contact-field"
+                                    type="tel" name="phone_number" id="phone_number"
+                                    placeholder="Enter your phone number">
+                            </div>
+
+                            {{-- Added checkbox for Instagram with show/hide functionality --}}
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" name="has_instagram" id="has_instagram"
+                                        class="w-5 h-5 rounded border-2 border-black accent-[#a2e1db]">
+                                    <span class="text-base font-semibold text-gray-800">Instagram</span>
+                                </label>
+                                <input
+                                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full hidden contact-field"
+                                    type="text" name="instagram" id="instagram"
+                                    placeholder="Enter your Instagram handle">
+                            </div>
                         </div>
 
                         <div id="contact-error" class="text-red-600 text-sm text-center hidden">
@@ -82,4 +112,49 @@
             </div>
         </div>
     </div>
+
+    {{-- Added JavaScript to handle checkbox toggle and form validation --}}
+    <script>
+        $(function () {
+            const $lineIdCheckbox = $('#has_line_id');
+            const $phoneCheckbox = $('#has_phone');
+            const $instagramCheckbox = $('#has_instagram');
+
+            const $lineIdInput = $('#line_id');
+            const $phoneInput = $('#phone_number');
+            const $instagramInput = $('#instagram');
+
+            const $contactError = $('#contact-error');
+            const $registerForm = $('#registerForm');
+
+            $lineIdCheckbox.on('change', function () {
+                $lineIdInput.toggleClass('hidden');
+                if (!this.checked) $lineIdInput.val('');
+                $contactError.addClass('hidden');
+            });
+
+            $phoneCheckbox.on('change', function () {
+                $phoneInput.toggleClass('hidden');
+                if (!this.checked) $phoneInput.val('');
+                $contactError.addClass('hidden');
+            });
+
+            $instagramCheckbox.on('change', function () {
+                $instagramInput.toggleClass('hidden');
+                if (!this.checked) $instagramInput.val('');
+                $contactError.addClass('hidden');
+            });
+
+            $registerForm.on('submit', function (e) {
+                const hasLineId = $lineIdCheckbox.is(':checked') && $.trim($lineIdInput.val()) !== '';
+                const hasPhone = $phoneCheckbox.is(':checked') && $.trim($phoneInput.val()) !== '';
+                const hasInstagram = $instagramCheckbox.is(':checked') && $.trim($instagramInput.val()) !== '';
+
+                if (!hasLineId && !hasPhone && !hasInstagram) {
+                    e.preventDefault();
+                    $contactError.removeClass('hidden');
+                }
+            });
+        });
+    </script>
 @endsection

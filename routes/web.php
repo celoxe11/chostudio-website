@@ -43,8 +43,8 @@ Route::prefix('member')->group(function () {
     Route::get('/history/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
 });
 
-// todo: ganti ini nanti 
+// TODO: ganti ini nanti 
 Route::post('/logout', function () {
     // Logic for logging out the user
-    return redirect()->route('/');
+    return redirect('/');
 })->name('logout');
