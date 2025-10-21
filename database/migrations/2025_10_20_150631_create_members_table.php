@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('instagram', 50)->nullable();
             $table->enum('role', ['artist', 'client'])->default('client');
             $table->timestamps(); // created_at dan updated_at
+            $table->softDeletes(); // deleted_at untuk soft delete
         });
     }
 

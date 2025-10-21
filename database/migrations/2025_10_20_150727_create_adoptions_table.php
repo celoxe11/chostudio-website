@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('adoptions', function (Blueprint $table) {
             $table->id('adoption_id'); // PK
-            $table->foreignId('gallery_id')->constrained('gallery', 'gallery_id')->onDelete('restrict'); // FK ke gallery.gallery_id
+            $table->unsignedBigInteger("gallery_id"); // FK ke gallery.gallery_id tanpa constraint
             $table->string('email');
             $table->enum('order_status', ['placed', 'shipped', 'delivered', 'canceled'])->default('placed');
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
             $table->timestamps();
+            $table->softDeletes(); // deleted_at untuk soft delete
         });
     }
 

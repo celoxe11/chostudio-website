@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('status', ['available', 'sold', 'archived'])->default('available');
             $table->decimal('price', 10, 2)->nullable();
             $table->timestamps();
+            $table->softDeletes(); // deleted_at untuk soft delete
         });
     }
 

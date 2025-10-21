@@ -12,6 +12,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // note: 
+        // php artisan migrate:fresh --seed untuk reset database dan seeding ulang
+
         $this->call([
             MemberSeeder::class,
             GallerySeeder::class,

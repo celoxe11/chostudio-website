@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('commission_progress', function (Blueprint $table) {
             $table->id('com_progress_id'); // PK
-            $table->foreignId('commission_id')->constrained('commisions', 'commission_id')->onDelete('cascade'); // FK ke commisions.commission_id
+            $table->unsignedBigInteger('commission_id'); // FK ke commisions.commission_id tanpa constraint
             $table->string('image_link');
             $table->timestamps();
+            $table->softDeletes(); // deleted_at untuk soft delete
         });
     }
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('commisions', function (Blueprint $table) {
             $table->id('commission_id'); // PK
-            $table->foreignId('member_id')->constrained('members', 'member_id')->onDelete('cascade'); // FK ke members.member_id
+            $table->unsignedBigInteger('member_id'); // FK ke members.member_id tanpa constraint
             $table->string('category', 50);
             $table->text('description');
             $table->date('deadline')->nullable();
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('payment_status', ['pending', 'dp', 'paid', 'refunded'])->default('pending');
             $table->enum('progress_status', ['pending', 'accepted', 'in_progress_sketch', 'in_progress_coloring', 'review', 'revision', 'completed', 'cancelled'])->default('pending');
             $table->timestamps();
+            $table->softDeletes(); // deleted_at untuk soft delete
         });
     }
 
