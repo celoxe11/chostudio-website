@@ -15,4 +15,9 @@ class LoginPageController extends Controller
     {
         return view('register');
     }
+
+    public function termsnconditions()
+    {
+        return view('terms_conditions');
+    }
 }
