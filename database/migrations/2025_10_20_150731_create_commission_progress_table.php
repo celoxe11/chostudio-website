@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+        Schema::create('commission_progress', function (Blueprint $table) {
+            $table->id('com_progress_id'); // PK
+            $table->unsignedBigInteger('commission_id'); // FK ke commisions.commission_id tanpa constraint
+            $table->string('image_link');
             $table->timestamps();
+            $table->softDeletes(); // deleted_at untuk soft delete
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('commission_progress');
     }
 };

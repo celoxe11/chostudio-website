@@ -1,11 +1,9 @@
 @import 'tailwindcss';
-@import "flowbite/src/themes/default";
-@plugin "flowbite/plugin";
-@source "../../node_modules/flowbite";
 
 @theme {
   --color-pastel-turqoise: #a2e1db; 
   --color-turquoise: #7dc8c1;
+  --color-pastel-gray-turquoise: #9edad4;
   --color-background: #efeae4;
 
   --status-danger: #f46958; /* merah: buat cancel, pending, havent paid */
@@ -13,4 +11,32 @@
   --status-info: #91fff5; /* biru: buat in progress, already dp */
   --status-success: #a2e1a6; /* hijau: buat completed, paid */
   --status-neutral: #b4a6d5; /* ungu: buat waiting for payment */
+}
+
+/* === Scroll Styling === */
+html, body {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #888 transparent;
+}
+
+/* Chrome, Edge, Safari */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.6);
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(100, 100, 100, 0.8);
 }
