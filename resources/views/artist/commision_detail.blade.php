@@ -31,7 +31,11 @@
         <div class="shadow font-[HammersmithOne-Regular]">
             <!-- Header Section -->
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-2 border-stone-900"
-                style="background-color: var(--color-turquoise);">
+                style="background-color: var(--color-pastel-gray-turquoise);">
+                <a href="{{ route('artist.commisions') }}"
+                    class="px-4 py-2 rounded-lg border-2 border-stone-500 bg-stone-100 text-stone-700 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 text-center">
+                    Back to Commissions
+                </a>
                 <div>
                     <div class="text-2xl sm:text-4xl">Commission Details</div>
                     {{-- <div class="text-lg max-lg:text-base">Order #{{ $commission->commision_id }}</div> --}}
@@ -63,11 +67,11 @@
             </div>
 
             <!-- Main Content -->
-            <div class="bg-white border-2 border-t-0 border-stone-900 p-6 min-h-fit">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 auto-rows-min">
+            <div class="bg-(--color-background) border-2 border-t-0 border-stone-900 p-6 min-h-fit">
+                <div class="flex flex-col lg:flex-row gap-8">
 
                     <!-- Commission Details Section -->
-                    <div class="lg:col-span-2 space-y-6">
+                    <div class="lg:w-1/2 space-y-6">
                         <h2 class="text-2xl font-bold text-stone-900 border-b-2 border-stone-300 pb-2">Commission
                             Information</h2>
 
@@ -129,7 +133,7 @@
                     </div>
 
                     <!-- Client Information Section -->
-                    <div class="space-y-6">
+                    <div class="lg:w-1/2 space-y-6">
                         <h2 class="text-2xl font-bold text-stone-900 border-b-2 border-stone-300 pb-2">Client Information
                         </h2>
 
@@ -205,58 +209,146 @@
                         <!-- Action Buttons -->
                         <div class="pt-4 border-t-2 border-stone-200">
                             <h3 class="text-lg font-bold text-stone-900 mb-4">Actions</h3>
-                            <div class="flex flex-col gap-3">
+                            <div class="flex flex-col gap-4">
                                 @if ($commission->progres_status === 'Pending')
-                                    <button
-                                        class="px-4 py-2 rounded-lg border-2 border-blue-500 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
-                                        style="background-color: var(--status-info);">
-                                        Accept Commission
-                                    </button>
-                                    <button
-                                        class="px-4 py-2 rounded-lg border-2 border-red-600 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
-                                        style="background-color: var(--status-danger);">
-                                        Decline Commission
-                                    </button>
+                                    <div class="grid grid-cols-1 gap-3">
+                                        <button
+                                            class="group relative px-6 py-3 rounded-xl border-2 border-green-500 bg-green-50 text-green-700 font-bold shadow-lg hover:shadow-xl hover:bg-green-100 hover:-translate-y-1 transform transition-all duration-300 ease-out">
+                                            <div class="flex items-center justify-center gap-2">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M5 13l4 4L19 7"></path>
+                                                </svg>
+                                                Accept Commission
+                                            </div>
+                                            <div
+                                                class="absolute inset-0 rounded-xl bg-green-200 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                                            </div>
+                                        </button>
+                                        <button
+                                            class="group relative px-6 py-3 rounded-xl border-2 border-red-500 bg-red-50 text-red-700 font-bold shadow-lg hover:shadow-xl hover:bg-red-100 hover:-translate-y-1 transform transition-all duration-300 ease-out">
+                                            <div class="flex items-center justify-center gap-2">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                                Decline Commission
+                                            </div>
+                                            <div
+                                                class="absolute inset-0 rounded-xl bg-red-200 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                                            </div>
+                                        </button>
+                                    </div>
                                 @elseif($commission->progres_status === 'In Progress')
                                     <!-- Progress Status Update -->
-                                    <div class="space-y-3">
-                                        <label for="progress_status" class="block text-sm font-semibold text-gray-700">Update Progress Status:</label>
-                                        <div class="flex gap-2">
-                                            <select id="progress_status" name="progress_status" 
-                                                class="flex-1 px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none font-medium">
-                                                <option value="In Progress" {{ $commission->progres_status === 'In Progress' ? 'selected' : '' }}>In Progress</option>
-                                                <option value="Revision" {{ $commission->progres_status === 'Revision' ? 'selected' : '' }}>Request Revision</option>
-                                                <option value="Completed" {{ $commission->progres_status === 'Completed' ? 'selected' : '' }}>Mark Complete</option>
+                                    <div
+                                        class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border-2 border-blue-200">
+                                        <label for="progress_status" class="block text-sm font-bold text-blue-800 mb-3">
+                                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                            </svg>
+                                            Update Progress Status
+                                        </label>
+                                        <div class="flex gap-3">
+                                            <select id="progress_status" name="progress_status"
+                                                class="flex-1 px-4 py-3 border-2 border-blue-300 rounded-xl bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none font-semibold text-gray-700 shadow-md transition-all duration-200">
+                                                <option value="In Progress"
+                                                    {{ $commission->progres_status === 'In Progress' ? 'selected' : '' }}>
+                                                    In Progress
+                                                </option>
+                                                <option value="Revision"
+                                                    {{ $commission->progres_status === 'Revision' ? 'selected' : '' }}>
+                                                    Request Revision
+                                                </option>
+                                                <option value="Completed"
+                                                    {{ $commission->progres_status === 'Completed' ? 'selected' : '' }}>
+                                                    Mark Complete
+                                                </option>
                                             </select>
-                                            <button type="button" onclick="updateProgressStatus()" 
-                                                class="px-4 py-2 rounded-lg border-2 border-blue-500 text-blue-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
-                                                style="background-color: var(--status-info);">
-                                                Save
+                                            <button type="button"
+                                                class="group px-6 py-3 rounded-xl border-2 border-blue-500 bg-blue-500 text-white font-bold shadow-lg hover:shadow-xl hover:bg-blue-600 hover:-translate-y-1 transform transition-all duration-300 ease-out">
+                                                <div class="flex items-center gap-2">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    Save
+                                                </div>
                                             </button>
                                         </div>
                                     </div>
                                 @elseif($commission->progres_status === 'Revision')
                                     <button
-                                        class="px-4 py-2 rounded-lg border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
-                                        style="background-color: var(--status-success);">
-                                        Submit Revision
+                                        class="group relative px-6 py-3 rounded-xl border-2 border-orange-500 bg-orange-50 text-orange-700 font-bold shadow-lg hover:shadow-xl hover:bg-orange-100 hover:-translate-y-1 transform transition-all duration-300 ease-out">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                </path>
+                                            </svg>
+                                            Submit Revision
+                                        </div>
+                                        <div
+                                            class="absolute inset-0 rounded-xl bg-orange-200 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
+                                        </div>
                                     </button>
                                 @endif
 
-                                <button
-                                    class="px-4 py-2 rounded-lg border-2 border-gray-500 bg-gray-100 text-gray-700 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
-                                    Contact Client
-                                </button>
-
-                                <button
-                                    class="px-4 py-2 rounded-lg border-2 border-purple-500 bg-purple-100 text-purple-700 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
-                                    Upload Progress
-                                </button>
-
-                                <a href="{{ route('artist.commisions') }}"
-                                    class="px-4 py-2 rounded-lg border-2 border-stone-500 bg-stone-100 text-stone-700 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 text-center">
-                                    Back to Commissions
-                                </a>
+                                <!-- File Upload Section -->
+                                <div
+                                    class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 border-2 border-purple-200">
+                                    <label for="progress_upload" class="block text-sm font-bold text-purple-800 mb-3">
+                                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                        Upload Progress Image
+                                    </label>
+                                    <div class="flex flex-row gap-3">
+                                        <div class="relative group flex-1">
+                                            <input type="file" name="progress_image" id="progress_upload"
+                                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                                accept=".jpg,.jpeg,.png,.gif" />
+                                            <div
+                                                class="flex items-center justify-center gap-3 p-4 border-2 border-dashed border-purple-300 rounded-xl bg-white hover:bg-purple-25 hover:border-purple-400 transition-all duration-200 cursor-pointer group-hover:shadow-md">
+                                                <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                                    </path>
+                                                </svg>
+                                                <div class="text-center">
+                                                    <span class="text-purple-700 font-semibold">Click to upload</span>
+                                                    <span class="text-purple-500"> or drag and drop</span>
+                                                </div>
+                                            </div>
+                                            <div id="file-name"
+                                                class="hidden mt-2 text-sm text-gray-600 bg-purple-50 px-3 py-2 rounded-lg border border-purple-200">
+                                            </div>
+                                        </div>
+                                        <button type="button"
+                                            class="group px-6 py-3 rounded-xl border-2 border-purple-500 bg-purple-500 text-white font-bold shadow-lg hover:shadow-xl hover:bg-purple-600 hover:-translate-y-1 transform transition-all duration-300 ease-out">
+                                            <div class="flex items-center gap-2">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M5 13l4 4L19 7"></path>
+                                                </svg>
+                                                Upload
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <p class="text-xs text-purple-600 mt-2 font-medium">Supported formats: JPG, PNG, GIF
+                                        (Max 10MB)</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -264,61 +356,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function updateProgressStatus() {
-            const selectElement = document.getElementById('progress_status');
-            const newStatus = selectElement.value;
-            const currentStatus = '{{ $commission->progres_status }}';
-            
-            if (newStatus === currentStatus) {
-                alert('Status is already set to: ' + newStatus);
-                return;
-            }
-            
-            // Show confirmation dialog
-            const confirmMessage = `Are you sure you want to change the status to "${newStatus}"?`;
-            if (!confirm(confirmMessage)) {
-                // Reset select to current status if user cancels
-                selectElement.value = currentStatus;
-                return;
-            }
-            
-            // Here you would typically make an AJAX request to update the status
-            // For now, we'll just show a success message and potentially redirect
-            
-            // Example AJAX call (uncomment and modify as needed):
-            /*
-            fetch('/artist/commissions/{{ $commission->commision_id }}/update-status', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    progress_status: newStatus
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Status updated successfully!');
-                    location.reload(); // Reload page to show updated status
-                } else {
-                    alert('Error updating status: ' + data.message);
-                    selectElement.value = currentStatus; // Reset on error
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while updating the status.');
-                selectElement.value = currentStatus; // Reset on error
-            });
-            */
-            
-            // Temporary success message (remove when implementing actual backend)
-            alert(`Status would be updated to: ${newStatus}`);
-            console.log('Commission ID:', '{{ $commission->commision_id }}', 'New Status:', newStatus);
-        }
-    </script>
 @endsection

@@ -12,11 +12,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // note: 
+        // php artisan migrate:fresh --seed untuk reset database dan seeding ulang
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+            MemberSeeder::class,
+            GallerySeeder::class,
+            CommissionSeeder::class,
+            AdoptionSeeder::class,
+            CommissionProgressSeeder::class,
+        ]);
     }
 }
