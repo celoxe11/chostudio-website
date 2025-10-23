@@ -34,14 +34,15 @@
                 <h1 class="text-3xl md:text-5xl lg:text-5xl">LOGIN</h1>
             </div>
 
-            <form class="flex flex-col items-center gap-4 w-full max-w-md" action="" method="post">
+            <form class="flex flex-col items-center gap-4 w-full max-w-md" action="{{ route('process_login') }}"
+                method="post" id="loginForm">
                 @csrf
                 <input
-                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
-                    type="text" name="username" id="username" placeholder="Username" required>
+                    class="bg-[#a2e1db] placeholder-[#477c77] font-[HammersmithOne-Regular] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
+                    type="text" name="username" id="username" placeholder="Username" value="{{ old('username') }}">
                 <input
-                    class="bg-[#a2e1db] placeholder-[#477c77] placeholder:font-bold rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
-                    type="password" name="password" id="password" placeholder="Password" required>
+                    class="bg-[#a2e1db] placeholder-[#477c77] font-[HammersmithOne-Regular] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
+                    type="password" name="password" id="password" placeholder="Password">
                 <button type="submit"
                     class="font-[HammersmithOne-Regular] bg-[#b4a6d5] w-full py-4 text-xl rounded-2xl border-3 border-black hover:bg-[#8b7db8] focus:outline-none focus:ring-4 focus:ring-[#ffac81] transition-colors duration-300 ease-in-out">Login</button>
             </form>
@@ -54,4 +55,111 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="module">
+        const $ = window.jQuery || window.$;
+
+        $(document).ready(function() {
+            $('#loginForm').on('submit', function(e) {
+                e.preventDefault();
+
+                const form = $(this);
+                const actionUrl = form.attr('action');
+                // Ambil semua data form, termasuk token CSRF
+                let formData = form.serialize();
+
+                // Secara opsional, tambahkan token CSRF secara eksplisit (redundant jika .serialize() bekerja)
+                // Ini adalah langkah pengamanan tambahan:
+                const csrfToken = form.find('input[name="_token"]').val();
+                if (csrfToken && formData.indexOf('_token=') === -1) {
+                    formData += '&_token=' + csrfToken;
+                }
+
+                const submitButton = form.find('button[type="submit"]');
+
+                // check if credentials are filled
+                const username = $('#username').val().trim();
+                const password = $('#password').val().trim();
+
+                if (username === '' || password === '') {
+                    notie.alert({
+                        type: 'error', // Tipe error (merah)
+                        text: 'Please fill in both username and password.',
+                        time: 5,
+                    });
+                    return;
+                }
+
+                // Disable the submit button to prevent multiple clicks
+                submitButton.prop('disabled', true).text('Logging in...');
+
+                $.ajax({
+                    url: actionUrl,
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json', // Pastikan mengharapkan JSON dari server
+
+                    success: function(response) {
+                        console.log(response);
+
+                        // Response JSON sukses (success: true)
+                        submitButton.prop('disabled', false).text('Login');
+                        if (response.success) {
+                            notie.alert({
+                                type: 'success', // Tipe sukses (hijau)
+                                text: response.message,
+                                time: 2,
+                            });
+
+                            setTimeout(() => {
+                                window.location.href = response.redirect_url;
+                            }, 500);
+                        } else {
+                            notie.alert({
+                                type: 'error', // Tipe error (merah)
+                                text: response.message,
+                                time: 5,
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        // Response gagal (status 422, 500, dll.)
+                        submitButton.prop('disabled', false).text('Login');
+                        let errorMessage = 'Unexpected Error Occured.';
+
+                        try {
+                            const response = xhr.responseJSON;
+
+                            if (xhr.status === 422) {
+                                // 1. Kegagalan Otentikasi (Custom Controller Error)
+                                if (response && response.message) {
+                                    errorMessage = response.message;
+                                }
+                                // 2. Kegagalan Validasi Laravel (Default Error Structure)
+                                else if (response && response.errors) {
+                                    // Ambil pesan error pertama dari semua field
+                                    const firstErrorField = Object.keys(response.errors)[0];
+                                    errorMessage = response.errors[firstErrorField][0];
+                                }
+                            } else {
+                                errorMessage = response.message ||
+                                    'Server Error. Please try again later.';
+                            }
+                        } catch (e) {
+                            console.error('Error parsing response:', e);
+                        }
+
+                        // Tampilkan notifikasi error menggunakan notie
+                        notie.alert({
+                            type: 'error', // Tipe error (merah)
+                            text: errorMessage,
+                            time: 10,
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

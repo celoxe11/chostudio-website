@@ -6,6 +6,7 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class LoginPageController extends Controller
 {
@@ -16,29 +17,50 @@ class LoginPageController extends Controller
 
     public function processLogin(Request $request)
     {
+        // 1. Validasi input
         $credentials = $request->validate([
             'username' => ['required', 'string'],
             'password' => ['required', 'string'],
         ]);
 
-        // Attempt to log the user in using the 'username' (or 'email', depending on your Auth setup)
+        // 2. Percobaan otentikasi
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate(); // Prevent session fixation
             $user = Auth::user(); // Get the authenticated user
 
-            // Redirect based on role
-            if ($user->role === 'artist') {
-                return redirect()->route('artist.commisions')->with('success', 'Welcome back, Artist!');
+            // Tentukan URL redirect berdasarkan peran
+            $redirectUrl = ($user->role === 'artist')
+                ? route('artist.commisions')
+                : route('home');
+
+            // Respons sukses untuk AJAX
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect_url' => $redirectUrl,
+                    'message' => 'Login successful!'
+                ]);
             }
 
-            // Default redirect for 'client' and other roles
-            return redirect()->route('home')->with('success', 'You are now logged in!');
+            // Fallback untuk redirect standar
+            return redirect()->to($redirectUrl)->with('success', 'Login successful!');
         }
 
-        // If login fails
+        // 3. Otentikasi gagal
+        $errorMessage = 'The current credentials do not match our records.';
+
+        // Respons gagal untuk AJAX (Status 422 Unprocessable Entity)
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => false,
+                'message' => $errorMessage
+            ], 422);
+        }
+
+        // Fallback untuk redirect kembali dengan error standar
         return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
-        ])->onlyInput('username');
+            'username' => $errorMessage,
+        ])->withInput();
     }
 
     public function register()
