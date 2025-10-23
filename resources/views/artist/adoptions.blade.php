@@ -1,7 +1,7 @@
 @extends('artist.artist_template')
 
 @section('content')
-    <div class="mt-8 max-xl:mt-3 p-4 xl:w-[80%] mx-auto lg:w-full">
+    <div class="my-8 max-xl:mt-3 p-4 xl:w-[80%] mx-auto lg:w-full">
         <div class="shadow font-[HammersmithOne-Regular] overflow-x-auto">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-3 border-stone-900"
                 style="background-color: var(--color-pastel-gray-turquoise);">

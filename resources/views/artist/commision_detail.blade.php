@@ -1,7 +1,7 @@
 @extends('artist.artist_template')
 
 @section('content')
-    <div class="p-4 xl:w-[80%] mx-auto lg:w-full">
+    <div class="my-8 max-xl:mt-3 p-4 xl:w-[80%] mx-auto lg:w-full">
         @php
             // Sample data - replace with actual data from your controller
             $commission = (object) [

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('description');
             $table->date('deadline')->nullable();
             $table->decimal('price', 10, 2);
-            $table->string('image_url')->nullable();
             $table->enum('payment_status', ['pending', 'dp', 'paid', 'refunded'])->default('pending');
             $table->enum('progress_status', ['pending', 'accepted', 'in_progress_sketch', 'in_progress_coloring', 'review', 'revision', 'completed', 'cancelled'])->default('pending');
             $table->timestamps();

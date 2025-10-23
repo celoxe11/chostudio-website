@@ -1,7 +1,7 @@
 @extends('artist.artist_template')
 
 @section('content')
-    <div class="p-4 xl:w-[80%] mx-auto lg:w-full">
+    <div class="my-8 max-xl:mt-3 p-4 xl:w-[80%] mx-auto lg:w-full">
         @php
             // Sample data - replace with actual data from your controller
             $adoption = (object) [
@@ -24,7 +24,7 @@
             ];
         @endphp
 
-        <div class="shadow font-[HammersmithOne-Regular]">
+        <div class="shadow font-[HammersmithOne-Regular] overflow-x-auto">
             <!-- Header Section -->
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-2 border-stone-900"
                 style="background-color: var(--color-pastel-gray-turquoise);">

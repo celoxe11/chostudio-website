@@ -1,224 +1,156 @@
 @extends('artist.artist_template')
 
 @section('content')
-    <div class="mt-8 max-xl:mt-3 p-4 xl:w-[80%] mx-auto lg:w-full">
+    <div class="my-8 max-xl:mt-3 p-4 xl:w-[80%] mx-auto lg:w-full">
         <div class="shadow font-[HammersmithOne-Regular] overflow-x-auto">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-3 border-stone-900"
                 style="background-color: var(--color-pastel-gray-turquoise);">
                 <div class="text-2xl sm:text-4xl">Commisions</div>
                 <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
-                    <div class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
+                    <div id="status-pending"
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
                         style="background-color: var(--status-danger);">0 Pending</div>
-                    <div class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
+                    <div id="status-in-progress"
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
                         style="background-color: var(--status-info);">0 In Progress</div>
-                    <div class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
+                    <div id="status-revision"
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
                         style="background-color: var(--status-warning);">0 Revision</div>
                 </div>
             </div>
-            <div class="h-[70vh] max-xl:h-[60vh] bg-(--color-background) border-2 border-stone-900 overflow-y-auto">
-                <table class="w-full table-auto border-collapse">
-                    <thead class="bg-stone-900 text-white">
-                        <tr class="text-left bg-stone-900">
-                            <th
-                                class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 bg-stone-900">
-                                Customer</th>
-                            <th
-                                class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 bg-stone-900">
-                                Category</th>
-                            <th
-                                class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden sm:table-cell">
-                                Details
-                            </th>
-                            <th
-                                class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden md:table-cell">
-                                Price
-                            </th>
-                            <th
-                                class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden sm:table-cell">
-                                Due Date
-                            </th>
-                            <th
-                                class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 text-center">
-                                Status</th>
-                            <th
-                                class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 text-center">
-                                Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $commissions = [
-                                (object) [
-                                    'customer' => 'Alice Smith',
-                                    'email' => 'alice.smith@email.com',
-                                    'category' => 'Fullbody',
-                                    'details' => 'Fantasy Character Illustration',
-                                    'price' => 'Rp. 150.000',
-                                    'due_date' => '2024-07-20',
-                                    'status_label' => 'In Progress (Sketch)',
-                                    'payment_confirmed' => true,
-                                ],
-                                (object) [
-                                    'customer' => 'Bob Johnson',
-                                    'email' => 'bob.johnson@email.com',
-                                    'category' => 'Headshot',
-                                    'details' => 'Sci-fi Character Portrait',
-                                    'price' => 'Rp. 80.000',
-                                    'due_date' => '2024-07-18',
-                                    'status_label' => 'Pending',
-                                    'payment_confirmed' => false,
-                                ],
-                                (object) [
-                                    'customer' => 'Carol Davis',
-                                    'email' => 'carol.davis@email.com',
-                                    'category' => 'Chibi',
-                                    'details' => 'Cute Animal Character',
-                                    'price' => 'Rp. 50.000',
-                                    'due_date' => '2024-07-22',
-                                    'status_label' => 'Revision',
-                                    'payment_confirmed' => true,
-                                ],
-                                (object) [
-                                    'customer' => 'David Wilson',
-                                    'email' => 'david.wilson@email.com',
-                                    'category' => 'Fullbody',
-                                    'details' => 'Superhero Character Design',
-                                    'price' => 'Rp. 200.000',
-                                    'due_date' => '2024-07-25',
-                                    'status_label' => 'Completed',
-                                    'payment_confirmed' => true,
-                                ],
-                                (object) [
-                                    'customer' => 'Emma Thompson',
-                                    'email' => 'emma.thompson@email.com',
-                                    'category' => 'Fullbody',
-                                    'details' => 'Magical Girl Character Design',
-                                    'price' => 'Rp. 180.000',
-                                    'due_date' => '2024-07-30',
-                                    'status_label' => 'In Progress (Color)',
-                                    'payment_confirmed' => true,
-                                ],
-                                (object) [
-                                    'customer' => 'Frank Miller',
-                                    'email' => 'frank.miller@email.com',
-                                    'category' => 'Headshot',
-                                    'details' => 'Cyberpunk Character Portrait',
-                                    'price' => 'Rp. 90.000',
-                                    'due_date' => '2024-07-28',
-                                    'status_label' => 'Pending',
-                                    'payment_confirmed' => false,
-                                ],
-                            ];
-                        @endphp
 
-                        @php $commissionsList = $commissions ?? null; @endphp
+            <!-- Filters and Search Section -->
+            <div class="p-4 border-2 border-t-0 border-stone-900 bg-white">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+                    <!-- Search -->
+                    <div class="lg:col-span-2">
+                        <input type="text" id="search-input" placeholder="Search by customer, email, category..."
+                            class="w-full px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
+                    </div>
 
-                        @if (is_null($commissionsList) || count($commissionsList) === 0)
-                            {{-- no commissions: show full-height placeholder --}}
+                    <!-- Status Filter -->
+                    <div>
+                        <select id="status-filter"
+                            class="w-full px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
+                            <option value="">All Progress Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="accepted">Accepted</option>
+                            <option value="in_progress_sketch">In Progress (Sketching)</option>
+                            <option value="in_progress_color">In Progress (Coloring)</option>
+                            <option value="review">In Review</option>
+                            <option value="revision">Revision</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+
+                    <!-- Payment Status Filter -->
+                    <div>
+                        <select id="payment-filter"
+                            class="w-full px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
+                            <option value="">All Payment Status</option>
+                            <option value="pending">Unpaid</option>
+                            <option value="dp">DP</option>
+                            <option value="paid">Paid</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div>
+                        <select id="category-filter"
+                            class="w-full px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
+                            <option value="">All Categories</option>
+                            <option value="Fullbody">Fullbody</option>
+                            <option value="Halfbody">Halfbody</option>
+                            <option value="Headshot">Headshot</option>
+                            <option value="Chibi">Chibi</option>
+                            <option value="Custom">Custom</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Sort and Per Page -->
+                <div class="flex flex-wrap gap-3 mt-3">
+                    <button id="clear-filters"
+                        class="px-4 py-2 bg-stone-900 text-white rounded-lg hover:bg-stone-700 transition-colors">
+                        Clear Filters
+                    </button>
+                    <select id="per-page"
+                        class="px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
+                        <option value="10">10 per page</option>
+                        <option value="25">25 per page</option>
+                        <option value="50">50 per page</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <div class="h-[70vh] max-xl:h-[60vh] bg-white overflow-y-auto">
+                    <table class="w-full table-auto">
+                        <thead class="sticky top-0 bg-slate-900 text-white">
+                            <tr class="text-left bg-stone-900">
+                                <th
+                                    class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 bg-stone-900">
+                                    Customer</th>
+                                <th
+                                    class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 bg-stone-900">
+                                    Category</th>
+                                <th
+                                    class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden sm:table-cell">
+                                    Details
+                                </th>
+                                <th
+                                    class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden md:table-cell">
+                                    Price
+                                </th>
+                                <th
+                                    class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden sm:table-cell">
+                                    Due Date
+                                </th>
+                                <th
+                                    class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 text-center">
+                                    Status</th>
+                                <th
+                                    class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 text-center">
+                                    Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="commissions-tbody" class="h-full">
+                            <!-- Data will be loaded via AJAX -->
                             <tr>
                                 <td colspan="7" class="p-0 border-none align-top">
                                     <div class="min-h-[60vh] flex items-center justify-center bg-(--color-background)">
-                                        <div class="text-lg max-md:p-1 text-stone-700">No commissions to display</div>
+                                        <div class="text-lg max-md:p-1 text-stone-700">
+                                            <i class="fas fa-spinner fa-spin mr-2"></i>Loading commissions...
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
-                        @else
-                            {{-- render each commission row --}}
-                            @foreach ($commissionsList as $c)
-                                <tr class="bg-(--color-background)">
-                                    <td
-                                        class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 align-top">
-                                        <div class="font-semibold">{{ $c->customer ?? 'John Doe' }}</div>
-                                        <div class="text-sm text-gray-600">{{ $c->email ?? 'john.doe@email.com' }}</div>
-                                    </td>
-                                    <td
-                                        class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 align-top">
-                                        {{ $c->category ?? 'Headshot' }}</td>
-                                    <td
-                                        class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden sm:table-cell align-top">
-                                        {{ $c->details ?? 'Original Character Illustration' }}</td>
-                                    <td
-                                        class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden md:table-cell align-top">
-                                        {{ $c->price ?? '$100' }}</td>
-                                    <td
-                                        class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden sm:table-cell align-top">
-                                        {{ $c->due_date ?? '2024-07-15' }}</td>
-                                    <td
-                                        class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 align-top">
-                                        <div
-                                            class="flex flex-col text-lg max-lg:text-base max-sm:text-sm max-md:text-sm md:text-base sm:flex-row gap-2 items-center justify-center">
-                                            @if (!empty($c->status_label ?? false))
-                                                <button disabled class="px-3 py-1 rounded-full"
-                                                    style="background-color: 
-                                                @if ($c->status_label === 'Pending') var(--status-danger);
-                                                @elseif ($c->status_label === 'In Progress (Sketch)' || $c->status_label === 'In Progress (Color)')
-                                                    var(--status-info);
-                                                @elseif ($c->status_label === 'Revision')
-                                                    var(--status-warning);
-                                                @elseif ($c->status_label === 'Completed')
-                                                    var(--status-success);
-                                                @else
-                                                    var(--status-neutral); @endif
-                                                ">{{ $c->status_label }}</button>
-                                            @else
-                                            @endif
-                                            @if (!empty($c->payment_confirmed ?? false))
-                                                <button disabled class="px-3 py-1 rounded-full"
-                                                    style="background-color: var(--status-success);">Payment
-                                                    Confirmed</button>
-                                            @else
-                                                <button disabled class="px-3 py-1 rounded-full"
-                                                    style="background-color: var(--status-neutral);">No Confirmed
-                                                    Payment</button>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td
-                                        class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:text-sm border border-stone-900 align-top">
-                                        <div class="flex flex-col sm:flex-row items-center justify-center gap-2">
-                                            <a
-                                                href="{{ route("artist.commision_detail") }}"
-                                                class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:bg-green-600 transition-all duration-200"
-                                                style="background-color: var(--status-success);">View</a>
-                                            <a
-                                                class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-yellow-500 text-yellow-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:bg-yellow-500 transition-all duration-200"
-                                                style="background-color: var(--status-warning);">Accept</a>
-                                            <a
-                                                class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-red-600 text-red-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:bg-red-600 transition-all duration-200"
-                                                style="background-color: var(--status-danger);">Decline</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                            {{-- if only one commission, add a filler row to visually fill the container --}}
-                            @if (count($commissionsList) === 1)
-                                <tr>
-                                    <td colspan="7" class="p-0 border-none align-top">
-                                        <div class="min-h-[50vh] bg-(--color-background)"></div>
-                                    </td>
-                                </tr>
-                            @endif
-                        @endif
-                    </tbody>
-                </table>
-
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-
-            <!-- Pagination (client-side) -->
+            <!-- Pagination -->
             <div id="commissionsPager"
                 class="bg-(--color-background) w-full flex flex-col sm:flex-row items-center justify-between gap-2 p-4 mt-2 border-3 border-stone-900">
                 <div class="text-sm text-stone-900">Showing <span id="pagerRange">0</span> of <span id="pagerTotal">0</span>
                 </div>
                 <nav class="flex items-center gap-2" aria-label="Pagination">
-                    <button id="pagerPrev" class="px-3 py-1 rounded bg-white border-3 border-stone-900 text-sm"
+                    <button id="pagerPrev"
+                        class="px-3 py-1 rounded bg-white border-3 border-stone-900 text-sm disabled:opacity-50"
                         disabled>Previous</button>
                     <div id="pagerNumbers" class="flex items-center gap-1"></div>
-                    <button id="pagerNext" class="px-3 py-1 rounded bg-white border-3 border-stone-900 text-sm"
+                    <button id="pagerNext"
+                        class="px-3 py-1 rounded bg-white border-3 border-stone-900 text-sm disabled:opacity-50"
                         disabled>Next</button>
                 </nav>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @vite(['resources/js/artist/commisions.js'])
 @endsection

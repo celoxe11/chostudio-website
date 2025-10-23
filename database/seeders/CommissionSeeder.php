@@ -21,7 +21,7 @@ class CommissionSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             DB::table('commisions')->insert([
                 'member_id' => $faker->randomElement($memberIds), // Random FK
-                'category' => $faker->randomElement(['Fullbody', 'Headshot', 'Halfbody', "Chibi"]),
+                'category' => $faker->randomElement(['Fullbody', 'Headshot', 'Halfbody', "Chibi", "Custom"]),
                 'description' => $faker->paragraph,
                 'deadline' => $faker->dateTimeBetween('+1 week', '+3 months'),
                 'price' => $faker->randomFloat(2, 50, 500),

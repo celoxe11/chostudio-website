@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('starting');
 });
+
 Route::get('/login', [LoginPageController::class, 'login'])->name('login');
 Route::get('/register', [LoginPageController::class, 'register'])->name('register');
 Route::get('/termsnconditions', [LoginPageController::class, 'termsnconditions'])->name('termsnconditions');
@@ -37,6 +38,7 @@ Route::post('/register', [LoginPageController::class, 'processRegister'])->name(
 // TODO: Kasih middleware nanti
 Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () {
     Route::get('/commisions', [ArtistCommisionController::class, 'index'])->name('artist.commisions');
+    Route::get('/getCommisions', [ArtistCommisionController::class, 'getCommisions'])->name('artist.getCommisions');
     Route::get('/gallery', [ArtistGalleryController::class, 'index'])->name('artist.gallery');
     Route::get('/commision-detail', [ArtistCommisionController::class, 'detail'])->name('artist.commision_detail');
     Route::get('/adoptions', [ArtistAdoptionController::class, 'index'])->name('artist.adoptions');
