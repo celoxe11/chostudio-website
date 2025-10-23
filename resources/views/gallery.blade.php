@@ -7,7 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cho Studio</title>
     <link rel="stylesheet" href="{{ asset('assets/css/background.css') }}">
-    <script src="https://cdn.tailwindcss.com"></script>
+
+        {{-- Tailwind via Vite --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        {{-- Disable Right Click sementara --}}
+    <script>
+        document.onkeydown = function(event) {
+            event = (event || window.event);
+            if (event.keyCode == 123 || event.keyCode == 18) {
+                return false;
+            }
+        }
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
 </head>
 
 <body>
