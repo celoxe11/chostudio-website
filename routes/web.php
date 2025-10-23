@@ -31,6 +31,7 @@ Route::get('/home', [HomePageController::class, 'index'])->name('home');
 Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
 
 Route::post('/login', [LoginPageController::class, 'processLogin'])->name('process_login');
+Route::post('/register', [LoginPageController::class, 'processRegister'])->name('process_register');
 
 // Artist Routes
 // TODO: Kasih middleware nanti

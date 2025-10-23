@@ -60,4 +60,34 @@ class Member extends Authenticatable
         // In modern Laravel, adding 'hashed' here automatically hashes the password attribute
         'password' => 'hashed',
     ];
+
+    /**
+     * Create a new member with the given data.
+     * Ensures at least one contact method is provided and handles null safety.
+     * 
+     * @param array $data
+     * @return static
+     * @throws \InvalidArgumentException
+     */
+    public static function createNewMember(array $data)
+    {
+        // Validate that at least one contact method is provided
+        $hasContact = !empty($data['line_id']) || !empty($data['phone_number']) || !empty($data['instagram']);
+        
+        if (!$hasContact) {
+            throw new \InvalidArgumentException('At least one contact method (Line ID, Phone Number, or Instagram) is required.');
+        }
+
+        // Create the member with null safety
+        return self::create([
+            'name' => $data['name'],
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'password' => $data['password'], // Will be automatically hashed by the 'hashed' cast
+            'line_id' => !empty($data['line_id']) ? $data['line_id'] : null,
+            'phone_number' => !empty($data['phone_number']) ? $data['phone_number'] : null,
+            'instagram' => !empty($data['instagram']) ? $data['instagram'] : null,
+            'role' => $data['role'] ?? 'client', // Default to 'client' if not specified
+        ]);
+    }
 }

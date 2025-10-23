@@ -65,6 +65,19 @@
             $('#loginForm').on('submit', function(e) {
                 e.preventDefault();
 
+                // check if credentials are filled
+                const username = $('#username').val().trim();
+                const password = $('#password').val().trim();
+
+                if (username === '' || password === '') {
+                    notie.alert({
+                        type: 'error', // Tipe error (merah)
+                        text: 'Please fill in both username and password.',
+                        time: 5,
+                    });
+                    return;
+                }
+
                 const form = $(this);
                 const actionUrl = form.attr('action');
                 // Ambil semua data form, termasuk token CSRF
@@ -78,19 +91,6 @@
                 }
 
                 const submitButton = form.find('button[type="submit"]');
-
-                // check if credentials are filled
-                const username = $('#username').val().trim();
-                const password = $('#password').val().trim();
-
-                if (username === '' || password === '') {
-                    notie.alert({
-                        type: 'error', // Tipe error (merah)
-                        text: 'Please fill in both username and password.',
-                        time: 5,
-                    });
-                    return;
-                }
 
                 // Disable the submit button to prevent multiple clicks
                 submitButton.prop('disabled', true).text('Logging in...');
