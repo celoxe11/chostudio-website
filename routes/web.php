@@ -30,6 +30,9 @@ Route::get('/termsnconditions', [LoginPageController::class, 'termsnconditions']
 Route::get('/home', [HomePageController::class, 'index'])->name('home');
 Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
 
+Route::post('/login', [LoginPageController::class, 'processLogin'])->name('process_login');
+Route::post('/register', [LoginPageController::class, 'processRegister'])->name('process_register');
+
 // Artist Routes
 // TODO: Kasih middleware nanti
 Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () {
@@ -40,7 +43,7 @@ Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () 
     Route::get('/adoption-detail', [ArtistAdoptionController::class, 'detail'])->name('artist.adoption_detail');
 });
 
-Route::prefix('member')->middleware('auth')->group(function () {
+Route::prefix('member')->middleware('auth', "role:client")->group(function () {
     Route::get('/history', [HistoryMemberController::class, 'index'])->name('member.history');
     Route::get('/history/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
 });
