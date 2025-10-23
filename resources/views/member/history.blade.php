@@ -1,17 +1,18 @@
 @extends('member.member_template')
 
 @section('content')
-<div class="flex justify-center items-start  h-[89vh] overflow-hidden pt-10">
+<div class="flex justify-center items-center  h-[89vh] overflow-hidden ">
     <div class="flex flex-col w-[85vw] max-h-[80vh] bg-[#f0ebe3] outline-4 rounded-2xl overflow-y-auto font-[HammersmithOne-Regular] p-10">
         {{-- Header --}}
-        <div class="flex justify-between items-center mb-6">
+      <div class="flex flex-col lg:flex-row justify-between items-center mb-6 space-y-4 lg:space-y-0">
+
             <h1 class="text-2xl text-[#2c2c2c]">History (Payment)</h1>
 
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2 w-fit justify-end">
                 <span class="text-[#2c2c2c]">Filter :</span>
                 <div class="relative">
                     <select id="filterSelect"
-                        class="appearance-none bg-[#c8f6e7] w-[20vw] text-[#2c2c2c] rounded px-4 py-2 pr-8 focus:outline-none cursor-pointer font-[HammersmithOne-Regular]">
+                        class="appearance-none bg-[#c8f6e7] w-full text-[#2c2c2c] rounded px-4 py-2 pr-8 focus:outline-none cursor-pointer font-[HammersmithOne-Regular]">
                         <option value="recently" selected>recently add</option>
                         <option value="commission">commission</option>
                         <option value="oc art">oc art</option>
@@ -26,7 +27,7 @@
         </div>
 
         {{-- Cards --}}
-        <div id="historyContainer" class="grid grid-cols-5 gap-5 pr-2">
+        <div id="historyContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 pr-2">
             @foreach ($historyData as $item)
                 @php
                     // Warna berdasarkan tipe

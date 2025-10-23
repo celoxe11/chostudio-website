@@ -1,4 +1,5 @@
-@extends('template')
+<!DOCTYPE html>
+<html lang="en">
 
 @section('content')
     <div class="flex justify-center items-center min-h-screen py-8">
@@ -18,10 +19,20 @@
                 <h1 class="text-3xl md:text-5xl lg:text-5xl">Register</h1>
             </div>
 
-            <form class="w-full max-w-4xl" action="" method="post" id="registerForm">
-                @csrf
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Basic Information -->
+<body class="flex justify-center items-center min-h-screen py-4">
+    <div
+        class="flex flex-col justify-center items-center bg-[#f0ebe3] w-[95%] max-w-5xl min-h-[70%] p-8 rounded-3xl border-4 border-black">
+        {{-- judul --}}
+        <div class="flex justify-center mb-6 font-[HammersmithOne-Regular] mt-[5vh]">
+            <h1 class="text-3xl md:text-5xl lg:text-5xl">Register</h1>
+        </div>
+
+        <form class="w-full max-w-4xl" action="" method="post" id="registerForm">
+            @csrf
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Basic Information -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-center text-gray-800 mb-4">Basic Information</h3>
                     <div class="space-y-4">
                         <h3 class="text-xl font-semibold text-center text-gray-800 mb-4">Basic Information</h3>
                         <p class="text-sm text-center text-gray-600 mb-4">Please provide your basic details below
@@ -110,6 +121,19 @@
                     Already have an account? Login here
                 </a>
             </div>
+            <div>
+                
+            </div>
+            <div class="flex justify-center mt-8">
+                <button type="submit" class="font-[HammersmithOne-Regular] bg-[#b4a6d5] w-full max-w-md py-4 text-xl rounded-2xl outline hover:bg-[#477c77] transition-colors duration-300 ease-in-out">Register</button>
+            </div>
+        </form>
+
+        <div class="flex flex-col items-center gap-3 mt-6">
+            <a href="/login"
+                class="text-base font-semibold text-black hover:text-[#ffac81] transition-colors duration-300">
+                Already have an account? Login here
+            </a>
         </div>
     </div>
 @endsection

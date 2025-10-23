@@ -15,7 +15,7 @@
             <a href="{{ url('/home') }}"
                 class="flex items-center justify-center h-[12vh] w-[70%] m-3 p-2
                   bg-[#ffac81] text-[#f0ebe3] text-[4vh] font-[HammersmithOne-Regular] font-bold
-                  rounded-2xl outline outline-3 outline-black shadow-[1vh_1vh_0_black]">
+                  rounded-2xl outline-3 outline-black shadow-[1vh_1vh_0_black]">
                 CHO.LAZEY
             </a>
 
@@ -54,7 +54,7 @@
                             <a href="{{ url($link) }}"
                                 class="flex justify-center items-center p-3 w-[30vh]
                                   bg-[#a2e1db] hover:bg-[#b4a6d5]
-                                  rounded-2xl outline outline-1 outline-black">
+                                  rounded-2xl outline-1 outline-black">
                                 {{ $label }}
                             </a>
                         </li>

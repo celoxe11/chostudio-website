@@ -76,4 +76,9 @@ class LoginPageController extends Controller
 
         return redirect()->route('home')->with('success', 'Registration successful! Welcome aboard.');
     }
+
+    public function termsnconditions()
+    {
+        return view('terms_conditions');
+    }
 }
