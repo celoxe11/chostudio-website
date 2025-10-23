@@ -1,15 +1,15 @@
 @extends('template')
 
 @section('content')
-    <div class="flex justify-center items-center h-screen">
+    <div class="flex justify-center items-center min-h-screen py-8">
         <div
-            class="flex flex-col relative justify-center items-center bg-[#f0ebe3] w-[95%] md:w-[85%] lg:w-[80%] h-[80%] p-8 rounded-3xl border-4 border-black">
+            class="flex flex-col relative justify-center items-center bg-[#f0ebe3] w-[95%] md:w-[85%] lg:w-[80%] min-h-[90vh] sm:min-h-[85vh] md:min-h-[80vh] p-4 sm:p-6 md:p-8 rounded-3xl border-4 border-black">
             {{-- Back to home --}}
-            <div class="absolute top-10 left-10 w-full flex justify-start mb-4">
+            <div class="absolute top-4 left-4 sm:top-10 sm:left-10 w-full flex justify-start mb-4">
                 <a href={{ route('home') }}
-                    class="font-[HammersmithOne-Regular] bg-[#a2e1db] hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-sm sm:text-base px-4 py-2 rounded-2xl border-4 border-black">
+                    class="flex items-center gap-2 font-[HammersmithOne-Regular] bg-[#a2e1db] hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-sm sm:text-base px-3 py-2 sm:px-4 sm:py-2 rounded-2xl border-2 sm:border-4 border-black">
                     <i class="fa-solid fa-arrow-left"></i>
-                    Back to Home
+                    <span class="hidden sm:inline">Back to Home</span>
                 </a>
             </div>
 
@@ -104,9 +104,9 @@
                 </div>
             </form>
 
-            <div class="flex flex-col items-center gap-3 mt-6">
+            <div class="flex flex-col items-center gap-3 mt-4">
                 <a href="/login"
-                    class="text-base font-semibold text-black hover:text-[#ffac81] transition-colors duration-300">
+                    class="text-base font-semibold text-black hover:text-[#ffac81] transition-colors duration-300 md:text-lg lg:text-xl">
                     Already have an account? Login here
                 </a>
             </div>
