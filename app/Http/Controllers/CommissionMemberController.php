@@ -10,4 +10,9 @@ class CommissionMemberController extends Controller
     {
         return view('member.commission_type');
     }
+
+    public function form()
+    {
+        return view('member.commission_form');
+    }
 }
