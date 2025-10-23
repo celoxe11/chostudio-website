@@ -136,7 +136,7 @@ $(document).ready(function () {
             tbody.html(`
                         <tr>
                             <td colspan="7" class="p-0 border-none align-top">
-                                <div class="min-h-[60vh] flex items-center justify-center bg-(--color-background)">
+                                <div class="min-h-[48vh] flex items-center justify-center bg-(--color-background)">
                                     <div class="text-lg max-md:p-1 text-stone-700">No commissions found</div>
                                 </div>
                             </td>
@@ -249,50 +249,50 @@ $(document).ready(function () {
 
     function getProgressStatusColor(status) {
         const statusColors = {
-            'pending': 'bg-red-500',          // Red - waiting for action
-            'accepted': 'bg-blue-500',         // Blue - accepted
-            'in_progress_sketch': 'bg-purple-500', // Purple - working on sketch
-            'in_progress_coloring': 'bg-purple-400', // Light purple - working on color
-            'review': 'bg-amber-500',           // Orange - under review
-            'revision': 'bg-orange-500',         // Dark orange - needs changes
-            'completed': 'bg-green-500',        // Green - done
-            'cancelled': 'bg-gray-500',        // Gray - cancelled
+            pending: "bg-red-500", // Red - waiting for action
+            accepted: "bg-blue-500", // Blue - accepted
+            in_progress_sketch: "bg-purple-500", // Purple - working on sketch
+            in_progress_coloring: "bg-purple-400", // Light purple - working on color
+            review: "bg-amber-500", // Orange - under review
+            revision: "bg-orange-500", // Dark orange - needs changes
+            completed: "bg-green-500", // Green - done
+            cancelled: "bg-gray-500", // Gray - cancelled
         };
-        return statusColors[status] || 'bg-gray-500';
+        return statusColors[status] || "bg-gray-500";
     }
 
     function getProgressStatusText(status) {
         const statusTexts = {
-            'pending': 'Pending',
-            'accepted': 'Accepted',
-            'in_progress_sketch': 'Sketching',
-            'in_progress_coloring': 'Coloring',
-            'review': 'In Review',
-            'revision': 'Revision',
-            'completed': 'Completed',
-            'cancelled': 'Cancelled',
+            pending: "Pending",
+            accepted: "Accepted",
+            in_progress_sketch: "Sketching",
+            in_progress_coloring: "Coloring",
+            review: "In Review",
+            revision: "Revision",
+            completed: "Completed",
+            cancelled: "Cancelled",
         };
-        return statusTexts[status] || 'Unknown';
+        return statusTexts[status] || "Unknown";
     }
 
     function getPaymentStatusColor(status) {
         const paymentColors = {
-            'pending': 'bg-red-500',    // Red - not paid
-            'dp': 'bg-amber-500',         // Orange - down payment
-            'paid': 'bg-green-500',       // Green - fully paid
-            'refunded': 'bg-gray-500',   // Gray - refunded
+            pending: "bg-red-500", // Red - not paid
+            dp: "bg-amber-500", // Orange - down payment
+            paid: "bg-green-500", // Green - fully paid
+            refunded: "bg-gray-500", // Gray - refunded
         };
-        return paymentColors[status] || 'bg-gray-500';
+        return paymentColors[status] || "bg-gray-500";
     }
 
     function getPaymentStatusText(status) {
         const paymentTexts = {
-            'pending': 'Unpaid',
-            'dp': 'DP',
-            'paid': 'Paid',
-            'refunded': 'Refunded',
+            pending: "Unpaid",
+            dp: "DP",
+            paid: "Paid",
+            refunded: "Refunded",
         };
-        return paymentTexts[status] || 'Unknown';
+        return paymentTexts[status] || "Unknown";
     }
 
     function getStatusColor(status) {

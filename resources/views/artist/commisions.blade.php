@@ -1,9 +1,9 @@
 @extends('artist.artist_template')
 
 @section('content')
-    <div class="my-8 max-xl:mt-3 p-4 xl:w-[80%] mx-auto lg:w-full">
+    <div class="my-6 max-xl:mt-3 p-4 xl:w-[80%] mx-auto lg:w-full">
         <div class="shadow font-[HammersmithOne-Regular] overflow-x-auto">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-3 border-stone-900"
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-2 border-stone-900"
                 style="background-color: var(--color-pastel-gray-turquoise);">
                 <div class="text-2xl sm:text-4xl">Commisions</div>
                 <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
@@ -20,73 +20,78 @@
             </div>
 
             <!-- Filters and Search Section -->
-            <div class="p-4 border-2 border-t-0 border-stone-900 bg-white">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
-                    <!-- Search -->
-                    <div class="lg:col-span-2">
+            <div class="p-4 border-2 border-t-0 border-stone-900 bg-[var(--color-background)]">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 items-end">
+                    <!-- Search (larger on wide screens) -->
+                    <div class="lg:col-span-5">
                         <input type="text" id="search-input" placeholder="Search by customer, email, category..."
-                            class="w-full px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
+                            class="w-full px-4 py-3 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600 bg-white">
                     </div>
 
-                    <!-- Status Filter -->
-                    <div>
-                        <select id="status-filter"
-                            class="w-full px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
-                            <option value="">All Progress Status</option>
-                            <option value="pending">Pending</option>
-                            <option value="accepted">Accepted</option>
-                            <option value="in_progress_sketch">In Progress (Sketching)</option>
-                            <option value="in_progress_color">In Progress (Coloring)</option>
-                            <option value="review">In Review</option>
-                            <option value="revision">Revision</option>
-                            <option value="completed">Completed</option>
-                            <option value="cancelled">Cancelled</option>
+                    <!-- Grouped Filters -->
+                    <div class="lg:col-span-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div>
+                                <label for="status-filter" class="sr-only">Progress Status</label>
+                                <select id="status-filter"
+                                    class="w-full px-3 py-3 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600 bg-white">
+                                    <option value="">All Progress Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="accepted">Accepted</option>
+                                    <option value="in_progress_sketch">In Progress (Sketching)</option>
+                                    <option value="in_progress_color">In Progress (Coloring)</option>
+                                    <option value="review">In Review</option>
+                                    <option value="revision">Revision</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="payment-filter" class="sr-only">Payment Status</label>
+                                <select id="payment-filter"
+                                    class="w-full px-3 py-3 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600 bg-white">
+                                    <option value="">All Payment Status</option>
+                                    <option value="pending">Unpaid</option>
+                                    <option value="dp">DP</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="refunded">Refunded</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="category-filter" class="sr-only">Category</label>
+                                <select id="category-filter"
+                                    class="w-full px-3 py-3 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600 bg-white">
+                                    <option value="">All Categories</option>
+                                    <option value="Fullbody">Fullbody</option>
+                                    <option value="Halfbody">Halfbody</option>
+                                    <option value="Headshot">Headshot</option>
+                                    <option value="Chibi">Chibi</option>
+                                    <option value="Custom">Custom</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls (clear & per-page) -->
+                    <div class="lg:col-span-2 flex items-center justify-end gap-3">
+                        <select id="per-page"
+                            class="w-full sm:w-40 px-3 py-3 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600 bg-white">
+                            <option value="10">10 / page</option>
+                            <option value="25">25 / page</option>
+                            <option value="50">50 / page</option>
                         </select>
+                        <button id="clear-filters"
+                            class="w-full sm:w-auto px-4 py-3 bg-stone-900 text-white rounded-lg hover:bg-stone-700 transition-colors">
+                            Clear
+                        </button>
                     </div>
-
-                    <!-- Payment Status Filter -->
-                    <div>
-                        <select id="payment-filter"
-                            class="w-full px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
-                            <option value="">All Payment Status</option>
-                            <option value="pending">Unpaid</option>
-                            <option value="dp">DP</option>
-                            <option value="paid">Paid</option>
-                            <option value="refunded">Refunded</option>
-                        </select>
-                    </div>
-
-                    <!-- Category Filter -->
-                    <div>
-                        <select id="category-filter"
-                            class="w-full px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
-                            <option value="">All Categories</option>
-                            <option value="Fullbody">Fullbody</option>
-                            <option value="Halfbody">Halfbody</option>
-                            <option value="Headshot">Headshot</option>
-                            <option value="Chibi">Chibi</option>
-                            <option value="Custom">Custom</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Sort and Per Page -->
-                <div class="flex flex-wrap gap-3 mt-3">
-                    <button id="clear-filters"
-                        class="px-4 py-2 bg-stone-900 text-white rounded-lg hover:bg-stone-700 transition-colors">
-                        Clear Filters
-                    </button>
-                    <select id="per-page"
-                        class="px-4 py-2 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600">
-                        <option value="10">10 per page</option>
-                        <option value="25">25 per page</option>
-                        <option value="50">50 per page</option>
-                    </select>
                 </div>
             </div>
 
             <div class="overflow-x-auto">
-                <div class="h-[70vh] max-xl:h-[60vh] bg-white overflow-y-auto">
+                <div class="max-h-[55vh] max-xl:h-[60vh] bg-[var(--color-background)] border-2 overflow-y-auto">
                     <table class="w-full table-auto">
                         <thead class="sticky top-0 bg-slate-900 text-white">
                             <tr class="text-left bg-stone-900">
@@ -120,7 +125,7 @@
                             <!-- Data will be loaded via AJAX -->
                             <tr>
                                 <td colspan="7" class="p-0 border-none align-top">
-                                    <div class="min-h-[60vh] flex items-center justify-center bg-(--color-background)">
+                                    <div class="min-h-[60vh] flex items-center justify-center bg-[var(--color-background)]">
                                         <div class="text-lg max-md:p-1 text-stone-700">
                                             <i class="fas fa-spinner fa-spin mr-2"></i>Loading commissions...
                                         </div>
@@ -134,16 +139,16 @@
 
             <!-- Pagination -->
             <div id="commissionsPager"
-                class="bg-(--color-background) w-full flex flex-col sm:flex-row items-center justify-between gap-2 p-4 mt-2 border-3 border-stone-900">
+                class="bg-[var(--color-background)] w-full flex flex-col sm:flex-row items-center justify-between gap-2 p-4 mt-2 border-2 border-stone-900">
                 <div class="text-sm text-stone-900">Showing <span id="pagerRange">0</span> of <span id="pagerTotal">0</span>
                 </div>
                 <nav class="flex items-center gap-2" aria-label="Pagination">
                     <button id="pagerPrev"
-                        class="px-3 py-1 rounded bg-white border-3 border-stone-900 text-sm disabled:opacity-50"
+                        class="px-3 py-1 rounded bg-white border-2 border-stone-900 text-sm disabled:opacity-50"
                         disabled>Previous</button>
                     <div id="pagerNumbers" class="flex items-center gap-1"></div>
                     <button id="pagerNext"
-                        class="px-3 py-1 rounded bg-white border-3 border-stone-900 text-sm disabled:opacity-50"
+                        class="px-3 py-1 rounded bg-white border-2 border-stone-900 text-sm disabled:opacity-50"
                         disabled>Next</button>
                 </nav>
             </div>

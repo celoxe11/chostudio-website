@@ -11,6 +11,9 @@
 
     {{-- icon: font awesome --}}
     <script src="https://kit.fontawesome.com/2773bd903f.js" crossorigin="anonymous"></script>
+    
+    {{-- Flowbite JS for drawer/modal components --}}
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </head>
 
 <body>

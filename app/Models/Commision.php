@@ -18,7 +18,7 @@ class Commision extends Model
         'deadline',
         'price',
         'payment_status',
-        'commision_status',
+        'progress_status',
     ];
 
     public function member()

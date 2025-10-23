@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Gallery;
 
 class GallerySeeder extends Seeder
 {
@@ -12,6 +13,92 @@ class GallerySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $artworks = [
+            [
+                'title' => 'Sunset Dreams',
+                'description' => 'A vibrant sunset landscape with dreamy colors and soft brush strokes.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'PSD',
+                'status' => 'available',
+                'price' => 150000.00,
+            ],
+            [
+                'title' => 'Urban Jungle',
+                'description' => 'Modern cityscape with nature elements blending in.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'AI',
+                'status' => 'available',
+                'price' => 200000.00,
+            ],
+            [
+                'title' => 'Ocean Waves',
+                'description' => 'Serene ocean scene with gentle waves and peaceful atmosphere.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'PNG',
+                'status' => 'available',
+                'price' => 120000.00,
+            ],
+            [
+                'title' => 'Midnight Garden',
+                'description' => 'Mystical garden scene under moonlight with glowing flowers.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'PSD',
+                'status' => 'sold',
+                'price' => 180000.00,
+            ],
+            [
+                'title' => 'Cherry Blossom',
+                'description' => 'Beautiful cherry blossom tree in full bloom.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'PNG',
+                'status' => 'available',
+                'price' => 135000.00,
+            ],
+            [
+                'title' => 'Starry Night Sky',
+                'description' => 'Breathtaking night sky filled with stars and nebula.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'AI',
+                'status' => 'available',
+                'price' => 175000.00,
+            ],
+            [
+                'title' => 'Mountain Peak',
+                'description' => 'Majestic mountain landscape with snow-capped peaks.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'PSD',
+                'status' => 'available',
+                'price' => 160000.00,
+            ],
+            [
+                'title' => 'Autumn Forest',
+                'description' => 'Golden autumn forest with warm colors and falling leaves.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'PNG',
+                'status' => 'available',
+                'price' => 140000.00,
+            ],
+            [
+                'title' => 'Cosmic Galaxy',
+                'description' => 'Abstract cosmic art with swirling galaxies and vibrant colors.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'AI',
+                'status' => 'not_sold',
+                'price' => 190000.00,
+            ],
+            [
+                'title' => 'Desert Dunes',
+                'description' => 'Peaceful desert landscape with rolling sand dunes.',
+                'image_url' => 'images/Deafen cho.png',
+                'file_format' => 'PSD',
+                'status' => 'available',
+                'price' => 145000.00,
+            ],
+        ];
+
+        foreach ($artworks as $artwork) {
+            Gallery::create($artwork);
+        }
     }
 }
+

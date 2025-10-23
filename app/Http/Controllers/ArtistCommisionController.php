@@ -56,9 +56,9 @@ class ArtistCommisionController extends Controller
 
         // Get status counts
         $statusCounts = [
-            'pending' => Commision::where('progress_status', 'Pending')->count(),
-            'in_progress' => Commision::whereIn('progress_status', ['In Progress (Sketch)', 'In Progress (Color)'])->count(),
-            'revision' => Commision::where('progress_status', 'Revision')->count(),
+            'pending' => Commision::where('progress_status', 'pending')->count(),
+            'in_progress' => Commision::whereIn('progress_status', ['in_progress_sketch', 'in_progress_coloring'])->count(),
+            'revision' => Commision::where('progress_status', 'revision')->count(),
         ];
 
         return response()->json([

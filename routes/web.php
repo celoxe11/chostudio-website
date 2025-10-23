@@ -35,22 +35,22 @@ Route::post('/login', [LoginPageController::class, 'processLogin'])->name('proce
 Route::post('/register', [LoginPageController::class, 'processRegister'])->name('process_register');
 
 // Artist Routes
-// TODO: Kasih middleware nanti
 Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () {
     Route::get('/commisions', [ArtistCommisionController::class, 'index'])->name('artist.commisions');
     Route::get('/getCommisions', [ArtistCommisionController::class, 'getCommisions'])->name('artist.getCommisions');
     Route::get('/gallery', [ArtistGalleryController::class, 'index'])->name('artist.gallery');
-    Route::get('/commision-detail', [ArtistCommisionController::class, 'detail'])->name('artist.commision_detail');
+    Route::get('/commision-detail/{commision_id}', [ArtistCommisionController::class, 'detail'])->name('artist.commision_detail');
     Route::get('/adoptions', [ArtistAdoptionController::class, 'index'])->name('artist.adoptions');
-    Route::get('/adoption-detail', [ArtistAdoptionController::class, 'detail'])->name('artist.adoption_detail');
+    Route::get('/getAdoptions', [ArtistAdoptionController::class, 'getAdoptions'])->name('artist.getAdoptions');
+    Route::get('/adoption-detail/{adoption_id}', [ArtistAdoptionController::class, 'detail'])->name('artist.adoption_detail');
 });
 
-Route::prefix('member')->middleware('auth', "role:client")->group(function () {
+Route::prefix('member')->middleware(['auth', "role:client"])->group(function () {
     Route::get('/history', [HistoryMemberController::class, 'index'])->name('member.history');
     Route::get('/history/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
 });
 
-// TODO: ganti ini nanti 
+
 Route::post('/logout', function () {
     // Logic for logging out the user
     Auth::logout();
