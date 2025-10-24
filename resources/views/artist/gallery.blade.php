@@ -57,10 +57,10 @@
 
         <!-- RIGHT: Gallery -->
         <div class="w-[55%] bg-[#c9b8e3] rounded-tr-2xl p-6 overflow-y-auto no-scrollbar">
-            <div id="galleryGrid" class="grid grid-cols-4 gap-4">
+            <div id="galleryGrid" class="grid grid-cols-3 sm:grid-cols-4  gap-4 flex-1 h-fit transition-all duration-300">
                 @foreach ($galleryData as $index => $item)
                     <div 
-                        class="bg-white rounded-lg shadow p-2 flex justify-center items-center w-40 h-40 cursor-pointer hover:scale-105  hover:shadow-md transition-transform duration-300"
+                        class="design-item cursor-pointer bg-gradient-to-b from-yellow-100 to-orange-200 rounded-md shadow-[0.4vh_0.4vh_0_black] hover:shadow-[0.6vh_0.6vh_0_black] hover:-translate-y-[0.3vh] transition-all duration-200"
                         data-index="{{ $index }}"
                         data-image="{{ $item['image_url'] }}"
                         data-title="{{ $item['title'] ?? '' }}"
@@ -69,7 +69,7 @@
                         data-file="{{ $item['file_type'] ?? '' }}"
                         data-purchase="{{ $item['purchase'] ?? false }}"
                     >
-                        <img src="{{ $item['image_url'] }}" alt="Image" class="rounded-md object-cover w-40 h-40 ">
+                        <img src="{{ $item['image_url'] }}" alt="Image" class="rounded-md object-cover w-40 h-40 border-2 border-black ">
                     </div>
                 @endforeach
             </div>
