@@ -11,8 +11,9 @@ class CommissionMemberController extends Controller
         return view('member.commission_type');
     }
 
-    public function form()
+    public function form(Request $request)
     {
-        return view('member.commission_form');
+        $category = $request->query('type', null);
+        return view('member.commission_form', compact('category'));
     }
 }
