@@ -7,7 +7,7 @@
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 sm:gap-0">
                 
                 <div
-                    class="bg-[#f0ebe3] rounded-t-3xl h-full py-4 sm:py-6 px-8 sm:px-20 shadow-[1.2vh_0_black] sm-h-full order-2 sm:order-1">
+                    class="bg-[#f0ebe3] rounded-t-3xl h-full py-4 sm:py-6 px-8 sm:px-20 shadow-[0_-0.8vh_0_0_black,-0.8vh_0_0_0_black,0.8vh_0_0_0_black] sm-h-full order-2 sm:order-1">
                     <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-5xl text-bold font-[HammersmithOne-Regular]">Cho's
                         Studio
                     </h1>
@@ -211,3 +211,32 @@
 
 
 @endsection
+
+@section('disableinspect')
+<script>
+    (function () {
+        // disable right-click
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // disable common DevTools shortcuts (best-effort)
+        document.addEventListener('keydown', function (e) {
+            const k = e.key || e.keyIdentifier || e.keyCode;
+            const key = (typeof k === 'string') ? k.toUpperCase() : k;
+
+            // F12
+            if (key === 'F12' || key === 123) {
+                e.preventDefault(); e.stopPropagation();
+            }
+
+            // Ctrl+U (view source), Ctrl+Shift+I/J/C/K (DevTools), Ctrl+Shift+C
+            if (e.ctrlKey && (e.key && ['U'].includes(e.key.toUpperCase()))) {
+                e.preventDefault(); e.stopPropagation();
+            }
+            if (e.ctrlKey && e.shiftKey && e.key && ['I','J','C','K'].includes(e.key.toUpperCase())) {
+                e.preventDefault(); e.stopPropagation();
+            }
+        }, true);
+    })();
+</script>
+@endsection
+

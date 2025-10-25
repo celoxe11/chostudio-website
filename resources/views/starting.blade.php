@@ -11,7 +11,7 @@
             </div>
 
             {{-- tombol --}}
-            <div class="flex flex-row gap-6 justify-center items-center">
+            <div class="flex flex-row gap-6 justify-center items-center mt-10">
 
                 {{-- ke home page --}}
                 <a href="/home"
