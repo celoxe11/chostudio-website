@@ -8,16 +8,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('assets/css/background.css') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-            {{-- Disable Right Click sementara --}}
-    <script>
-        document.onkeydown = function(event) {
-            event = (event || window.event);
-            if (event.keyCode == 123 || event.keyCode == 18) {
-                return false;
-            }
-        }
-        document.addEventListener('contextmenu', event => event.preventDefault());
-    </script>
 
     {{-- icon: font awesome --}}
     <script src="https://kit.fontawesome.com/2773bd903f.js" crossorigin="anonymous"></script>

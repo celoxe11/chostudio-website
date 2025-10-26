@@ -9,7 +9,8 @@
             <!-- Desktop nav -->
             <nav class="hidden md:block text-xl max-xl:text-lg font-bold">
                 <ul class="flex gap-8 items-center">
-                    <li><a href="{}" class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('member.commisions') ? 'text-(--color-pastel-turqoise)' : '' }}">Commision</a></li>
+                    {{-- <li><a href="{{ route('member.commmission') }}" class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('member.commission') ? 'text-(--color-pastel-turqoise)' : '' }}">Commission</a></li> --}}
+                    <li><a href="{{ route('member.commission_type') }}" class="hover:underline underline-offset-1 decoration-2">Commission</a></li>
                     <li><a href="{{ route('member.history') }}"
                             class="hover:underline underline-offset-1 decoration-2 {{ request()->routeIs('member.history') ? 'text-(--color-pastel-turqoise)' : '' }}">History</a></li>
                     <li>
