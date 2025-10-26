@@ -7,36 +7,36 @@
         <p class="font-semibold mb-6">Choose Artwork Type</p>
         <div class="flex flex-row gap-8">
             <!-- Head Shot -->
-            <div class="flex flex-col items-center rounded-2xl overflow-hidden bg-gray-100 shadow hover:shadow-lg transition duration-300 cursor-pointer">
-                <img src="{{ asset('assets/images/sample.jpeg') }}" 
-                     alt="Commission Head Shot" 
-                     class="w-[160px] h-[240px] object-cover">
-                <p class="py-3 font-medium text-sm text-gray-800">Head Shot</p>
-            </div>
+            <a href="{{ route('member.commission_form', ['type' => 'Head Shot']) }}" class="block">
+                <div class="flex flex-col items-center rounded-2xl overflow-hidden bg-gray-100 shadow hover:shadow-lg transition duration-300 cursor-pointer">
+                    <img src="{{ asset('assets/images/sample.jpeg') }}" alt="Commission Head Shot" class="w-[160px] h-[240px] object-cover">
+                    <p class="py-3 font-medium text-sm text-gray-800">Head Shot</p>
+                </div>
+            </a>
 
             <!-- Half Body -->
-            <div class="flex flex-col items-center rounded-2xl overflow-hidden bg-gray-100 shadow hover:shadow-lg transition duration-300 cursor-pointer">
-                <img src="{{ asset('assets/images/sample.jpeg') }}" 
-                     alt="Commission Half Body" 
-                     class="w-[160px] h-[240px] object-cover">
-                <p class="py-3 font-medium text-sm text-gray-800">Half Body</p>
-            </div>
+            <a href="{{ route('member.commission_form', ['type' => 'Half Body']) }}" class="block">
+                <div class="flex flex-col items-center rounded-2xl overflow-hidden bg-gray-100 shadow hover:shadow-lg transition duration-300 cursor-pointer">
+                    <img src="{{ asset('assets/images/sample.jpeg') }}" alt="Commission Half Body" class="w-[160px] h-[240px] object-cover">
+                    <p class="py-3 font-medium text-sm text-gray-800">Half Body</p>
+                </div>
+            </a>
 
             <!-- Full Body -->
-            <div class="flex flex-col items-center rounded-2xl overflow-hidden bg-gray-100 shadow hover:shadow-lg transition duration-300 cursor-pointer">
-                <img src="{{ asset('assets/images/sample.jpeg') }}" 
-                     alt="Commission Full Body" 
-                     class="w-[160px] h-[240px] object-cover">
-                <p class="py-3 font-medium text-sm text-gray-800">Full Body</p>
-            </div>
+            <a href="{{ route('member.commission_form', ['type' => 'Full Body']) }}" class="block">
+                <div class="flex flex-col items-center rounded-2xl overflow-hidden bg-gray-100 shadow hover:shadow-lg transition duration-300 cursor-pointer">
+                    <img src="{{ asset('assets/images/sample.jpeg') }}" alt="Commission Full Body" class="w-[160px] h-[240px] object-cover">
+                    <p class="py-3 font-medium text-sm text-gray-800">Full Body</p>
+                </div>
+            </a>
 
             <!-- Custom -->
-            <div class="flex flex-col items-center rounded-2xl overflow-hidden bg-gray-100 shadow hover:shadow-lg transition duration-300 cursor-pointer">
-                <img src="{{ asset('assets/images/sample.jpeg') }}" 
-                     alt="Commission Custom" 
-                     class="w-[160px] h-[240px] object-cover">
-                <p class="py-3 font-medium text-sm text-gray-800">Custom</p>
-            </div>
+            <a href="{{ route('member.commission_form', ['type' => 'Custom']) }}" class="block">
+                <div class="flex flex-col items-center rounded-2xl overflow-hidden bg-gray-100 shadow hover:shadow-lg transition duration-300 cursor-pointer">
+                    <img src="{{ asset('assets/images/sample.jpeg') }}" alt="Commission Custom" class="w-[160px] h-[240px] object-cover">
+                    <p class="py-3 font-medium text-sm text-gray-800">Custom</p>
+                </div>
+            </a>
         </div>
     </div>
 </div>

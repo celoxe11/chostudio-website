@@ -5,24 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Commision extends Model
+class Commission extends Model
 {
     use HasFactory;
 
     protected $table = 'commisions';
-    protected $primaryKey = 'commision_id';
+
+    protected $primaryKey = 'commission_id'; 
+
     protected $fillable = [
         'member_id',
         'category',
         'description',
         'deadline',
         'price',
+        'image_url',
         'payment_status',
         'progress_status',
     ];
 
-    public function member()
-    {
-        return $this->belongsTo(Member::class, 'member_id', 'member_id');
-    }
+    public $timestamps = true;
 }
