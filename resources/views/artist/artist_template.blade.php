@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 
 <head>
     <meta charset="UTF-8">
@@ -16,10 +16,12 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </head>
 
-<body>
+<body class="h-full flex flex-col overflow-hidden">
     @include('artist.navbar')
 
-    @yield('content')
+    <main class="flex-1 overflow-y-auto">
+        @yield('content')
+    </main>
 
     @yield('scripts')
 </body>

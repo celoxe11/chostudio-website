@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id('com_progress_id'); // PK
             $table->unsignedBigInteger('commission_id'); // FK ke commisions.commission_id tanpa constraint
             $table->string('image_link');
+            $table->enum('stage', ['sketch', 'coloring', 'final', 'revision'])->default('sketch');
+            $table->text('description')->nullable();
+            $table->string('status_from', 50)->nullable();
+            $table->string('status_to', 50)->nullable();
             $table->timestamps();
             $table->softDeletes(); // deleted_at untuk soft delete
         });

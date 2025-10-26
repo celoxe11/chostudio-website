@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Commision;
+use App\Models\Commission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +15,7 @@ class ArtistCommisionController extends Controller
 
     public function getCommisions(Request $request)
     {
-        $query = Commision::with('member');
+        $query = Commission::with('member');
 
         // Search functionality
         if ($request->has('search') && !empty($request->search)) {
@@ -56,9 +56,9 @@ class ArtistCommisionController extends Controller
 
         // Get status counts
         $statusCounts = [
-            'pending' => Commision::where('progress_status', 'pending')->count(),
-            'in_progress' => Commision::whereIn('progress_status', ['in_progress_sketch', 'in_progress_coloring'])->count(),
-            'revision' => Commision::where('progress_status', 'revision')->count(),
+            'pending' => Commission::where('progress_status', 'pending')->count(),
+            'in_progress' => Commission::whereIn('progress_status', ['in_progress_sketch', 'in_progress_coloring'])->count(),
+            'revision' => Commission::where('progress_status', 'revision')->count(),
         ];
 
         return response()->json([

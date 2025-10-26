@@ -187,13 +187,20 @@ $(document).ready(function () {
                             </td>
                             <td class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:text-sm border border-stone-900 align-top">
                                 <div class="flex flex-col sm:flex-row items-center justify-center gap-2">
-                                    <a href="{{ route("artist.commision_detail") }}"
+                                    <a href="/artist/commision-detail/${
+                                        c.commission_id
+                                    }"
                                         class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:bg-green-600 transition-all duration-200"
                                         style="background-color: var(--status-success);">View</a>
-                                    <a class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-yellow-500 text-yellow-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:bg-yellow-500 transition-all duration-200"
+                                    ${
+                                        c.progress_status === "pending"
+                                            ? `
+                                        <a class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-yellow-500 text-yellow-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:bg-yellow-500 transition-all duration-200"
                                         style="background-color: var(--status-warning);">Accept</a>
                                     <a class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-red-600 text-red-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:bg-red-600 transition-all duration-200"
-                                        style="background-color: var(--status-danger);">Decline</a>
+                                        style="background-color: var(--status-danger);">Decline</a>`
+                                            : ``
+                                    }
                                 </div>
                             </td>
                         </tr>
