@@ -94,17 +94,36 @@ class Commission extends Model
     public function getProgressStatusColorAttribute()
     {
         $colors = [
-            'pending' => '#EF4444',
-            'accepted' => '#3B82F6',
-            'in_progress_sketch' => '#A855F7',
-            'in_progress_coloring' => '#C084FC',
-            'review' => '#F59E0B',
-            'revision' => '#F97316',
-            'completed' => '#10B981',
-            'cancelled' => '#6B7280',
+            "pending" => "bg-red-500", // Red - waiting for action
+            "accepted" => "bg-blue-500", // Blue - accepted
+            "in_progress_sketch" => "bg-purple-500", // Purple - working on sketch
+            "in_progress_coloring" => "bg-purple-400", // Light purple - working on color
+            "review" => "bg-amber-500", // Orange - under review
+            "revision" => "bg-orange-500", // Dark orange - needs changes
+            "completed" => "bg-green-500", // Green - done
+            "cancelled" => "bg-gray-500", // Gray - cancelled
         ];
         
-        return $colors[$this->progress_status] ?? '#6B7280';
+        return $colors[$this->progress_status] ?? 'bg-gray-500';
+    }
+
+    /**
+     * Get progress status text (formatted/display name)
+     */
+    public function getProgressStatusTextAttribute()
+    {
+        $texts = [
+            'pending' => 'Pending',
+            'accepted' => 'Accepted',
+            'in_progress_sketch' => 'Sketching',
+            'in_progress_coloring' => 'Coloring',
+            'review' => 'In Review',
+            'revision' => 'Revision',
+            'completed' => 'Completed',
+            'cancelled' => 'Cancelled',
+        ];
+        
+        return $texts[$this->progress_status] ?? 'Unknown';
     }
 
     /**
@@ -113,13 +132,28 @@ class Commission extends Model
     public function getPaymentStatusColorAttribute()
     {
         $colors = [
-            'pending' => '#EF4444',
-            'dp' => '#F59E0B',
-            'paid' => '#10B981',
-            'refunded' => '#6B7280',
+            "pending" => "bg-red-500", // Red - not paid
+            "dp" => "bg-amber-500", // Orange - down payment
+            "paid" => "bg-green-500", // Green - fully paid
+            "refunded" => "bg-gray-500", // Gray - refunded
         ];
         
-        return $colors[$this->payment_status] ?? '#6B7280';
+        return $colors[$this->payment_status] ?? 'bg-gray-500';
+    }
+
+    /**
+     * Get payment status text (formatted/display name)
+     */
+    public function getPaymentStatusTextAttribute()
+    {
+        $texts = [
+            'pending' => 'Unpaid',
+            'dp' => 'DP',
+            'paid' => 'Paid',
+            'refunded' => 'Refunded',
+        ];
+        
+        return $texts[$this->payment_status] ?? 'Unknown';
     }
 }
 

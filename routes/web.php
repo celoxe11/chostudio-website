@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArtistAdoptionController;
 use App\Http\Controllers\ArtistCommisionController;
+use App\Http\Controllers\ArtistCommisionDetailController;
 use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LoginPageController;
@@ -40,7 +41,7 @@ Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () 
     Route::get('/commisions', [ArtistCommisionController::class, 'index'])->name('artist.commisions');
     Route::get('/getCommisions', [ArtistCommisionController::class, 'getCommisions'])->name('artist.getCommisions');
     Route::get('/gallery', [ArtistGalleryController::class, 'index'])->name('artist.gallery');
-    Route::get('/commision-detail/{commision_id}', [ArtistCommisionController::class, 'detail'])->name('artist.commision_detail');
+    Route::get('/commision-detail/{commision_id}', [ArtistCommisionDetailController::class, 'detail'])->name('artist.commision_detail');
     Route::get('/adoptions', [ArtistAdoptionController::class, 'index'])->name('artist.adoptions');
     Route::get('/getAdoptions', [ArtistAdoptionController::class, 'getAdoptions'])->name('artist.getAdoptions');
     Route::get('/adoption-detail/{adoption_id}', [ArtistAdoptionController::class, 'detail'])->name('artist.adoption_detail');

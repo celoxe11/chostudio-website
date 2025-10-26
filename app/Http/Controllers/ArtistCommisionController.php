@@ -76,8 +76,5 @@ class ArtistCommisionController extends Controller
         ]);
     }
 
-    public function detail()
-    {
-        return view("artist.commision_detail");
-    }
+    
 }

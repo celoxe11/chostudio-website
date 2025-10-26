@@ -19,9 +19,7 @@ class CommissionProgress extends Model
         'commission_id',
         'image_link',
         'stage',
-        'description',
-        'status_from',
-        'status_to',
+        'revision_notes',
     ];
 
     public $timestamps = true;
@@ -57,9 +55,10 @@ class CommissionProgress extends Model
     {
         $labels = [
             'sketch' => 'Sketch Phase',
+            'sketch_revision' => 'Sketch Revision',
             'coloring' => 'Coloring Phase',
+            'coloring_revision' => 'Coloring Revision',
             'final' => 'Final Artwork',
-            'revision' => 'Revision',
         ];
         
         return $labels[$this->stage] ?? $this->stage;
@@ -68,37 +67,13 @@ class CommissionProgress extends Model
     /**
      * Get formatted status change description
      */
-    public function getStatusChangeAttribute()
+    public function getFormattedDescriptionAttribute()
     {
-        if (!$this->status_from && !$this->status_to) {
-            return 'Progress update';
+        if ($this->revision_notes) {
+            return $this->revision_notes;
         }
         
-        $from = $this->status_from ? $this->getStatusLabel($this->status_from) : 'New';
-        $to = $this->status_to ? $this->getStatusLabel($this->status_to) : '';
-        
-        if (!$to) return "Progress update - {$this->stage_label}";
-        
-        return "{$from} → {$to}";
-    }
-
-    /**
-     * Get human-readable status label
-     */
-    private function getStatusLabel($status)
-    {
-        $labels = [
-            'pending' => 'Pending',
-            'accepted' => 'Accepted',
-            'in_progress_sketch' => 'In Progress (Sketch)',
-            'in_progress_coloring' => 'In Progress (Coloring)',
-            'review' => 'In Review',
-            'revision' => 'Revision',
-            'completed' => 'Completed',
-            'cancelled' => 'Cancelled',
-        ];
-        
-        return $labels[$status] ?? $status;
+        return "Progress update - {$this->stage_label}";
     }
     
     /**
