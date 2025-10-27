@@ -1,6 +1,23 @@
 @extends('artist.artist_template')
 
 @section('content')
+    <style>
+        .custom-swal-popup {
+            font-family: 'HammersmithOne-Regular', sans-serif;
+        }
+
+        .custom-swal-title {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'HammersmithOne-Regular', sans-serif;
+        }
+
+        .custom-swal-text {
+            font-size: 16px;
+            font-family: 'HammersmithOne-Regular', sans-serif;
+        }
+    </style>
+
     <div class="my-8 max-xl:mt-3 p-4 xl:w-[90%] mx-auto lg:w-full">
         <div class="shadow-2xl font-[HammersmithOne-Regular] overflow-hidden">
             <!-- Header Section -->
@@ -55,10 +72,14 @@
                                     @include('artist.actions.pending_actions', [
                                         'commission' => $commission,
                                     ])
-                                @elseif(
-                                    $commission->progress_status === 'in_progress_sketch' ||
-                                        $commission->progress_status === 'in_progress_coloring' ||
-                                        $commission->progress_status === 'accepted')
+                                @elseif($commission->progress_status === 'accepted')
+                                    @include('artist.actions.progress_status_update', [
+                                        'commission' => $commission,
+                                    ])
+                                    @include('artist.actions.payment_status_update', [
+                                        'commission' => $commission,
+                                    ])
+                                @elseif($commission->progress_status === 'in_progress_sketch' || $commission->progress_status === 'in_progress_coloring')
                                     @include('artist.actions.progress_status_update', [
                                         'commission' => $commission,
                                     ])
@@ -95,23 +116,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @include('artist.actions.payment_status_update', [
+                                        'commission' => $commission,
+                                    ])
                                 @elseif($commission->progress_status === 'revision')
-                                    <button
-                                        class="group relative px-6 py-3 rounded-xl border-2 border-orange-500 bg-orange-50 text-orange-700 font-bold shadow-lg hover:shadow-xl hover:bg-orange-100 hover:-translate-y-1 transform transition-all duration-300 ease-out">
-                                        <div class="flex items-center justify-center gap-2">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                                                </path>
-                                            </svg>
-                                            Submit Revision
-                                        </div>
-                                        <div
-                                            class="absolute inset-0 rounded-xl bg-orange-200 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
-                                        </div>
-                                    </button>
+                                    @include('artist.actions.revision_upload', [
+                                        'commission' => $commission,
+                                    ])
+                                    @include('artist.actions.payment_status_update', [
+                                        'commission' => $commission,
+                                    ])
                                 @elseif($commission->progress_status === 'completed')
                                     @include('artist.actions.progress_complete', [
+                                        'commission' => $commission,
+                                    ])
+                                @elseif($commission->progress_status === 'cancelled' || $commission->progress_status === 'declined')
+                                    @include('artist.actions.progress_cancelled', [
                                         'commission' => $commission,
                                     ])
                                 @endif
@@ -119,6 +139,7 @@
                                 @if (
                                     $commission->progress_status !== 'completed' &&
                                         $commission->progress_status !== 'cancelled' &&
+                                        $commission->progress_status !== 'declined' &&
                                         $commission->progress_status !== 'pending')
                                     @include('artist.actions.cancel_button', [
                                         'commission' => $commission,

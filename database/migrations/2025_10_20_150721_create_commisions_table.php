@@ -19,10 +19,7 @@ return new class extends Migration
             $table->date('deadline')->nullable();
             $table->float('price'); 
             $table->enum('payment_status', ['pending', 'dp', 'paid', 'refunded'])->default('pending');
-            $table->enum('progress_status', ['pending', 'accepted', 'in_progress_sketch', 'in_progress_coloring', 'review', 'revision', 'completed', 'cancelled'])->default('pending');
-            
-            // Status notes field for tracking status change reasons
-            $table->text('status_notes')->nullable();
+            $table->enum('progress_status', ['pending', 'accepted', 'declined', 'in_progress_sketch', 'in_progress_coloring', 'review', 'revision', 'completed', 'cancelled'])->default('pending');
             
             // Cancellation fields
             $table->text('cancellation_reason')->nullable();
@@ -34,6 +31,7 @@ return new class extends Migration
             // Timestamp fields for tracking commission lifecycle
             $table->timestamp('started_at')->nullable();
             $table->timestamp('completed_at')->nullable();
+            $table->timestamp('fully_paid_at')->nullable();
             
             $table->softDeletes(); // deleted_at untuk soft delete
         });

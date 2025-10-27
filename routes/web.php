@@ -42,10 +42,11 @@ Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () 
     Route::get('/getCommissions', [ArtistCommissionController::class, 'getCommissions'])->name('artist.getCommissions');
     Route::get('/gallery', [ArtistGalleryController::class, 'index'])->name('artist.gallery');
 
-    Route::get('/commission-detail/{commission_id}', [ArtistCommissionDetailController::class, 'detail'])->name('artist.commission_detail');
-    Route::post('/commissions/status/{commissionId}', [ArtistCommissionDetailController::class, 'update_status'])->name('artist.commission_status_update');
+    Route::get('/commission_detail/{commission_id}', [ArtistCommissionDetailController::class, 'detail'])->name('artist.commission_detail');
+    Route::post('/commissions/status/{commissionId}', [ArtistCommissionDetailController::class, 'update_progress_status'])->name('artist.commission_status_update');
     Route::post('/commissions/cancel/{commissionId}', [ArtistCommissionDetailController::class, 'cancel'])->name('artist.commission_cancel');
-    Route::post('/commissions/payment/{commissionId}', [ArtistCommissionDetailController::class, 'update_payment'])->name('artist.commission_payment_update');
+    Route::post('/commissions/payment/{commissionId}', [ArtistCommissionDetailController::class, 'update_payment_status'])->name('artist.commission_payment_update');
+    Route::post('/commissions/upload/{commissionId}', [ArtistCommissionDetailController::class, 'upload_image'])->name('artist.commission_upload');
 
     Route::get('/adoptions', [ArtistAdoptionController::class, 'index'])->name('artist.adoptions');
     Route::get('/getAdoptions', [ArtistAdoptionController::class, 'getAdoptions'])->name('artist.getAdoptions');

@@ -194,7 +194,7 @@ $(document).ready(function () {
                             </td>
                             <td class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:text-sm border border-stone-900 align-top">
                                 <div class="flex flex-col sm:flex-row items-center justify-center gap-2">
-                                    <a href="/artist/commission-detail/${
+                                    <a href="/artist/commission_detail/${
                                         c.commission_id
                                     }"
                                         class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:bg-green-600 transition-all duration-200"
@@ -254,12 +254,13 @@ $(document).ready(function () {
 
     function getProgressStatusColor(status) {
         const statusColors = {
-            pending: "bg-red-500", // Red - waiting for action
+            pending: "bg-yellow-500", // Yellow - waiting for action
             accepted: "bg-blue-500", // Blue - accepted
+            declined: "bg-red-600", // Dark Red - rejected
             in_progress_sketch: "bg-purple-500", // Purple - working on sketch
-            in_progress_coloring: "bg-purple-400", // Light purple - working on color
-            review: "bg-amber-500", // Orange - under review
-            revision: "bg-orange-500", // Dark orange - needs changes
+            in_progress_coloring: "bg-pink-500", // Pink - working on color
+            review: "bg-cyan-500", // Cyan - under review
+            revision: "bg-orange-500", // Orange - needs changes
             completed: "bg-green-500", // Green - done
             cancelled: "bg-gray-500", // Gray - cancelled
         };
@@ -270,6 +271,7 @@ $(document).ready(function () {
         const statusTexts = {
             pending: "Pending",
             accepted: "Accepted",
+            declined: "Declined",
             in_progress_sketch: "Sketching",
             in_progress_coloring: "Coloring",
             review: "In Review",

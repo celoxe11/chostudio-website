@@ -28,7 +28,7 @@ class CommissionSeeder extends Seeder
                 'payment_status' => 'pending',
                 'started_at' => null,
                 'completed_at' => null,
-                'status_notes' => null,
+                'fully_paid_at' => null,
                 'cancellation_reason' => null,
                 'count' => 3
             ],
@@ -38,7 +38,7 @@ class CommissionSeeder extends Seeder
                 'payment_status' => 'pending',
                 'started_at' => null,
                 'completed_at' => null,
-                'status_notes' => 'Commission accepted. Please proceed with down payment.',
+                'fully_paid_at' => null,
                 'cancellation_reason' => null,
                 'count' => 2
             ],
@@ -46,9 +46,9 @@ class CommissionSeeder extends Seeder
             [
                 'progress_status' => 'in_progress_sketch',
                 'payment_status' => 'dp',
-                'started_at' => $faker->dateTimeBetween('-1 week', '-1 day'),
+                'started_at' => '-1 week to -1 day',
                 'completed_at' => null,
-                'status_notes' => 'Working on initial sketch',
+                'fully_paid_at' => null,
                 'cancellation_reason' => null,
                 'count' => 4
             ],
@@ -56,9 +56,9 @@ class CommissionSeeder extends Seeder
             [
                 'progress_status' => 'review',
                 'payment_status' => 'dp',
-                'started_at' => $faker->dateTimeBetween('-2 weeks', '-1 week'),
+                'started_at' => '-2 weeks to -1 week',
                 'completed_at' => null,
-                'status_notes' => 'Sketch submitted for review',
+                'fully_paid_at' => null,
                 'cancellation_reason' => null,
                 'count' => 2
             ],
@@ -66,9 +66,9 @@ class CommissionSeeder extends Seeder
             [
                 'progress_status' => 'revision',
                 'payment_status' => 'dp',
-                'started_at' => $faker->dateTimeBetween('-3 weeks', '-2 weeks'),
+                'started_at' => '-3 weeks to -2 weeks',
                 'completed_at' => null,
-                'status_notes' => 'Customer requested changes to the sketch',
+                'fully_paid_at' => null,
                 'cancellation_reason' => null,
                 'count' => 2
             ],
@@ -76,9 +76,9 @@ class CommissionSeeder extends Seeder
             [
                 'progress_status' => 'in_progress_coloring',
                 'payment_status' => 'dp',
-                'started_at' => $faker->dateTimeBetween('-3 weeks', '-2 weeks'),
+                'started_at' => '-3 weeks to -2 weeks',
                 'completed_at' => null,
-                'status_notes' => 'Sketch approved, now coloring',
+                'fully_paid_at' => null,
                 'cancellation_reason' => null,
                 'count' => 3
             ],
@@ -86,19 +86,29 @@ class CommissionSeeder extends Seeder
             [
                 'progress_status' => 'completed',
                 'payment_status' => 'paid',
-                'started_at' => $faker->dateTimeBetween('-2 months', '-1 month'),
-                'completed_at' => $faker->dateTimeBetween('-1 week', 'now'),
-                'status_notes' => 'Commission completed successfully',
+                'started_at' => '-2 months to -1 month',
+                'completed_at' => '-2 weeks to -1 week',
+                'fully_paid_at' => '-1 week to -1 day',
                 'cancellation_reason' => null,
-                'count' => 3
+                'count' => 2
             ],
-            // Scenario 8: Cancelled by customer
+            // Scenario 8: Completed but awaiting full payment
+            [
+                'progress_status' => 'completed',
+                'payment_status' => 'dp',
+                'started_at' => '-1 month to -2 weeks',
+                'completed_at' => '-1 week to -1 day',
+                'fully_paid_at' => null,
+                'cancellation_reason' => null,
+                'count' => 2
+            ],
+            // Scenario 9: Cancelled by customer
             [
                 'progress_status' => 'cancelled',
                 'payment_status' => 'refunded',
-                'started_at' => $faker->dateTimeBetween('-1 month', '-2 weeks'),
+                'started_at' => '-1 month to -2 weeks',
                 'completed_at' => null,
-                'status_notes' => null,
+                'fully_paid_at' => null,
                 'cancellation_reason' => 'Customer changed their mind',
                 'count' => 1
             ],
@@ -110,19 +120,39 @@ class CommissionSeeder extends Seeder
             for ($i = 0; $i < $scenario['count']; $i++) {
                 $createdAt = $faker->dateTimeBetween('-2 months', '-1 day');
                 
+                // Generate dates based on scenario
+                $startedAt = null;
+                $completedAt = null;
+                $fullyPaidAt = null;
+                
+                if ($scenario['started_at']) {
+                    list($start, $end) = explode(' to ', $scenario['started_at']);
+                    $startedAt = $faker->dateTimeBetween($start, $end);
+                }
+                
+                if ($scenario['completed_at']) {
+                    list($start, $end) = explode(' to ', $scenario['completed_at']);
+                    $completedAt = $faker->dateTimeBetween($start, $end);
+                }
+                
+                if ($scenario['fully_paid_at']) {
+                    list($start, $end) = explode(' to ', $scenario['fully_paid_at']);
+                    $fullyPaidAt = $faker->dateTimeBetween($start, $end);
+                }
+                
                 DB::table('commissions')->insert([
                     'commission_id' => $commissionId,
                     'member_id' => $faker->randomElement($clientIds),
                     'category' => $faker->randomElement(['Fullbody', 'Headshot', 'Halfbody', 'Chibi', 'Custom']),
                     'description' => $faker->paragraph,
                     'deadline' => $faker->dateTimeBetween('+1 week', '+3 months'),
-                    'price' => $faker->randomFloat(2, 100, 500),
+                    'price' => $faker->numberBetween(50000, 500000), // Rp 50.000 - Rp 500.000
                     'payment_status' => $scenario['payment_status'],
                     'progress_status' => $scenario['progress_status'],
-                    'status_notes' => $scenario['status_notes'],
                     'cancellation_reason' => $scenario['cancellation_reason'],
-                    'started_at' => $scenario['started_at'],
-                    'completed_at' => $scenario['completed_at'],
+                    'started_at' => $startedAt,
+                    'completed_at' => $completedAt,
+                    'fully_paid_at' => $fullyPaidAt,
                     'created_at' => $createdAt,
                     'updated_at' => now(),
                 ]);

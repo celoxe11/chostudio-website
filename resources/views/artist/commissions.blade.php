@@ -8,14 +8,14 @@
                 <div class="text-2xl sm:text-4xl">Commissions</div>
                 <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
                     <div id="status-pending"
-                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
-                        style="background-color: var(--status-danger);">0 Pending</div>
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900 bg-yellow-500">
+                        0 Pending</div>
                     <div id="status-in-progress"
-                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
-                        style="background-color: var(--status-info);">0 In Progress</div>
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900 bg-fuchsia-500">
+                        0 In Progress</div>
                     <div id="status-revision"
-                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
-                        style="background-color: var(--status-warning);">0 Revision</div>
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900 bg-orange-500">
+                        0 Revision</div>
                 </div>
             </div>
 
@@ -103,7 +103,8 @@
 
             <div class="overflow-x-auto border-2 border-t-0 border-stone-900">
                 <div class="max-h-[55vh] max-xl:h-[60vh] bg-[var(--color-background)] overflow-y-auto">
-                    <table class="w-full border-collapse border-spacing-0" style="border-collapse: separate; border-spacing: 0;">
+                    <table class="w-full border-collapse border-spacing-0"
+                        style="border-collapse: separate; border-spacing: 0;">
                         <thead class="sticky top-0 bg-stone-900 text-white" style="z-index: 10;">
                             <tr class="text-left bg-stone-900">
                                 <th

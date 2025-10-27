@@ -35,7 +35,7 @@ class CommissionProgressSeeder extends Seeder
                             'image_link' => 'commissions/' . $commission->commission_id . '/sketch_' . ($i + 1) . '.jpg',
                             'stage' => 'sketch',
                             'revision_notes' => null, // Not a revision, so no notes
-                            'created_at' => $faker->dateTimeBetween($commission->started_at ?? '-1 week', 'now'),
+                            'created_at' => $faker->dateTimeBetween('-1 week', '-1 day'),
                             'updated_at' => now(),
                         ]);
                     }
@@ -49,7 +49,7 @@ class CommissionProgressSeeder extends Seeder
                         'image_link' => 'commissions/' . $commission->commission_id . '/sketch_final.jpg',
                         'stage' => 'sketch',
                         'revision_notes' => null, // Not a revision, so no notes
-                        'created_at' => $faker->dateTimeBetween($commission->started_at ?? '-1 week', 'now'),
+                        'created_at' => $faker->dateTimeBetween('-2 weeks', '-1 week'),
                         'updated_at' => now(),
                     ]);
                     break;
@@ -62,7 +62,7 @@ class CommissionProgressSeeder extends Seeder
                         'image_link' => 'commissions/' . $commission->commission_id . '/sketch_v1.jpg',
                         'stage' => 'sketch',
                         'revision_notes' => null, // Original work, no revision notes
-                        'created_at' => $faker->dateTimeBetween($commission->started_at ?? '-2 weeks', '-1 week'),
+                        'created_at' => $faker->dateTimeBetween('-3 weeks', '-2 weeks'),
                         'updated_at' => now(),
                     ]);
                     // Add a revision image - THIS ONE has customer feedback
@@ -72,7 +72,7 @@ class CommissionProgressSeeder extends Seeder
                         'image_link' => 'commissions/' . $commission->commission_id . '/sketch_revision.jpg',
                         'stage' => 'sketch_revision',
                         'revision_notes' => 'Customer feedback: ' . $faker->sentence, // Customer's revision request
-                        'created_at' => $faker->dateTimeBetween('-3 days', 'now'),
+                        'created_at' => $faker->dateTimeBetween('-1 week', '-1 day'),
                         'updated_at' => now(),
                     ]);
                     break;
@@ -85,7 +85,7 @@ class CommissionProgressSeeder extends Seeder
                         'image_link' => 'commissions/' . $commission->commission_id . '/sketch_approved.jpg',
                         'stage' => 'sketch',
                         'revision_notes' => null, // Not a revision
-                        'created_at' => $faker->dateTimeBetween($commission->started_at ?? '-2 weeks', '-1 week'),
+                        'created_at' => $faker->dateTimeBetween('-3 weeks', '-2 weeks'),
                         'updated_at' => now(),
                     ]);
                     // Add coloring progress images
@@ -96,7 +96,7 @@ class CommissionProgressSeeder extends Seeder
                             'image_link' => 'commissions/' . $commission->commission_id . '/coloring_' . ($i + 1) . '.jpg',
                             'stage' => 'coloring',
                             'revision_notes' => null, // Not a revision
-                            'created_at' => $faker->dateTimeBetween('-1 week', 'now'),
+                            'created_at' => $faker->dateTimeBetween('-2 weeks', '-1 day'),
                             'updated_at' => now(),
                         ]);
                     }
@@ -110,7 +110,7 @@ class CommissionProgressSeeder extends Seeder
                         'image_link' => 'commissions/' . $commission->commission_id . '/sketch.jpg',
                         'stage' => 'sketch',
                         'revision_notes' => null, // Not a revision
-                        'created_at' => $faker->dateTimeBetween($commission->started_at ?? '-2 months', '-1 month'),
+                        'created_at' => $faker->dateTimeBetween('-2 months', '-1 month'),
                         'updated_at' => now(),
                     ]);
                     DB::table('commission_progress')->insert([
@@ -128,7 +128,7 @@ class CommissionProgressSeeder extends Seeder
                         'image_link' => 'commissions/' . $commission->commission_id . '/final.jpg',
                         'stage' => 'final',
                         'revision_notes' => null, // Not a revision
-                        'created_at' => $faker->dateTimeBetween('-2 weeks', $commission->completed_at ?? 'now'),
+                        'created_at' => $faker->dateTimeBetween('-2 weeks', '-1 day'),
                         'updated_at' => now(),
                     ]);
                     break;
@@ -142,7 +142,7 @@ class CommissionProgressSeeder extends Seeder
                             'image_link' => 'commissions/' . $commission->commission_id . '/sketch_partial.jpg',
                             'stage' => 'sketch',
                             'revision_notes' => null, // Not a revision
-                            'created_at' => $faker->dateTimeBetween($commission->started_at ?? '-1 month', '-1 week'),
+                            'created_at' => $faker->dateTimeBetween('-1 month', '-1 week'),
                             'updated_at' => now(),
                         ]);
                     }
