@@ -33,4 +33,39 @@ class ArtistCommissionDetailController extends Controller
             'message' => 'Commission status updated successfully.'
         ]);
     }
+
+    function cancel(Request $request, $commissionId)
+    {
+        $request->validate([
+            'cancellation_reason' => 'required|string|max:1000'
+        ]);
+
+        $commission = Commission::findOrFail($commissionId);
+        $commission->progress_status = 'cancelled';
+        $commission->cancellation_reason = $request->cancellation_reason;
+        $commission->cancelled_by = 'artist';
+        $commission->cancelled_at = now();
+        $commission->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Commission cancelled successfully.'
+        ]);
+    }
+
+    function update_payment(Request $request, $commissionId)
+    {
+        $request->validate([
+            'payment_status' => 'required|string|in:pending,dp,paid,refunded'
+        ]);
+
+        $commission = Commission::findOrFail($commissionId);
+        $commission->payment_status = $request->payment_status;
+        $commission->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Payment status updated successfully.'
+        ]);
+    }
 }
