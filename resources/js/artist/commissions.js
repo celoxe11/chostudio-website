@@ -5,6 +5,7 @@ $(document).ready(function () {
         status: "",
         payment_status: "",
         category: "",
+        sort: "",
         per_page: 10,
     };
 
@@ -23,12 +24,13 @@ $(document).ready(function () {
     });
 
     // Filter changes
-    $("#status-filter, #payment-filter, #category-filter").on(
+    $("#status-filter, #payment-filter, #category-filter, #sort-filter").on(
         "change",
         function () {
             currentFilters.status = $("#status-filter").val();
             currentFilters.payment_status = $("#payment-filter").val();
             currentFilters.category = $("#category-filter").val();
+            currentFilters.sort = $("#sort-filter").val();
             currentPage = 1;
             loadCommissions();
         }
@@ -47,12 +49,14 @@ $(document).ready(function () {
         $("#status-filter").val("");
         $("#payment-filter").val("");
         $("#category-filter").val("");
+        $("#sort-filter").val("");
         $("#per-page").val("10");
         currentFilters = {
             search: "",
             status: "",
             payment_status: "",
             category: "",
+            sort: "",
             per_page: 10,
         };
         currentPage = 1;
@@ -87,14 +91,14 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: "/artist/getCommisions",
+            url: "/artist/getCommissions",
             type: "GET",
             data: params,
             dataType: "json",
             beforeSend: function () {
                 $("#commissions-tbody").html(`
                             <tr>
-                                <td colspan="7" class="p-0 border-none align-top">
+                                <td colspan="8" class="p-0 border-none align-top">
                                     <div class="min-h-[60vh] flex items-center justify-center bg-(--color-background)">
                                         <div class="text-lg max-md:p-1 text-stone-700">
                                             <i class="fas fa-spinner fa-spin mr-2"></i>Loading commissions...
@@ -115,7 +119,7 @@ $(document).ready(function () {
                 console.error("Error loading commissions:", xhr);
                 $("#commissions-tbody").html(`
                             <tr>
-                                <td colspan="7" class="p-0 border-none align-top">
+                                <td colspan="8" class="p-0 border-none align-top">
                                     <div class="min-h-[60vh] flex items-center justify-center bg-(--color-background)">
                                         <div class="text-lg max-md:p-1 text-red-600">
                                             <i class="fas fa-exclamation-circle mr-2"></i>Error loading commissions. Please try again.
@@ -135,7 +139,7 @@ $(document).ready(function () {
         if (commissions.length === 0) {
             tbody.html(`
                         <tr>
-                            <td colspan="7" class="p-0 border-none align-top">
+                            <td colspan="8" class="p-0 border-none align-top">
                                 <div class="min-h-[48vh] flex items-center justify-center bg-(--color-background)">
                                     <div class="text-lg max-md:p-1 text-stone-700">No commissions found</div>
                                 </div>
@@ -172,6 +176,9 @@ $(document).ready(function () {
                                     "id-ID"
                                 )}
                             </td>
+                            <td class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden lg:table-cell align-top">
+                                ${formatDate(c.created_at)}
+                            </td>
                             <td class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 hidden sm:table-cell align-top">
                                 ${formatDate(c.deadline)}
                             </td>
@@ -187,7 +194,9 @@ $(document).ready(function () {
                             </td>
                             <td class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:text-sm border border-stone-900 align-top">
                                 <div class="flex flex-col sm:flex-row items-center justify-center gap-2">
-                                    <a href="/artist/commision-detail/${c.commission_id}"
+                                    <a href="/artist/commission-detail/${
+                                        c.commission_id
+                                    }"
                                         class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:bg-green-600 transition-all duration-200"
                                         style="background-color: var(--status-success);">View</a>
                                 </div>
@@ -289,17 +298,6 @@ $(document).ready(function () {
             refunded: "Refunded",
         };
         return paymentTexts[status] || "Unknown";
-    }
-
-    function getStatusColor(status) {
-        const statusColors = {
-            Pending: "var(--status-danger)",
-            "In Progress (Sketch)": "var(--status-info)",
-            "In Progress (Color)": "var(--status-info)",
-            Revision: "var(--status-warning)",
-            Completed: "var(--status-success)",
-        };
-        return statusColors[status] || "var(--status-neutral)";
     }
 
     function formatDate(dateString) {

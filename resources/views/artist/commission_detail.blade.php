@@ -6,7 +6,7 @@
             <!-- Header Section -->
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-2 border-stone-900"
                 style="background-color: var(--color-pastel-gray-turquoise);">
-                <a href="{{ route('artist.commisions') }}"
+                <a href="{{ route('artist.commissions') }}"
                     class="px-4 py-2 rounded-lg border-2 border-stone-500 bg-stone-100 text-stone-700 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 text-center">
                     Back to Commissions
                 </a>
@@ -227,12 +227,16 @@
                             <h3 class="text-lg font-bold text-stone-900 mb-4 border-b-2 border-stone-300">Actions</h3>
                             <div class="flex flex-col gap-4">
                                 @if ($commission->progress_status === 'pending')
-                                    @include("artist.actions.pending_actions")
+                                    {{-- pass the commission into the partial --}}
+                                    @include('artist.actions.pending_actions', [
+                                        'commission' => $commission,
+                                    ])
                                 @elseif($commission->progress_status === 'accepted')
-                                    @include("artist.actions.progress_status_update", ['commission' => $commission])
+                                    @include('artist.actions.progress_status_update', [
+                                        'commission' => $commission,
+                                    ])
                                 @elseif($commission->progress_status === 'in_progress_sketch')
                                     <!-- Progress Status Update -->
-                                    
                                 @elseif($commission->progress_status === 'revision')
                                     <button
                                         class="group relative px-6 py-3 rounded-xl border-2 border-orange-500 bg-orange-50 text-orange-700 font-bold shadow-lg hover:shadow-xl hover:bg-orange-100 hover:-translate-y-1 transform transition-all duration-300 ease-out">
@@ -251,8 +255,8 @@
                                     </button>
                                 @endif
 
-                                
-                            </>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -284,4 +288,5 @@
             }
         });
     </script>
+    @vite(['resources/js/artist/commissions_detail.js'])
 @endsection

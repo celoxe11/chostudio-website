@@ -110,7 +110,7 @@ class CommissionSeeder extends Seeder
             for ($i = 0; $i < $scenario['count']; $i++) {
                 $createdAt = $faker->dateTimeBetween('-2 months', '-1 day');
                 
-                DB::table('commisions')->insert([
+                DB::table('commissions')->insert([
                     'commission_id' => $commissionId,
                     'member_id' => $faker->randomElement($clientIds),
                     'category' => $faker->randomElement(['Fullbody', 'Headshot', 'Halfbody', 'Chibi', 'Custom']),

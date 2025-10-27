@@ -5,7 +5,7 @@
         <div class="shadow font-[HammersmithOne-Regular] overflow-x-auto">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 p-4 border-2 border-stone-900"
                 style="background-color: var(--color-pastel-gray-turquoise);">
-                <div class="text-2xl sm:text-4xl">Commisions</div>
+                <div class="text-2xl sm:text-4xl">Commissions</div>
                 <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
                     <div id="status-pending"
                         class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
@@ -29,7 +29,7 @@
                     </div>
 
                     <!-- Filters Row -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         <div>
                             <label for="status-filter" class="sr-only">Progress Status</label>
                             <select id="status-filter"
@@ -68,6 +68,18 @@
                                 <option value="Headshot">Headshot</option>
                                 <option value="Chibi">Chibi</option>
                                 <option value="Custom">Custom</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="sort-filter" class="sr-only">Sort By Due Date</label>
+                            <select id="sort-filter"
+                                class="w-full px-3 py-3 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600 bg-white">
+                                <option value="">Default Sorting</option>
+                                <option value="orderdate_asc">Order Date: Earliest First</option>
+                                <option value="orderdate_desc">Order Date: Latest First</option>
+                                <option value="deadline_asc">Due Date: Earliest First</option>
+                                <option value="deadline_desc">Due Date: Latest First</option>
                             </select>
                         </div>
                     </div>
@@ -109,6 +121,10 @@
                                     Price
                                 </th>
                                 <th
+                                    class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 bg-stone-900 hidden lg:table-cell">
+                                    Order Date
+                                </th>
+                                <th
                                     class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 bg-stone-900 hidden sm:table-cell">
                                     Due Date
                                 </th>
@@ -123,7 +139,7 @@
                         <tbody id="commissions-tbody" class="h-full">
                             <!-- Data will be loaded via AJAX -->
                             <tr>
-                                <td colspan="7" class="p-0 border-none align-top">
+                                <td colspan="8" class="p-0 border-none align-top">
                                     <div class="min-h-[60vh] flex items-center justify-center bg-[var(--color-background)]">
                                         <div class="text-lg max-md:p-1 text-stone-700">
                                             <i class="fas fa-spinner fa-spin mr-2"></i>Loading commissions...
@@ -156,5 +172,5 @@
 @endsection
 
 @section('scripts')
-    @vite(['resources/js/artist/commisions.js'])
+    @vite(['resources/js/artist/commissions.js'])
 @endsection

@@ -10,9 +10,9 @@ class Commission extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'commisions';
+    protected $table = 'commissions';
 
-    protected $primaryKey = 'commission_id'; 
+    protected $primaryKey = 'commission_id';
 
     protected $fillable = [
         'member_id',
@@ -53,7 +53,7 @@ class Commission extends Model
     public function progressImages()
     {
         return $this->hasMany(CommissionProgress::class, 'commission_id', 'commission_id')
-                    ->orderBy('created_at', 'desc');
+            ->orderBy('created_at', 'desc');
     }
 
     /**
@@ -103,7 +103,7 @@ class Commission extends Model
             "completed" => "bg-green-500", // Green - done
             "cancelled" => "bg-gray-500", // Gray - cancelled
         ];
-        
+
         return $colors[$this->progress_status] ?? 'bg-gray-500';
     }
 
@@ -122,7 +122,7 @@ class Commission extends Model
             'completed' => 'Completed',
             'cancelled' => 'Cancelled',
         ];
-        
+
         return $texts[$this->progress_status] ?? 'Unknown';
     }
 
@@ -137,7 +137,7 @@ class Commission extends Model
             "paid" => "bg-green-500", // Green - fully paid
             "refunded" => "bg-gray-500", // Gray - refunded
         ];
-        
+
         return $colors[$this->payment_status] ?? 'bg-gray-500';
     }
 
@@ -152,8 +152,7 @@ class Commission extends Model
             'paid' => 'Paid',
             'refunded' => 'Refunded',
         ];
-        
+
         return $texts[$this->payment_status] ?? 'Unknown';
     }
 }
-

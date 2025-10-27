@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\ArtistAdoptionController;
-use App\Http\Controllers\ArtistCommisionController;
-use App\Http\Controllers\ArtistCommisionDetailController;
+use App\Http\Controllers\ArtistCommissionController;
+use App\Http\Controllers\ArtistCommissionDetailController;
 use App\Http\Controllers\GalleryPageController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LoginPageController;
@@ -38,10 +38,13 @@ Route::post('/register', [LoginPageController::class, 'processRegister'])->name(
 
 // Artist Routes
 Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () {
-    Route::get('/commisions', [ArtistCommisionController::class, 'index'])->name('artist.commisions');
-    Route::get('/getCommisions', [ArtistCommisionController::class, 'getCommisions'])->name('artist.getCommisions');
+    Route::get('/commissions', [ArtistCommissionController::class, 'index'])->name('artist.commissions');
+    Route::get('/getCommissions', [ArtistCommissionController::class, 'getCommissions'])->name('artist.getCommissions');
     Route::get('/gallery', [ArtistGalleryController::class, 'index'])->name('artist.gallery');
-    Route::get('/commision-detail/{commision_id}', [ArtistCommisionDetailController::class, 'detail'])->name('artist.commision_detail');
+
+    Route::get('/commission-detail/{commission_id}', [ArtistCommissionDetailController::class, 'detail'])->name('artist.commission_detail');
+    Route::post('/commissions/status/{commissionId}', [ArtistCommissionDetailController::class, 'update_status'])->name('artist.commission_status_update');
+
     Route::get('/adoptions', [ArtistAdoptionController::class, 'index'])->name('artist.adoptions');
     Route::get('/getAdoptions', [ArtistAdoptionController::class, 'getAdoptions'])->name('artist.getAdoptions');
     Route::get('/adoption-detail/{adoption_id}', [ArtistAdoptionController::class, 'detail'])->name('artist.adoption_detail');

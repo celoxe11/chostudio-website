@@ -29,7 +29,7 @@ class LoginPageController extends Controller
 
             // Tentukan URL redirect berdasarkan peran
             $redirectUrl = ($user->role === 'artist')
-                ? route('artist.commisions')
+                ? route('artist.commissions')
                 : route('member.history');
 
             // Respons sukses untuk AJAX

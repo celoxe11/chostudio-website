@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commisions', function (Blueprint $table) {
+        Schema::create('commissions', function (Blueprint $table) {
             $table->id('commission_id'); // PK
             $table->unsignedBigInteger('member_id'); // FK ke members.member_id tanpa constraint
             $table->string('category', 50);
@@ -44,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commisions');
+        Schema::dropIfExists('commissions');
     }
 };

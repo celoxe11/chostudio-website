@@ -1,5 +1,6 @@
 <div class="grid grid-cols-1 gap-3">
     <button
+        id="accept-commission-btn" data-commission-id="{{ $commission->commission_id }}"
         class="group relative px-6 py-3 rounded-xl border-2 border-green-500 bg-green-50 text-green-700 font-bold shadow-lg hover:shadow-xl hover:bg-green-100 hover:-translate-y-1 transform transition-all duration-300 ease-out">
         <div class="flex items-center justify-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -12,6 +13,7 @@
         </div>
     </button>
     <button
+        id="decline-commission-btn" data-commission-id="{{ $commission->commission_id }}"
         class="group relative px-6 py-3 rounded-xl border-2 border-red-500 bg-red-50 text-red-700 font-bold shadow-lg hover:shadow-xl hover:bg-red-100 hover:-translate-y-1 transform transition-all duration-300 ease-out">
         <div class="flex items-center justify-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

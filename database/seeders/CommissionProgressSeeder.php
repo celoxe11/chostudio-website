@@ -17,7 +17,7 @@ class CommissionProgressSeeder extends Seeder
         $faker = Faker::create();
         
         // Get all commissions with their statuses
-        $commissions = DB::table('commisions')->get();
+        $commissions = DB::table('commissions')->get();
         
         // Global progress ID counter
         $progressId = 1;

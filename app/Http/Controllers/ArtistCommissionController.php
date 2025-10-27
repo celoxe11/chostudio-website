@@ -6,14 +6,14 @@ use App\Models\Commission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ArtistCommisionController extends Controller
+class ArtistCommissionController extends Controller
 {
     public function index()
     {
-        return view('artist.commisions');
+        return view('artist.commissions');
     }
 
-    public function getCommisions(Request $request)
+    public function getCommissions(Request $request)
     {
         $query = Commission::with('member');
 
@@ -45,10 +45,22 @@ class ArtistCommisionController extends Controller
             $query->where('category', $request->category);
         }
 
-        // Sort
-        $sortBy = $request->get('sort_by', 'created_at');
-        $sortOrder = $request->get('sort_order', 'desc');
-        $query->orderBy($sortBy, $sortOrder);
+        // Sort handling
+        if ($request->has('sort') && !empty($request->sort)) {
+            $sort = $request->sort;
+            if ($sort === 'deadline_asc') {
+                $query->orderBy('deadline', 'asc');
+            } elseif ($sort === 'deadline_desc') {
+                $query->orderBy('deadline', 'desc');
+            } elseif ($sort === 'recent') {
+                $query->orderBy('created_at', 'desc');
+            } elseif ($sort === 'oldest') {
+                $query->orderBy('created_at', 'asc');
+            }
+        } else {
+            // Default sort
+            $query->orderBy('created_at', 'desc');
+        }
 
         // Pagination
         $perPage = $request->get('per_page', 10);
