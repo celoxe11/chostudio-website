@@ -58,8 +58,10 @@ return [
 
         'adoptions' => [
             'driver' => 'local',
-            'root' => storage_path('app/private/adoptions'),
-            'visibility' => 'private', // Important: files not publicly accessible
+            // is relative to the project's public folder.
+            'root' => public_path(),
+            // The controller streaming still acts as a gatekeeper, but use caution.
+            'visibility' => 'public',   
         ],
 
     ],

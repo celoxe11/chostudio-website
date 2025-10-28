@@ -27,7 +27,8 @@ class Adoption extends Model
         'paid_at',
         'delivered_at',
         'completed_at',
-        'delivery_files',
+        'delivery_type',
+        'delivery_file',
         'files_uploaded_at',
     ];
 
@@ -39,7 +40,6 @@ class Adoption extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
-        'delivery_files' => 'array',
         'files_uploaded_at' => 'datetime',
     ];
 

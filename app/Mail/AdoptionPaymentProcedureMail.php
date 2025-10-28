@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AdoptionDeliveryMail extends Mailable
+class AdoptionPaymentProcedureMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,8 +30,9 @@ class AdoptionDeliveryMail extends Mailable
     {
         $title = $this->adoption->gallery->title;
 
+        // Use double quotes (") to allow PHP to evaluate the variable within the string
         return new Envelope(
-            subject: "[Cho's Studio] Delivery of Your Adopted Artwork: $title",
+            subject: "[Cho's Studio] Payment Details for Adoption of Artwork: '$title'",
         );
     }
 
@@ -41,7 +42,7 @@ class AdoptionDeliveryMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.adoption_delivery_mail',
+            view: 'mail.adoption_payment_procedure_mail',
         );
     }
 

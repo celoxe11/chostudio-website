@@ -85,6 +85,9 @@ class AdoptionSeeder extends Seeder
                 'delivered_at' => Carbon::now()->subDays(5),
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subDays(8),
+                'delivery_type' => 'upload_file',
+                'delivery_file' => 'adoptions/midnight_garden_180000.zip', // upload method - stored under public/adoptions/
+                'files_uploaded_at' => Carbon::now()->subDays(11),
             ],
 
             // 5. Completed order - fully finished
@@ -103,6 +106,9 @@ class AdoptionSeeder extends Seeder
                 'delivered_at' => Carbon::now()->subDays(12),
                 'completed_at' => Carbon::now()->subDays(10),
                 'created_at' => Carbon::now()->subDays(16),
+                'delivery_type' => 'link',
+                'delivery_file' => 'https://drive.google.com/file/d/1ARptIjiiUlv8DslCOZPrSDDSEWg7kjEI/view?usp=drive_link', // link method
+                'files_uploaded_at' => Carbon::now()->subDays(11), // upload file method
             ],
 
             // 6. Cancelled order
@@ -172,6 +178,38 @@ class AdoptionSeeder extends Seeder
                 'payment_status' => 'paid',
                 'confirmed_at' => Carbon::now()->subDays(4),
                 'paid_at' => Carbon::now()->subDays(3),
+                'delivered_at' => null,
+                'completed_at' => null,
+                'created_at' => Carbon::now()->subDays(5),
+            ],
+
+            [
+                'gallery_id' => 10, // Winter Wonderland
+                'buyer_name' => 'Marcella Thamrin',
+                'buyer_email' => 'marcella.t23@mhs.istts.ac.id',
+                'buyer_phone' => '081567890123',
+                'price' => 155000.00,
+                'buyer_message' => 'Excited to receive this artwork!',
+                'delivery_notes' => 'Please provide PNG format',
+                'order_status' => 'processing',
+                'payment_status' => 'paid',
+                'confirmed_at' => Carbon::now()->subDays(4),
+                'paid_at' => Carbon::now()->subDays(3),
+                'delivered_at' => null,
+                'completed_at' => null,
+                'created_at' => Carbon::now()->subDays(5),
+            ],
+
+            [
+                'gallery_id' => 2, // Winter Wonderland
+                'buyer_name' => 'Marcella Thamrin',
+                'buyer_email' => 'marcella.t23@mhs.istts.ac.id',
+                'buyer_phone' => '081567890123',
+                'price' => 155000.00,
+                'buyer_message' => 'Excited to receive this artwork!',
+                'delivery_notes' => 'Please provide PNG format',
+                'order_status' => 'pending',
+                'payment_status' => 'unpaid',
                 'delivered_at' => null,
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subDays(5),

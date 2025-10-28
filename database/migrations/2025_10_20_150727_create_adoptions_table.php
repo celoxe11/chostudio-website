@@ -24,7 +24,8 @@ return new class extends Migration
             $table->float('price'); // Purchase price (can differ from gallery price if there's a discount)
             $table->text(column: 'buyer_message')->nullable(); // Optional message from buyer to artist
             $table->text('delivery_notes')->nullable(); // Artist notes for delivery (e.g., file formats, resolution)
-            $table->text('delivery_files')->nullable();
+            $table->enum('delivery_type', ['upload_file', 'link'])->nullable();
+            $table->text('delivery_file')->nullable();
             $table->timestamp('files_uploaded_at')->nullable();
 
             // Status tracking

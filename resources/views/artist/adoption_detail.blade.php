@@ -96,12 +96,7 @@
                         <!-- Actions Section -->
                         <div class="overflow-hidden">
                             <h2 class="text-2xl font-bold flex items-center gap-2 pb-4">
-                                <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                Order Actions
+                                Actions
                             </h2>
 
                             @if ($adoption->order_status === 'pending')

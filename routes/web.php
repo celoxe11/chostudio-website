@@ -64,10 +64,12 @@ Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () 
     Route::post('/adoptions/confirm_payment/{adoptionId}', [ArtistAdoptionDetailController::class, 'confirm_payment'])->name('artist.adoption_confirm_payment');
     Route::post('/adoptions/save_notes/{adoptionId}', [ArtistAdoptionDetailController::class, 'save_notes'])->name('artist.adoption_save_notes');
     Route::post('/adoptions/deliver_file/{adoptionId}', [ArtistAdoptionDetailController::class, 'deliver_file'])->name('artist.adoption_deliver_file');
+    Route::post('/adoptions/mark_complete/{adoptionId}', [ArtistAdoptionDetailController::class, 'mark_complete'])->name('artist.adoption_mark_complete');
 
 });
 
-// Public download routes goes here (no auth required)F
+// Public download routes goes here (no auth required)
+Route::get('/adoption_download/{adoptionId}', [AdoptionDownloadController::class, 'download'])->name('adoption.download');
 
 // Member Routes
 Route::prefix('member')->middleware(['auth', 'role:client'])->group(function () {

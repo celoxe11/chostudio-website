@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AdoptionDeliveryMail;
+use App\Mail\AdoptionPaymentProcedureMail;
 use App\Models\Adoption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -26,6 +27,12 @@ class ArtistAdoptionDetailController extends Controller
         $adoption = Adoption::findOrFail($adoptionId);
         $adoption->order_status = $request->status;
         $adoption->save();
+
+        if($request->status == "confirmed") {
+            // send mail to buyer about payment procedure
+            $adoptionInfo = Adoption::with('gallery')->findOrFail($adoptionId);
+            Mail::to($adoption->buyer_email)->send(new AdoptionPaymentProcedureMail($adoptionInfo));
+        }
 
         return response()->json([
             'success' => true,
@@ -67,13 +74,14 @@ class ArtistAdoptionDetailController extends Controller
     {
         $request->validate([
             'delivery_file' => 'nullable|file|max:10240', // max 10MB
+            'delivery_type' => 'required|string|in:upload_file,link',
         ]);
 
         // dd($request->all());
 
         $adoption = Adoption::findOrFail($adoptionId);
 
-        if ($request->hasFile('delivery_file')) {
+        if ($request->delivery_type == 'upload_file' && $request->hasFile('delivery_file')) {
             $uploadPath = public_path('adoptions/' . $adoptionId);
             if (!file_exists($uploadPath)) {
                 mkdir($uploadPath, 0755, true);
@@ -82,21 +90,41 @@ class ArtistAdoptionDetailController extends Controller
             $filename = 'delivery_' . time() . '.' . $extension;
             $request->file('delivery_file')->move($uploadPath, $filename);
             $imagePath = 'adoptions/' . $adoptionId . '/' . $filename;
-            $adoption->delivery_files = [$imagePath];
+
+            $adoption->delivery_file = $imagePath;
+
             $fileOrLink = asset($imagePath);
-        } else if ($request->filled('delivery_link')) {
-            $adoption->delivery_files = [$request->delivery_link];
+        } else if ($request->delivery_type == 'link' && $request->has('delivery_link')) {
+            $adoption->delivery_file = $request->delivery_link;
             $fileOrLink = $request->delivery_link;
         } else {
             return response()->json(['error' => 'No file or link provided'], 422);
         }
 
+        $adoption->delivery_type = $request->delivery_type;
+        $adoption->files_uploaded_at = now();
         $adoption->order_status = 'delivered';
         $adoption->delivered_at = now();
         $adoption->save();
 
-        Mail::to($adoption->buyer_email)->send(new AdoptionDeliveryMail($adoption, $fileOrLink));
+        // get adoptions info again for mail
+        $adoptionInfo = Adoption::with('gallery')->findOrFail($adoptionId);
+
+        Mail::to($adoption->buyer_email)->send(new AdoptionDeliveryMail($adoptionInfo));
 
         return response()->json(['success' => true, 'message' => 'Files delivered and email sent.']);
+    }
+
+    function mark_complete($adoptionId)
+    {
+        $adoption = Adoption::findOrFail($adoptionId);
+        $adoption->order_status = 'completed';
+        $adoption->completed_at = now();
+        $adoption->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Adoption marked as completed.'
+        ]);
     }
 }

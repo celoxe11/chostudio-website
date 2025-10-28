@@ -1,9 +1,56 @@
 {{-- file upload section --}}
+<style>
+    /* change placeholder color for inputs on this partial */
+    #download_link::placeholder,
+    #delivery_notes::placeholder {
+        color: #6b7280;
+        /* gray-500 */
+        opacity: 1;
+    }
+
+    /* vendor prefixes for broader support */
+    #download_link::-webkit-input-placeholder,
+    #delivery_notes::-webkit-input-placeholder {
+        color: #6b7280;
+        opacity: 1;
+    }
+
+    #download_link:-ms-input-placeholder,
+    #delivery_notes:-ms-input-placeholder {
+        color: #6b7280;
+        opacity: 1;
+    }
+
+    #download_link::-ms-input-placeholder,
+    #delivery_notes::-ms-input-placeholder {
+        color: #6b7280;
+        opacity: 1;
+    }
+
+    #download_link::-moz-placeholder,
+    #delivery_notes::-moz-placeholder {
+        color: #6b7280;
+        opacity: 1;
+    }
+
+    #download_link:-webkit-autofill,
+    #download_link:-webkit-autofill:hover,
+    #download_link:-webkit-autofill:focus,
+    #download_link:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+
+    #download_link::autofill {
+        background-color: white !important;
+    }
+</style>
+
 <div class="overflow-hidden">
 
     <div class="space-y-4">
         <!-- Delivery Method Selection -->
-        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-5 rounded-xl border-2 border-indigo-200 shadow-md">
+        <div class="bg-linear-to-br from-indigo-50 to-indigo-100 p-5 rounded-xl border-2 border-indigo-200 shadow-md">
             <label class="text-sm font-bold text-indigo-700 mb-3 block">Choose Delivery Method:</label>
             <div class="grid grid-cols-1 gap-2 lg:grid-cols-2">
                 <label
@@ -38,7 +85,7 @@
 
         <!-- Upload Files Card -->
         <div id="upload-section"
-            class="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-xl border-2 border-purple-200 shadow-md">
+            class="bg-linear-to-br from-purple-50 to-purple-100 p-5 rounded-xl border-2 border-purple-200 shadow-md">
             <div class="flex items-center gap-2 mb-3">
                 <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,7 +97,7 @@
 
             <div class="flex flex-col gap-3">
                 <div class="relative group">
-                    <input type="file" id="delivery_files" name="delivery_files[]" multiple
+                    <input type="file" id="delivery_file" name="delivery_file"
                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         accept="image/*,.pdf,.zip,.rar,.psd,.ai,.eps" />
                     <div
@@ -70,13 +117,13 @@
                     </div>
                 </div>
             </div>
-            <p class="text-xs text-purple-600 mt-2 font-medium">Supported formats: JPG, PNG, PDF, ZIP, PSD, AI (Max
-                100MB)</p>
+            <p class="text-xs text-purple-600 mt-2 font-medium">Supported formats: JPG, PNG, PDF, ZIP, PSD, AI (Single
+                file, Max 100MB)</p>
         </div>
 
         <!-- Download Link Card -->
         <div id="link-section"
-            class="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-xl border-2 border-blue-200 shadow-md hidden">
+            class="bg-linear-to-br from-blue-50 to-blue-100 p-5 rounded-xl border-2 border-blue-200 shadow-md hidden">
             <div class="flex items-center gap-2 mb-3">
                 <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -91,7 +138,7 @@
                 placeholder="https://drive.google.com/... or https://dropbox.com/...">
 
             <p class="text-xs text-blue-600 mt-2 flex items-center gap-1">
-                <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
@@ -102,7 +149,7 @@
         <!-- Delivery Notes Section -->
         <div class="overflow-hidden">
 
-            <div class="bg-gradient-to-br from-teal-50 to-cyan-50 p-5 rounded-xl border-2 border-teal-200 shadow-md">
+            <div class="bg-linear-to-br from-teal-50 to-cyan-50 p-5 rounded-xl border-2 border-teal-200 shadow-md">
                 <label class="block text-sm font-bold text-teal-700 mb-3">
                     Add notes about file delivery
                     <span class="text-xs font-normal text-teal-600 ml-2">(Optional)</span>
