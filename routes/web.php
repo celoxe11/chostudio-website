@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdoptionDownloadController;
+use App\Http\Controllers\Artist\AdoptionFileController;
 use App\Http\Controllers\ArtistAdoptionController;
 use App\Http\Controllers\ArtistCommissionController;
 use App\Http\Controllers\ArtistCommissionDetailController;
@@ -51,16 +53,16 @@ Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () 
 
     Route::get('/adoptions', [ArtistAdoptionController::class, 'index'])->name('artist.adoptions');
     Route::get('/getAdoptions', [ArtistAdoptionController::class, 'getAdoptions'])->name('artist.getAdoptions');
-    Route::get('/adoption-detail/{adoption_id}', [ArtistAdoptionController::class, 'detail'])->name('artist.adoption_detail');
+    Route::get('/adoption_detail/{adoption_id}', [ArtistAdoptionController::class, 'detail'])->name('artist.adoption_detail');
+
+    Route::post('adoptions/upload/{adoption}/', [AdoptionFileController::class, 'upload'])->name('adoptions.upload');
+    Route::delete('adoptions/files/{adoption}', [AdoptionFileController::class, 'deleteFile'])->name('adoptions.files.delete');
+    Route::post('adoptions/deliver/{adoption}', [AdoptionFileController::class, 'markDelivered'])->name('adoptions.deliver');
 });
 
-Route::prefix('member')->middleware(['auth', "role:client"])->group(function () {
-    Route::get('/history', [HistoryMemberController::class, 'index'])->name('member.history');
-    Route::get('/commission_type', [CommissionMemberController::class, 'index'])->name('member.commission_type');
-    Route::get('/commission_form', [CommissionMemberController::class, 'form'])->name('member.commission_form');
-    Route::post('/commission_store', [CommissionMemberController::class, 'store'])->name('member.commission_store');
-    Route::get('/history/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
-});
+// Public download routes (no auth required)
+// Route::get('adoptions/{adoption}/download', [AdoptionDownloadController::class, 'index'])->name('adoptions.download');
+// Route::get('adoptions/{adoption}/download/{filename}', [AdoptionDownloadController::class, 'download'])->name('adoptions.download.file');
 
 
 Route::post('/logout', function () {

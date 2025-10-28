@@ -17,7 +17,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Sunset Dreams',
                 'description' => 'A vibrant sunset landscape with dreamy colors and soft brush strokes.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/1.jpg',
                 'file_format' => 'PSD',
                 'status' => 'available',
                 'price' => 150000.00,
@@ -25,7 +25,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Urban Jungle',
                 'description' => 'Modern cityscape with nature elements blending in.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/2.jpg',
                 'file_format' => 'AI',
                 'status' => 'available',
                 'price' => 200000.00,
@@ -33,7 +33,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Ocean Waves',
                 'description' => 'Serene ocean scene with gentle waves and peaceful atmosphere.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/3.jpg',
                 'file_format' => 'PNG',
                 'status' => 'available',
                 'price' => 120000.00,
@@ -41,7 +41,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Midnight Garden',
                 'description' => 'Mystical garden scene under moonlight with glowing flowers.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/4.jpeg',
                 'file_format' => 'PSD',
                 'status' => 'sold',
                 'price' => 180000.00,
@@ -49,7 +49,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Cherry Blossom',
                 'description' => 'Beautiful cherry blossom tree in full bloom.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/5.jpg',
                 'file_format' => 'PNG',
                 'status' => 'available',
                 'price' => 135000.00,
@@ -57,7 +57,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Starry Night Sky',
                 'description' => 'Breathtaking night sky filled with stars and nebula.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/6.jpg',
                 'file_format' => 'AI',
                 'status' => 'available',
                 'price' => 175000.00,
@@ -65,7 +65,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Mountain Peak',
                 'description' => 'Majestic mountain landscape with snow-capped peaks.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/7.jpg',
                 'file_format' => 'PSD',
                 'status' => 'available',
                 'price' => 160000.00,
@@ -73,7 +73,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Autumn Forest',
                 'description' => 'Golden autumn forest with warm colors and falling leaves.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/8.jpeg',
                 'file_format' => 'PNG',
                 'status' => 'available',
                 'price' => 140000.00,
@@ -81,7 +81,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Cosmic Galaxy',
                 'description' => 'Abstract cosmic art with swirling galaxies and vibrant colors.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/9.jpeg',
                 'file_format' => 'AI',
                 'status' => 'not_sold',
                 'price' => 190000.00,
@@ -89,7 +89,7 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Desert Dunes',
                 'description' => 'Peaceful desert landscape with rolling sand dunes.',
-                'image_url' => 'images/Deafen cho.png',
+                'image_url' => 'gallery/10.jpg',
                 'file_format' => 'PSD',
                 'status' => 'available',
                 'price' => 145000.00,

@@ -27,6 +27,8 @@ class Adoption extends Model
         'paid_at',
         'delivered_at',
         'completed_at',
+        'delivery_files',
+        'files_uploaded_at',
     ];
 
     protected $casts = [
@@ -37,6 +39,8 @@ class Adoption extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
+        'delivery_files' => 'array',
+        'files_uploaded_at' => 'datetime',
     ];
 
     /**
@@ -188,4 +192,93 @@ class Adoption extends Model
         $this->gallery->update(['status' => 'available']);
     }
 
+    /**
+     * Check if files have been uploaded
+     */
+    public function hasDeliveryFiles(): bool
+    {
+        return !empty($this->delivery_files);
+    }
+
+    /**
+     * Get file count
+     */
+    public function getFileCount(): int
+    {
+        return count($this->delivery_files ?? []);
+    }
+
+    /**
+     * Get order status color
+     * pending    → 🔴 Red (waiting for artist confirmation)
+     * confirmed  → 🔵 Blue (confirmed by artist)
+     * processing → 🟣 Purple (preparing files)
+     * delivered  → 🟠 Amber (files delivered)
+     * completed  → 🟢 Green (order completed)
+     * cancelled  → ⚫ Gray (cancelled)
+     */
+    public function getOrderStatusColorAttribute()
+    {
+        $colors = [
+            'pending' => 'bg-red-600',      // Red - waiting for artist confirmation
+            'confirmed' => 'bg-blue-500',   // Blue - confirmed by artist
+            'processing' => 'bg-purple-500', // Purple - preparing files
+            'delivered' => 'bg-amber-500',   // Amber - files delivered
+            'completed' => 'bg-green-600',   // Green - order completed
+            'cancelled' => 'bg-gray-500',    // Gray - cancelled
+        ];
+
+        return $colors[$this->order_status] ?? 'bg-gray-500';
+    }
+
+    /**
+     * Get order status text (formatted/display name)
+     */
+    public function getOrderStatusTextAttribute()
+    {
+        $texts = [
+            'pending' => 'Pending',
+            'confirmed' => 'Confirmed',
+            'processing' => 'Processing',
+            'delivered' => 'Delivered',
+            'completed' => 'Completed',
+            'cancelled' => 'Cancelled',
+        ];
+
+        return $texts[$this->order_status] ?? 'Unknown';
+    }
+
+    /**
+     * Get payment status color
+     * unpaid   → 🔴 Red (not paid)
+     * paid     → 🟢 Green (paid)
+     * refunded → 🔵 Blue (refunded)
+     * failed   → ⚫ Gray (failed)
+     */
+    public function getPaymentStatusColorAttribute()
+    {
+        $colors = [
+            'unpaid' => 'bg-red-600',   // Red - not paid
+            'paid' => 'bg-green-600',   // Green - paid
+            'refunded' => 'bg-blue-600', // Blue - refunded
+            'failed' => 'bg-gray-600',   // Gray - failed
+        ];
+
+        return $colors[$this->payment_status] ?? 'bg-gray-400';
+    }
+
+    /**
+     * Get payment status text (formatted/display name)
+     */
+    public function getPaymentStatusTextAttribute()
+    {
+        $texts = [
+            'unpaid' => 'Unpaid',
+            'paid' => 'Paid',
+            'refunded' => 'Refunded',
+            'failed' => 'Failed',
+        ];
+
+        return $texts[$this->payment_status] ?? 'Unknown';
+    }
 }

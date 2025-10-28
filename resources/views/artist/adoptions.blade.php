@@ -26,7 +26,7 @@
                     </div>
 
                     <!-- Filters Row -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
                             <label for="status-filter" class="sr-only">Order Status</label>
                             <select id="status-filter"
@@ -52,6 +52,15 @@
                                 <option value="failed">Failed</option>
                             </select>
                         </div>
+
+                        <div>
+                            <label for="sort-order" class="sr-only">Sort Order</label>
+                            <select id="sort-order"
+                                class="w-full px-3 py-3 border-2 border-stone-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-600 bg-white">
+                                <option value="desc">Order Date: Newest First</option>
+                                <option value="asc">Order Date: Oldest First</option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Controls Row -->
@@ -73,7 +82,8 @@
 
             <div class="overflow-x-auto border-2 border-t-0 border-stone-900">
                 <div class="max-h-[55vh] max-xl:h-[60vh] bg-[var(--color-background)] overflow-y-auto">
-                    <table class="w-full border-collapse border-spacing-0" style="border-collapse: separate; border-spacing: 0;">
+                    <table class="w-full border-collapse border-spacing-0"
+                        style="border-collapse: separate; border-spacing: 0;">
                         <thead class="sticky top-0 bg-stone-900 text-white" style="z-index: 10;">
                             <tr class="text-left bg-stone-900">
                                 <th
@@ -104,24 +114,23 @@
             </div>
 
             <!-- Pagination -->
-        <div id="adoptionsPager"
-            class="bg-[var(--color-background)] w-full flex flex-col sm:flex-row items-center justify-between gap-2 p-4 mt-2 border-2 border-stone-900">
-            <div class="text-sm text-stone-900">Showing <span id="pagerRange">0</span> of <span
-                    id="pagerTotal">0</span>
+            <div id="adoptionsPager"
+                class="bg-[var(--color-background)] w-full flex flex-col sm:flex-row items-center justify-between gap-2 p-4 mt-2 border-2 border-stone-900">
+                <div class="text-sm text-stone-900">Showing <span id="pagerRange">0</span> of <span id="pagerTotal">0</span>
+                </div>
+                <nav class="flex items-center gap-2" aria-label="Pagination">
+                    <button id="pagerPrev"
+                        class="px-3 py-1 rounded bg-white border-2 border-stone-900 text-sm disabled:opacity-50"
+                        disabled>Previous</button>
+                    <div id="pagerNumbers" class="flex items-center gap-1"></div>
+                    <button id="pagerNext"
+                        class="px-3 py-1 rounded bg-white border-2 border-stone-900 text-sm disabled:opacity-50"
+                        disabled>Next</button>
+                </nav>
             </div>
-            <nav class="flex items-center gap-2" aria-label="Pagination">
-                <button id="pagerPrev"
-                    class="px-3 py-1 rounded bg-white border-2 border-stone-900 text-sm disabled:opacity-50"
-                    disabled>Previous</button>
-                <div id="pagerNumbers" class="flex items-center gap-1"></div>
-                <button id="pagerNext"
-                    class="px-3 py-1 rounded bg-white border-2 border-stone-900 text-sm disabled:opacity-50"
-                    disabled>Next</button>
-            </nav>
         </div>
-    </div>
-@endsection
+    @endsection
 
-@section('scripts')
-    @vite(['resources/js/artist/adoptions.js'])
-@endsection
+    @section('scripts')
+        @vite(['resources/js/artist/adoptions.js'])
+    @endsection

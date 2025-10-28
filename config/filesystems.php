@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'adoptions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/adoptions'),
+            'visibility' => 'private', // Important: files not publicly accessible
+        ],
+
     ],
 
     /*

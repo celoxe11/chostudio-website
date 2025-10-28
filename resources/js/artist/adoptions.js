@@ -5,6 +5,8 @@ $(document).ready(function () {
         order_status: "",
         payment_status: "",
         per_page: 10,
+        sort_by: "created_at",
+        sort_order: "desc",
     };
 
     // Load adoptions on page load
@@ -36,17 +38,27 @@ $(document).ready(function () {
         loadAdoptions();
     });
 
+    // Sort order change
+    $("#sort-order").on("change", function () {
+        currentFilters.sort_order = $(this).val();
+        currentPage = 1;
+        loadAdoptions();
+    });
+
     // Clear filters
     $("#clear-filters").on("click", function () {
         $("#search-input").val("");
         $("#status-filter").val("");
         $("#payment-filter").val("");
         $("#per-page").val("10");
+        $("#sort-order").val("desc");
         currentFilters = {
             search: "",
             order_status: "",
             payment_status: "",
             per_page: 10,
+            sort_by: "created_at",
+            sort_order: "desc",
         };
         currentPage = 1;
         loadAdoptions();
@@ -146,38 +158,6 @@ $(document).ready(function () {
             const paymentStatusColor = getPaymentStatusColor(a.payment_status);
             const paymentStatusText = getPaymentStatusText(a.payment_status);
 
-            // Generate action buttons based on status
-            let actionButtons = `
-                <a href="{{ route('artist.adoption_detail', ['adoption_id' => ${a.adoption_id}]) }}"
-                    class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
-                    style="background-color: var(--status-success);">View</a>
-            `;
-
-            if (a.order_status === "pending") {
-                actionButtons += `
-                    <button class="btn-confirm-order px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-cyan-600 text-cyan-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" 
-                        style="background-color: var(--status-info);" data-id="${a.adoption_id}">Confirm</button>
-                    <button class="btn-cancel-order px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-red-600 text-red-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" 
-                        style="background-color: var(--status-danger);" data-id="${a.adoption_id}">Cancel</button>
-                `;
-            } else if (
-                a.order_status === "confirmed" &&
-                a.payment_status === "unpaid"
-            ) {
-                actionButtons += `
-                    <button class="btn-confirm-payment px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" 
-                        style="background-color: var(--status-success);" data-id="${a.adoption_id}">Confirm Payment</button>
-                `;
-            } else if (
-                a.order_status === "processing" &&
-                a.payment_status === "paid"
-            ) {
-                actionButtons += `
-                    <button class="btn-mark-delivered px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-purple-600 text-purple-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200" 
-                        style="background-color: var(--status-neutral);" data-id="${a.adoption_id}">Mark Delivered</button>
-                `;
-            }
-
             const row = `
                 <tr class="bg-[var(--color-background)]">
                     <td class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 align-top">
@@ -207,9 +187,11 @@ $(document).ready(function () {
                             </button>
                         </div>
                     </td>
-                    <td class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:text-sm border border-stone-900 align-top">
+                    <td class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 align-top">
                         <div class="flex flex-col sm:flex-row items-center justify-center gap-2">
-                            ${actionButtons}
+                            <a href="/artist/adoption_detail/${a.adoption_id}"
+                                class="px-2 py-1 rounded-lg w-full sm:w-auto border-2 border-green-600 text-green-900 font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
+                                style="background-color: var(--status-success);">View</a>
                         </div>
                     </td>
                 </tr>

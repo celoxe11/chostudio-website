@@ -72,9 +72,11 @@ class ArtistAdoptionController extends Controller
         ]);
     }
 
-    public function detail()
+    public function detail($adoption_id)
     {
-        return view("artist.adoption_detail");
+        $adoption = Adoption::with('gallery')->findOrFail($adoption_id);
+        
+        return view("artist.adoption_detail", compact('adoption'));
     }
 }
 
