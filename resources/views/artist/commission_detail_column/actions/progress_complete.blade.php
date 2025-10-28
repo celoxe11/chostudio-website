@@ -14,7 +14,7 @@
             </h4>
         </div>
         <div class="mt-4">
-            <div class="flex items-center justify-center gap-2 text-sm text-green-700 mb-3">
+            <div class="flex items-center justify-center gap-2 text-sm text-green-700 mb-3 bg-white px-3 py-2 rounded-lg">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
@@ -24,7 +24,7 @@
                     {{ $commission->completed_at->format('F j, Y \a\t g:i A') }}</span>
             </div>
             @if ($commission->fully_paid_at)
-                <div class="flex items-center justify-center gap-2 text-sm text-green-700">
+                <div class="flex items-center justify-center gap-2 text-sm text-green-700 bg-white px-3 py-2 rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
@@ -34,7 +34,8 @@
                         {{ $commission->updated_at->format('F j, Y \a\t g:i A') }}</span>
                 </div>
             @else
-                <div class="flex items-center justify-center gap-2 text-sm text-red-600 mt-2">
+                <div
+                    class="flex items-center justify-center gap-2 text-sm text-red-600 mt-2 bg-white px-3 py-2 rounded-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
@@ -48,7 +49,7 @@
 </div>
 
 @if (!$commission->fully_paid_at)
-    @include('artist.actions.payment_status_update', [
+    @include('artist.commission_detail_column.actions.payment_status_update', [
         'commission' => $commission,
     ])
 @endif

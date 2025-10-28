@@ -241,6 +241,7 @@ $(document).ready(function () {
 
     function updateStatusCounts(counts) {
         $("#status-pending").text(`${counts.pending || 0} Pending`);
+        $("#status-processing").text(`${counts.processing || 0} Processing`);
         $("#status-delivered").text(`${counts.delivered || 0} Delivered`);
     }
 
@@ -248,8 +249,8 @@ $(document).ready(function () {
         const statusColors = {
             pending: "bg-red-600", // Red - waiting for artist confirmation
             confirmed: "bg-blue-500", // blue - confirmed by artist
-            processing: "bg-purple-500", // pruple - preparing files
-            delivered: "bg-amber-500", // Amber - files delivered
+            processing: "bg-amber-500", // Amber - preparing files
+            delivered: "bg-purple-400", // Purple - files delivered
             completed: "bg-green-600", // Green - order completed
             cancelled: "bg-gray-500", // gray - cancelled
         };

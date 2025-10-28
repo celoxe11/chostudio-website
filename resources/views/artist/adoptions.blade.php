@@ -8,11 +8,14 @@
                 <div class="text-2xl sm:text-4xl">Adoptions</div>
                 <div class="flex flex-wrap gap-2 sm:gap-4 items-center">
                     <div id="status-pending"
-                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
-                        style="background-color: var(--status-danger);">0 Pending</div>
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border bg-red-500">
+                        0 Pending</div>
+                    <div id="status-processing"
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border bg-amber-500">
+                        0 Processing</div>
                     <div id="status-delivered"
-                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900"
-                        style="background-color: var(--status-info);">0 Delivered</div>
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border bg-purple-400">
+                        0 Delivered</div>
                 </div>
             </div>
 

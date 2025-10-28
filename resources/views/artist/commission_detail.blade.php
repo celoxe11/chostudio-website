@@ -37,11 +37,11 @@
                 </div>
                 <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-end">
                     <span
-                        class="inline-block px-4 py-2 rounded-full text-sm font-bold shadow-md {{ $commission->progress_status_color }} border-2 border-opacity-50">
+                        class="inline-block px-4 py-2 rounded-full text-sm font-bold shadow-md {{ $commission->progress_status_color }} text-white">
                         {{ $commission->progress_status_text }}
                     </span>
                     <span
-                        class="inline-block px-4 py-2 rounded-full text-sm font-bold shadow-md {{ $commission->payment_status_color }} border-2 border-opacity-50">
+                        class="inline-block px-4 py-2 rounded-full text-sm font-bold shadow-md {{ $commission->payment_status_color }} text-white">
                         {{ $commission->payment_status_text }}
                     </span>
                 </div>
@@ -51,12 +51,12 @@
                 <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
 
                     <!-- Left Column: Commission Details (40%) -->
-                    @include('artist.commission_info', [
+                    @include('artist.commission_detail_column.commission_info', [
                         'commission' => $commission,
                     ])
 
                     <!-- Middle Column: Client Information (30%) -->
-                    @include('artist.client_info', [
+                    @include('artist.commission_detail_column.client_info', [
                         'commission' => $commission,
                     ])
 
@@ -69,24 +69,24 @@
 
                             <div class="flex flex-col gap-4">
                                 @if ($commission->progress_status === 'pending')
-                                    @include('artist.actions.pending_actions', [
+                                    @include('artist.commission_detail_column.actions.pending_actions', [
                                         'commission' => $commission,
                                     ])
                                 @elseif($commission->progress_status === 'accepted')
-                                    @include('artist.actions.progress_status_update', [
+                                    @include('artist.commission_detail_column.actions.progress_status_update', [
                                         'commission' => $commission,
                                     ])
-                                    @include('artist.actions.payment_status_update', [
+                                    @include('artist.commission_detail_column.actions.payment_status_update', [
                                         'commission' => $commission,
                                     ])
                                 @elseif($commission->progress_status === 'in_progress_sketch' || $commission->progress_status === 'in_progress_coloring')
-                                    @include('artist.actions.progress_status_update', [
+                                    @include('artist.commission_detail_column.actions.progress_status_update', [
                                         'commission' => $commission,
                                     ])
-                                    @include('artist.actions.payment_status_update', [
+                                    @include('artist.commission_detail_column.actions.payment_status_update', [
                                         'commission' => $commission,
                                     ])
-                                    @include('artist.actions.file_upload', [
+                                    @include('artist.commission_detail_column.actions.file_upload', [
                                         'commission' => $commission,
                                     ])
                                 @elseif($commission->progress_status === 'review')
@@ -116,22 +116,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @include('artist.actions.payment_status_update', [
+                                    @include('artist.commission_detail_column.actions.payment_status_update', [
                                         'commission' => $commission,
                                     ])
                                 @elseif($commission->progress_status === 'revision')
-                                    @include('artist.actions.revision_upload', [
+                                    @include('artist.commission_detail_column.actions.revision_upload', [
                                         'commission' => $commission,
                                     ])
-                                    @include('artist.actions.payment_status_update', [
+                                    @include('artist.commission_detail_column.actions.payment_status_update', [
                                         'commission' => $commission,
                                     ])
                                 @elseif($commission->progress_status === 'completed')
-                                    @include('artist.actions.progress_complete', [
+                                    @include('artist.commission_detail_column.actions.progress_complete', [
                                         'commission' => $commission,
                                     ])
                                 @elseif($commission->progress_status === 'cancelled' || $commission->progress_status === 'declined')
-                                    @include('artist.actions.progress_cancelled', [
+                                    @include('artist.commission_detail_column.actions.progress_cancelled', [
                                         'commission' => $commission,
                                     ])
                                 @endif
@@ -141,7 +141,7 @@
                                         $commission->progress_status !== 'cancelled' &&
                                         $commission->progress_status !== 'declined' &&
                                         $commission->progress_status !== 'pending')
-                                    @include('artist.actions.cancel_button', [
+                                    @include('artist.commission_detail_column.actions.cancel_button', [
                                         'commission' => $commission,
                                     ])
                                 @endif

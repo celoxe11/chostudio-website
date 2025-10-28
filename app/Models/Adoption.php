@@ -222,8 +222,8 @@ class Adoption extends Model
         $colors = [
             'pending' => 'bg-red-600',      // Red - waiting for artist confirmation
             'confirmed' => 'bg-blue-500',   // Blue - confirmed by artist
-            'processing' => 'bg-purple-500', // Purple - preparing files
-            'delivered' => 'bg-amber-500',   // Amber - files delivered
+            'processing' => 'bg-amber-500', // Amber - preparing files
+            'delivered' => 'bg-purple-400',   // Purple - files delivered
             'completed' => 'bg-green-600',   // Green - order completed
             'cancelled' => 'bg-gray-500',    // Gray - cancelled
         ];
