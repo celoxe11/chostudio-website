@@ -85,82 +85,148 @@ $(document).ready(function () {
     $("#update-payment-btn").click(function () {
         const paymentStatus = $("#update-payment-select").val();
         const commissionId = $(this).data("commission-id");
-        const button = $(this);
 
-        // Show confirmation dialog
-        Swal.fire({
-            icon: "question",
-            title: "Confirm Payment Status Update",
-            text: `Are you sure you want to update the payment status to '${getPaymentStatusText(
-                paymentStatus
-            )}'?`,
-            showCancelButton: true,
-            confirmButtonText: "Yes, Update",
-            cancelButtonText: "Cancel",
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            customClass: {
-                popup: "custom-swal-popup",
-                title: "custom-swal-title",
-                htmlContainer: "custom-swal-text",
+        // Disable button during submission
+        $(this)
+            .prop("disabled", true)
+            .html(
+                '<div class="flex items-center justify-center gap-2"><svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Saving...</div>'
+            );
+
+        $.ajax({
+            url: `/artist/commissions/payment/${commissionId}`,
+            type: "POST",
+            data: {
+                payment_status: paymentStatus,
             },
-        }).then((result) => {
-            if (!result.isConfirmed) {
-                return; // User cancelled
-            }
-
-            // Disable button during submission
-            button
-                .prop("disabled", true)
-                .html(
-                    '<div class="flex items-center justify-center gap-2"><svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Saving...</div>'
+            success: function (response) {
+                notie.alert({
+                    type: "success",
+                    text:
+                        "Updated Payment Status to '" +
+                        paymentStatus +
+                        "'. Reloading...",
+                });
+                setTimeout(() => location.reload(), 1000);
+            },
+            error: function (xhr, status, error) {
+                notie.alert({
+                    type: "error",
+                    text: "An error occurred while updating the payment status.",
+                });
+                console.error(
+                    "Payment status update error:",
+                    xhr.responseJSON || error
                 );
-
-            $.ajax({
-                url: `/artist/commissions/payment/${commissionId}`,
-                type: "POST",
-                data: {
-                    payment_status: paymentStatus,
-                },
-                success: function (response) {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Success!",
-                        text:
-                            "Updated Payment Status to '" +
-                            paymentStatus +
-                            "'. Reloading...",
-                        customClass: {
-                            popup: "custom-swal-popup",
-                            title: "custom-swal-title",
-                            htmlContainer: "custom-swal-text",
-                        },
-                    });
-                    setTimeout(() => location.reload(), 1000);
-                },
-                error: function (xhr, status, error) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error!",
-                        text: "An error occurred while updating the payment status.",
-                        customClass: {
-                            popup: "custom-swal-popup",
-                            title: "custom-swal-title",
-                            htmlContainer: "custom-swal-text",
-                        },
-                    });
-                    console.error(
-                        "Payment status update error:",
-                        xhr.responseJSON || error
+                $("#update-payment-btn")
+                    .prop("disabled", false)
+                    .html(
+                        '<div class="flex items-center justify-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Save</div>'
                     );
-                    $("#update-payment-btn")
-                        .prop("disabled", false)
-                        .html(
-                            '<div class="flex items-center justify-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Save</div>'
-                        );
+            },
+        });
+    });
+
+    // Toggle price edit mode
+    $("#edit-price-btn").click(function () {
+        $("#price-display-mode").hide();
+        $("#price-edit-mode").removeClass("hidden").hide().slideDown(200);
+        $("#commission-price-input").focus();
+    });
+
+    // Cancel price edit
+    $("#cancel-price-edit-btn").click(function () {
+        const originalValue = $("#commission-price-input").data("raw-value");
+        $("#commission-price-input").val(formatRupiah(originalValue));
+
+        $("#price-edit-mode").slideUp(200, function () {
+            $(this).addClass("hidden");
+            $("#price-display-mode").fadeIn(200);
+        });
+    });
+
+    // Format price input as Rupiah
+    $("#commission-price-input").on("input", function () {
+        let value = $(this).val().replace(/\./g, ""); // Remove existing dots
+        value = value.replace(/\D/g, ""); // Remove non-digits
+
+        if (value) {
+            $(this).val(formatRupiah(value));
+            $(this).data("raw-value", value);
+        } else {
+            $(this).val("");
+            $(this).data("raw-value", "0");
+        }
+    });
+
+    // Handle price update
+    $("#update-price-btn").click(function () {
+        const commissionId = $(this).data("commission-id");
+        const newPrice = parseRupiah($("#commission-price-input").val());
+
+        if (!newPrice || newPrice <= 0) {
+            Swal.fire({
+                icon: "warning",
+                title: "Invalid Price",
+                text: "Please enter a valid price.",
+                customClass: {
+                    popup: "custom-swal-popup",
+                    title: "custom-swal-title",
+                    htmlContainer: "custom-swal-text",
                 },
             });
-        }); // Close the Swal.then() block
+            $("#commission-price-input").focus();
+            return;
+        }
+
+        // Disable button during submission
+        $(this)
+            .prop("disabled", true)
+            .html(
+                '<svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>'
+            );
+
+        $.ajax({
+            url: `/artist/commissions/price/${commissionId}`,
+            type: "POST",
+            data: {
+                price: newPrice,
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success!",
+                    text:
+                        "Price updated to Rp " +
+                        formatRupiah(newPrice) +
+                        ". Reloading...",
+                    customClass: {
+                        popup: "custom-swal-popup",
+                        title: "custom-swal-title",
+                        htmlContainer: "custom-swal-text",
+                    },
+                });
+                setTimeout(() => location.reload(), 1000);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Update Failed",
+                    text: "An error occurred while updating the price.",
+                    customClass: {
+                        popup: "custom-swal-popup",
+                        title: "custom-swal-title",
+                        htmlContainer: "custom-swal-text",
+                    },
+                });
+                console.error("Price update error:", xhr.responseJSON || error);
+                $("#update-price-btn")
+                    .prop("disabled", false)
+                    .html(
+                        '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>'
+                    );
+            },
+        });
     });
 
     // handle file input change for progress upload

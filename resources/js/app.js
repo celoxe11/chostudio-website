@@ -37,3 +37,17 @@ if (tokenMeta) {
         window.axios.defaults.headers.common["X-CSRF-TOKEN"] = window.csrfToken;
     }
 }
+
+// Format number to Rupiah format (e.g., 1.000.000)
+function formatRupiah(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+// Parse Rupiah format to number
+function parseRupiah(rupiahString) {
+    return parseInt(rupiahString.replace(/\./g, "")) || 0;
+}
+
+// Make Rupiah functions available globally
+window.formatRupiah = formatRupiah;
+window.parseRupiah = parseRupiah;

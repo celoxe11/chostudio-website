@@ -45,7 +45,7 @@
             {{-- Navigation Buttons --}}
             <nav class="mt-4 font-[HammersmithOne-Regular]">
                 @php
-                    $buttons = [['Gallery', '/gallery'], ['Shop', '#'], ['Member', '#']];
+                    $buttons = [['Gallery', '/gallery'], ['Shop', '#'], ['Member', '/login']];
                 @endphp
 
                 <ul>

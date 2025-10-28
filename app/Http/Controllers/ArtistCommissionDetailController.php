@@ -36,6 +36,22 @@ class ArtistCommissionDetailController extends Controller
         ]);
     }
 
+    function update_price(Request $request, $commissionId)
+    {
+        $request->validate([
+            'price' => 'required|numeric|min:0'
+        ]);
+
+        $commission = Commission::findOrFail($commissionId);
+        $commission->price = $request->price;
+        $commission->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Commission price updated successfully.'
+        ]);
+    }
+
     function cancel(Request $request, $commissionId)
     {
         $request->validate([
@@ -102,10 +118,10 @@ class ArtistCommissionDetailController extends Controller
         // Generate unique filename
         $extension = $request->file('image')->getClientOriginalExtension();
         $filename = $stage . '_' . time() . '.' . $extension;
-        
+
         // Move file to public/commissions/{id}/
         $request->file('image')->move($uploadPath, $filename);
-        
+
         // Store relative path in database
         $imagePath = 'commissions/' . $commissionId . '/' . $filename;
 
@@ -169,7 +185,7 @@ class ArtistCommissionDetailController extends Controller
                 }
                 // Still in sketch phase
                 return 'sketch';
-                
+
             case 'coloring':
             case 'coloring_revision':
                 // After coloring is approved, upload final
@@ -177,11 +193,11 @@ class ArtistCommissionDetailController extends Controller
                     return 'final';
                 }
                 return 'coloring';
-                
+
             case 'final':
                 // Already at final stage
                 return 'final';
-                
+
             default:
                 return 'sketch';
         }

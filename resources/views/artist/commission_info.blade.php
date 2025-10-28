@@ -85,7 +85,7 @@
 
             <!-- Commission Details -->
             <div class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 gap-4">
                     <div
                         class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border-2 border-purple-200 shadow-sm">
                         <label
@@ -96,8 +96,63 @@
                     <div
                         class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border-2 border-green-200 shadow-sm">
                         <label class="block text-xs font-bold text-green-700 mb-2 uppercase tracking-wide">Price</label>
-                        <div class="text-lg font-bold text-green-700">Rp
-                            {{ number_format($commission->price, 0, ',', '.') }}</div>
+
+                        <!-- Display Mode -->
+                        <div id="price-display-mode" class="flex items-center justify-between gap-2">
+                            <div class="text-lg font-bold text-green-700 truncate">
+                                Rp {{ number_format($commission->price, 0, ',', '.') }}
+                            </div>
+                            @if ($commission->payment_status === 'pending')
+                                <button type="button" id="edit-price-btn"
+                                    class="flex-shrink-0 px-2.5 py-2 rounded-lg border-2 border-green-500 bg-white text-green-600 font-bold shadow-md hover:shadow-lg hover:bg-green-50 hover:-translate-y-0.5 transform transition-all duration-200"
+                                    title="Edit Price">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            @endif
+                        </div>
+
+                        <!-- Edit Mode (hidden by default) -->
+                        <div id="price-edit-mode" class="hidden space-y-2">
+                            <div class="flex items-center gap-2">
+                                <label for="commission-price-input"
+                                    class="font-bold text-green-700 text-sm flex-shrink-0">Rp</label>
+                                <input type="text" id="commission-price-input"
+                                    value="{{ number_format($commission->price, 0, ',', '.') }}"
+                                    data-raw-value="{{ $commission->price }}"
+                                    class="flex-1 min-w-0 px-3 py-2 border-2 border-green-300 rounded-lg bg-white focus:border-green-500 focus:ring-2 focus:ring-green-200 focus:outline-none font-bold text-green-700 text-sm transition-all duration-200"
+                                    placeholder="0" />
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="button" id="update-price-btn"
+                                    data-commission-id="{{ $commission->commission_id }}"
+                                    class="flex-1 px-3 py-2 rounded-lg border-2 border-green-500 bg-green-500 text-white font-bold text-sm shadow-md hover:shadow-lg hover:bg-green-600 hover:-translate-y-0.5 transform transition-all duration-200"
+                                    title="Save Price">
+                                    <div class="flex items-center justify-center gap-1.5">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        <span>Save</span>
+                                    </div>
+                                </button>
+                                <button type="button" id="cancel-price-edit-btn"
+                                    class="flex-1 px-3 py-2 rounded-lg border-2 border-gray-400 bg-white text-gray-600 font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-50 hover:-translate-y-0.5 transform transition-all duration-200"
+                                    title="Cancel">
+                                    <div class="flex items-center justify-center gap-1.5">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        <span>Cancel</span>
+                                    </div>
+                                </button>
+                            </div>
+                            <p class="text-xs text-green-600">Adjust if needed before reaching an agreement</p>
+                        </div>
                     </div>
                 </div>
 
