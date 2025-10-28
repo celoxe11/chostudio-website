@@ -5,7 +5,7 @@
         class="min-h-screen p-2 sm:p-4 mt-4 sm:mt-8 flex justify-center items-start bg-[url('/assets/images/bg2.png')] bg-cover bg-no-repeat">
         <div class="container w-full sm:w-[95%] lg:w-[80%]">
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 sm:gap-0">
-                
+
                 <div
                     class="bg-[#f0ebe3] rounded-t-3xl h-full py-4 sm:py-6 px-8 sm:px-20 shadow-[0_-0.8vh_0_0_black,-0.8vh_0_0_0_black,0.8vh_0_0_0_black] sm-h-full order-2 sm:order-1">
                     <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-5xl text-bold font-[HammersmithOne-Regular]">Cho's
@@ -27,8 +27,7 @@
                         <button>Shop</button>
                     </div>
                     <div class="relative inline-block">
-                         <div
-                            class="absolute translate-x-5.5 translate-y-6 bg-black rounded-t-2xl h-full w-full z-[-1]">
+                        <div class="absolute translate-x-5.5 translate-y-6 bg-black rounded-t-2xl h-full w-full z-[-1]">
                         </div>
 
                         <div
@@ -36,8 +35,6 @@
                             <button>Member</button>
                         </div>
                     </div>
-
-                    
                 </div>
             </div>
 
@@ -51,87 +48,119 @@
                     <li>Original Fanmerch</li>
                 </ul>
 
-                <div class="sm:mt-4 flex-1 h-full overflow-auto">
+                <div class="sm:mt-4 flex-1 h-full overflow-auto max-h-full">
                     <div
                         class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 auto-rows-fr h-full p-2 sm:p-4">
-                        <div
-                            class="col-span-2 row-span-2 bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
-                        </div>
-                        <div
-                            class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
-                        </div>
-                        <div
-                            class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
-                        </div>
-                        <div
-                            class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
-                        </div>
-                        <div
-                            class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
-                        </div>
-                    </div>
-                    <div>
-                    <div>
 
+                        @php
+                            use Illuminate\Support\Facades\File;
+                            $images = collect(File::files(public_path('assets/comm_sample')))
+                                ->filter(fn($f) => in_array(strtolower($f->getExtension()), ['jpg', 'jpeg', 'png', 'gif']))
+                                ->values();
+                        @endphp
+
+                        {{-- Gambar pertama - besar --}}
+                        @if (isset($images[0]))
+                            <div
+                                class="col-span-2 row-span-2 rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black] overflow-hidden">
+                                <img src="{{ asset('assets/comm_sample/' . basename($images[0])) }}" alt="Gallery Image 1"
+                                    class="w-full h-full object-cover rounded-xl">
+                            </div>
+                        @endif
+
+                        {{-- Gambar ke-2 --}}
+                        @if (isset($images[1]))
+                            <div
+                                class="rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black] overflow-hidden">
+                                <img src="{{ asset('assets/comm_sample/' . basename($images[1])) }}" alt="Gallery Image 2"
+                                    class="w-full h-full object-cover rounded-xl">
+                            </div>
+                        @endif
+
+                        {{-- Gambar ke-3 --}}
+                        @if (isset($images[2]))
+                            <div
+                                class="rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black] overflow-hidden">
+                                <img src="{{ asset('assets/comm_sample/' . basename($images[2])) }}" alt="Gallery Image 3"
+                                    class="w-full h-full object-cover rounded-xl">
+                            </div>
+                        @endif
+
+                        {{-- Gambar ke-4 --}}
+                        @if (isset($images[3]))
+                            <div
+                                class="rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black] overflow-hidden">
+                                <img src="{{ asset('assets/comm_sample/' . basename($images[3])) }}" alt="Gallery Image 4"
+                                    class="w-full h-full object-cover rounded-xl">
+                            </div>
+                        @endif
+
+                        {{-- Gambar ke-5 --}}
+                        @if (isset($images[4]))
+                            <div
+                                class="rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black] overflow-hidden">
+                                <img src="{{ asset('assets/comm_sample/' . basename($images[4])) }}" alt="Gallery Image 5"
+                                    class="w-full h-full object-cover rounded-xl">
+                            </div>
+                        @endif
                     </div>
                 </div>
+            </div> {{-- ✅ TUTUP container gallery art --}}
+
+        </div> {{-- ✅ TUTUP .container --}}
+    </div> {{-- ✅ TUTUP .min-h-screen wrapper --}}
+
+    <!-- ✅ SECTION READY TO BUY DIBAWAHNYA -->
+    <section id="readyToBuy"
+        class="mt-12 bg-[#f0ebe3] rounded-3xl border-4 border-black shadow-[3vh_3vh_0_black] p-6 sm:p-10">
+        <h2 class="font-[HammersmithOne-Regular] text-2xl sm:text-3xl text-center mb-6">
+            READY-TO-BUY DESIGNS
+        </h2>
+
+        <div class="flex flex-col sm:flex-row gap-6">
+            <!-- LEFT: PREVIEW -->
+            <div id="previewPanel"
+                class="flex-1 bg-white border-4 border-black rounded-2xl shadow-[0.6vh_0.6vh_0_black] p-4 flex flex-col items-center justify-between
+                    w-full sm:w-[30vw] sm:min-w-[300px] transition-all duration-300">
+                <h3 id="previewTitle" class="font-[HammersmithOne-Regular] text-xl sm:text-2xl mb-3 text-center">Select
+                    a Design</h3>
+
+                <div
+                    class="w-full aspect-square bg-[#dceef4] rounded-xl overflow-hidden flex justify-center items-center">
+                    <img id="previewImage" src="" alt="Preview" class="object-cover hidden w-full h-full">
+                    <p id="previewPlaceholder" class="text-gray-500">Click an image to preview</p>
                 </div>
-                
+
+                <div class="w-full mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                        <span id="previewFormat"
+                            class="px-3 py-1 bg-green-200 border border-black rounded-full text-sm font-semibold">-</span>
+                        <span class="text-sm sm:text-lg font-semibold">Price:
+                            <span id="previewPrice">-</span></span>
+                    </div>
+                    <button id="buyButton" disabled
+                        class="bg-[#4c9eff] border-4 border-black px-6 py-2 rounded-xl font-[HammersmithOne-Regular] 
+                        hover:bg-[#73b7ff] transition duration-300 w-full sm:w-auto 
+                        disabled:opacity-50 disabled:cursor-not-allowed">
+                        Buy Now
+                    </button>
+                </div>
             </div>
 
-            <!-- SECTION READY TO BUY -->
-            <section id="readyToBuy"
-                class="mt-12 bg-[#f0ebe3] rounded-3xl border-4 border-black shadow-[3vh_3vh_0_black] p-6 sm:p-10">
-                <h2 class="font-[HammersmithOne-Regular] text-2xl sm:text-3xl text-center mb-6">
-                    READY-TO-BUY DESIGNS
-                </h2>
-
-                <div class="flex flex-col sm:flex-row gap-6">
-                    <!-- LEFT: PREVIEW -->
-                    <div id="previewPanel"
-                    class="flex-1 bg-white border-4 border-black rounded-2xl shadow-[0.6vh_0.6vh_0_black] p-4 flex flex-col items-center justify-between
-                        w-full sm:w-[30vw] sm:min-w-[300px] transition-all duration-300">
-                    <h3 id="previewTitle"
-                        class="font-[HammersmithOne-Regular] text-xl sm:text-2xl mb-3 text-center">Select a Design</h3>
-
-                    <div class="w-full aspect-square bg-[#dceef4] rounded-xl overflow-hidden flex justify-center items-center">
-                        <img id="previewImage" src="" alt="Preview" class="object-cover hidden w-full h-full">
-                        <p id="previewPlaceholder" class="text-gray-500">Click an image to preview</p>
-                    </div>
-
-                    <div class="w-full mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-                            <span id="previewFormat"
-                                class="px-3 py-1 bg-green-200 border border-black rounded-full text-sm font-semibold">-</span>
-                            <span class="text-sm sm:text-lg font-semibold">Price:
-                                <span id="previewPrice">-</span></span>
-                        </div>
-                        <button id="buyButton" disabled
-                            class="bg-[#4c9eff] border-4 border-black px-6 py-2 rounded-xl font-[HammersmithOne-Regular] 
-                            hover:bg-[#73b7ff] transition duration-300 w-full sm:w-auto 
-                            disabled:opacity-50 disabled:cursor-not-allowed">
-                            Buy Now
-                        </button>
-                    </div>
-
+            <!-- RIGHT: GRID -->
+            <div id="designGrid"
+                class="grid grid-cols-3 sm:grid-cols-4  gap-2 flex-1 h-fit transition-all duration-300">
+                <div class="design-item cursor-pointer bg-gradient-to-b from-yellow-100 to-orange-200 border-2 border-black rounded-md shadow-[0.4vh_0.4vh_0_black] h-fit"
+                    data-title="Crimson Sky" data-price="Rp 270.000" data-format="PNG"
+                    data-image="https://i.pinimg.com/1200x/12/9c/f4/129cf464f43f242801bf746de3a78a48.jpg">
                 </div>
-
-
-                    <!-- RIGHT: GRID -->
-                    <div id="designGrid" class="grid grid-cols-3 sm:grid-cols-4  gap-2 flex-1 h-fit transition-all duration-300">
-                            <div class="design-item cursor-pointer bg-gradient-to-b from-yellow-100 to-orange-200 border-2 border-black rounded-md shadow-[0.4vh_0.4vh_0_black] h-fit"
-                            data-title="Crimson Sky" data-price="Rp 270.000" data-format="PNG"
-                            data-image="https://i.pinimg.com/1200x/12/9c/f4/129cf464f43f242801bf746de3a78a48.jpg">
-                            
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
-    </div>
+    </section>
+
+    {{-- scriptnya tetap sama --}}
     <script>
-        const designs = [
-            {
+        const designs = [{
                 title: "Crimson Sky",
                 price: "Rp 270.000",
                 format: "PNG",
@@ -184,7 +213,12 @@
         // Event listener klik untuk preview
         document.querySelectorAll('.design-item').forEach(item => {
             item.addEventListener('click', () => {
-                const { title, price, format, image } = item.dataset;
+                const {
+                    title,
+                    price,
+                    format,
+                    image
+                } = item.dataset;
                 document.getElementById('previewTitle').textContent = title;
                 document.getElementById('previewPrice').textContent = price;
                 document.getElementById('previewFormat').textContent = format;
@@ -208,35 +242,35 @@
             alert(`You are buying: ${title}`);
         });
     </script>
-
-
 @endsection
 
 @section('disableinspect')
-<script>
-    (function () {
-        // disable right-click
-        document.addEventListener('contextmenu', e => e.preventDefault());
+    <script>
+        (function() {
+            // disable right-click
+            document.addEventListener('contextmenu', e => e.preventDefault());
 
-        // disable common DevTools shortcuts (best-effort)
-        document.addEventListener('keydown', function (e) {
-            const k = e.key || e.keyIdentifier || e.keyCode;
-            const key = (typeof k === 'string') ? k.toUpperCase() : k;
+            // disable common DevTools shortcuts (best-effort)
+            document.addEventListener('keydown', function(e) {
+                const k = e.key || e.keyIdentifier || e.keyCode;
+                const key = (typeof k === 'string') ? k.toUpperCase() : k;
 
-            // F12
-            if (key === 'F12' || key === 123) {
-                e.preventDefault(); e.stopPropagation();
-            }
+                // F12
+                if (key === 'F12' || key === 123) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
 
-            // Ctrl+U (view source), Ctrl+Shift+I/J/C/K (DevTools), Ctrl+Shift+C
-            if (e.ctrlKey && (e.key && ['U'].includes(e.key.toUpperCase()))) {
-                e.preventDefault(); e.stopPropagation();
-            }
-            if (e.ctrlKey && e.shiftKey && e.key && ['I','J','C','K'].includes(e.key.toUpperCase())) {
-                e.preventDefault(); e.stopPropagation();
-            }
-        }, true);
-    })();
-</script>
+                // Ctrl+U (view source), Ctrl+Shift+I/J/C/K (DevTools), Ctrl+Shift+C
+                if (e.ctrlKey && (e.key && ['U'].includes(e.key.toUpperCase()))) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                if (e.ctrlKey && e.shiftKey && e.key && ['I', 'J', 'C', 'K'].includes(e.key.toUpperCase())) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }, true);
+        })();
+    </script>
 @endsection
-
