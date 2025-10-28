@@ -32,7 +32,7 @@ class AdoptionSeeder extends Seeder
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subDays(1),
             ],
-            
+
             // 2. Confirmed order - artist approved, waiting for payment
             [
                 'gallery_id' => 2, // Urban Jungle
@@ -50,7 +50,7 @@ class AdoptionSeeder extends Seeder
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subDays(2),
             ],
-            
+
             // 3. Processing order - payment confirmed, artist preparing files
             [
                 'gallery_id' => 3, // Ocean Waves
@@ -68,7 +68,7 @@ class AdoptionSeeder extends Seeder
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subDays(4),
             ],
-            
+
             // 4. Delivered order - files sent, waiting for buyer confirmation
             [
                 'gallery_id' => 5, // Cherry Blossom
@@ -86,7 +86,7 @@ class AdoptionSeeder extends Seeder
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subDays(8),
             ],
-            
+
             // 5. Completed order - fully finished
             [
                 'gallery_id' => 4, // Midnight Garden (marked as sold)
@@ -104,7 +104,7 @@ class AdoptionSeeder extends Seeder
                 'completed_at' => Carbon::now()->subDays(10),
                 'created_at' => Carbon::now()->subDays(16),
             ],
-            
+
             // 6. Cancelled order
             [
                 'gallery_id' => 6, // Starry Night Sky
@@ -122,7 +122,7 @@ class AdoptionSeeder extends Seeder
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subDays(6),
             ],
-            
+
             // 7. Another pending order
             [
                 'gallery_id' => 7, // Mountain Peak
@@ -140,7 +140,7 @@ class AdoptionSeeder extends Seeder
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subHours(6),
             ],
-            
+
             // 8. Processing order with discount
             [
                 'gallery_id' => 8, // Autumn Forest
@@ -158,6 +158,24 @@ class AdoptionSeeder extends Seeder
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subDays(3),
             ],
+
+            // proccessing order
+            [
+                'gallery_id' => 9, // Winter Wonderland
+                'buyer_name' => 'Marcella Thamrin',
+                'buyer_email' => 'marcella.t23@mhs.istts.ac.id',
+                'buyer_phone' => '081567890123',
+                'price' => 155000.00,
+                'buyer_message' => 'Excited to receive this artwork!',
+                'delivery_notes' => 'Please provide PNG format',
+                'order_status' => 'processing',
+                'payment_status' => 'paid',
+                'confirmed_at' => Carbon::now()->subDays(4),
+                'paid_at' => Carbon::now()->subDays(3),
+                'delivered_at' => null,
+                'completed_at' => null,
+                'created_at' => Carbon::now()->subDays(5),
+            ],
         ];
 
         foreach ($adoptions as $adoption) {
@@ -165,4 +183,3 @@ class AdoptionSeeder extends Seeder
         }
     }
 }
-

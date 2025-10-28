@@ -67,10 +67,9 @@ class ArtistAdoptionDetailController extends Controller
     {
         $request->validate([
             'delivery_file' => 'nullable|file|max:10240', // max 10MB
-            'download_link' => 'nullable|url|max:1000'
         ]);
 
-        dd($request->all());
+        // dd($request->all());
 
         $adoption = Adoption::findOrFail($adoptionId);
 
@@ -85,9 +84,9 @@ class ArtistAdoptionDetailController extends Controller
             $imagePath = 'adoptions/' . $adoptionId . '/' . $filename;
             $adoption->delivery_files = [$imagePath];
             $fileOrLink = asset($imagePath);
-        } elseif ($request->filled('download_link')) {
-            $adoption->delivery_files = [$request->download_link];
-            $fileOrLink = $request->download_link;
+        } else if ($request->filled('delivery_link')) {
+            $adoption->delivery_files = [$request->delivery_link];
+            $fileOrLink = $request->delivery_link;
         } else {
             return response()->json(['error' => 'No file or link provided'], 422);
         }

@@ -67,8 +67,16 @@ Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () 
 
 });
 
-// Public download routes goes here (no auth required)
+// Public download routes goes here (no auth required)F
 
+// Member Routes
+Route::prefix('member')->middleware(['auth', 'role:client'])->group(function () {
+    Route::get('/history', [HistoryMemberController::class, 'index'])->name('member.history');
+    Route::get('/commission_type', [CommissionMemberController::class, 'index'])->name('member.commission_type');
+    Route::get('/commission_form', [CommissionMemberController::class, 'form'])->name('member.commission_form');
+    Route::post('/commission_store', [CommissionMemberController::class, 'store'])->name('member.commission_store');
+    Route::get('/history/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
+});
 
 Route::post('/logout', function () {
     // Logic for logging out the user
