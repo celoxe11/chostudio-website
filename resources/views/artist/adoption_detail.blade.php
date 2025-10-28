@@ -16,6 +16,39 @@
             font-size: 16px;
             font-family: 'HammersmithOne-Regular', sans-serif;
         }
+
+        .custom-swal-success-button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'HammersmithOne-Regular', sans-serif;
+        }
+
+        .custom-swal-danger-button {
+            background-color: #d33;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'HammersmithOne-Regular', sans-serif;
+        }
+
+        .custom-swal-cancel-button {
+            background-color: #6c757d;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'HammersmithOne-Regular', sans-serif;
+        }
     </style>
 
     <div class="my-8 max-xl:mt-3 p-4 xl:w-[90%] mx-auto lg:w-full">
@@ -76,6 +109,7 @@
                                 @include('artist.adoption_detail_column.actions.pending_actions', [
                                     'adoption' => $adoption,
                                 ])
+                                
                             @elseif($adoption->order_status === 'confirmed')
                                 @include('artist.adoption_detail_column.actions.confirmed_actions', [
                                     'adoption' => $adoption,
@@ -105,4 +139,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @vite(['resources/js/artist/adoption_detail.js'])
 @endsection

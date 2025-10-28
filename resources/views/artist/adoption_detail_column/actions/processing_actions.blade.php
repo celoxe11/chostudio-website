@@ -48,26 +48,30 @@
                 <label class="text-sm font-bold text-purple-700">Upload Files</label>
             </div>
 
-            <div
-                class="border-2 border-dashed border-purple-300 rounded-lg p-4 bg-white hover:bg-purple-50 transition-colors duration-200">
-                <input type="file" id="delivery_files" name="delivery_files[]" multiple class="hidden"
-                    accept="image/*,.pdf,.zip,.rar,.psd,.ai,.eps">
-                <label for="delivery_files" class="cursor-pointer flex flex-col items-center gap-2">
-                    <svg class="w-12 h-12 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                        </path>
-                    </svg>
-                    <span class="text-sm font-semibold text-purple-700">Click to upload files</span>
-                    <span class="text-xs text-purple-600">or drag and drop</span>
-                    <span class="text-xs text-gray-500 mt-1">PNG, JPG, PDF, ZIP, PSD, AI up to 100MB</span>
-                </label>
+            <div class="flex flex-col gap-3">
+                <div class="relative group">
+                    <input type="file" id="delivery_files" name="delivery_files[]" multiple
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        accept="image/*,.pdf,.zip,.rar,.psd,.ai,.eps" />
+                    <div
+                        class="flex items-center justify-center gap-3 p-4 border-2 border-dashed border-purple-300 rounded-xl bg-white hover:bg-purple-50 hover:border-purple-400 transition-all duration-200 cursor-pointer group-hover:shadow-md">
+                        <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                            </path>
+                        </svg>
+                        <div class="text-center">
+                            <span class="text-purple-700 font-semibold">Click to upload</span>
+                            <span class="text-purple-500"> or drag and drop</span>
+                        </div>
+                    </div>
+                    <div id="file-name"
+                        class="hidden mt-2 text-sm text-gray-600 bg-purple-50 px-3 py-2 rounded-lg border border-purple-200">
+                    </div>
+                </div>
             </div>
-
-            <!-- File list preview (if files uploaded) -->
-            <div id="file-list" class="mt-3 space-y-2 hidden">
-                <!-- Files will be listed here via JavaScript -->
-            </div>
+            <p class="text-xs text-purple-600 mt-2 font-medium">Supported formats: JPG, PNG, PDF, ZIP, PSD, AI (Max
+                100MB)</p>
         </div>
 
         <!-- Download Link Card -->
@@ -115,7 +119,7 @@
                         </svg>
                         These notes are for your reference
                     </span>
-                    <button
+                    <button id="save-notes-btn" data-adoption-id="{{ $adoption->adoption_id }}"
                         class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 text-sm">
                         Save Notes
                     </button>
@@ -137,26 +141,4 @@
             </div>
         </button>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const uploadRadio = document.getElementById('delivery_method_upload');
-            const linkRadio = document.getElementById('delivery_method_link');
-            const uploadSection = document.getElementById('upload-section');
-            const linkSection = document.getElementById('link-section');
-
-            function toggleSections() {
-                if (uploadRadio.checked) {
-                    uploadSection.classList.remove('hidden');
-                    linkSection.classList.add('hidden');
-                } else {
-                    uploadSection.classList.add('hidden');
-                    linkSection.classList.remove('hidden');
-                }
-            }
-
-            uploadRadio.addEventListener('change', toggleSections);
-            linkRadio.addEventListener('change', toggleSections);
-        });
-    </script>
 </div>

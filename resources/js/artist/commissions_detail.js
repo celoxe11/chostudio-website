@@ -56,7 +56,7 @@ function getProgressStatusText(status) {
 
 function getPaymentStatusText(status) {
     const paymentTexts = {
-        pending: "Unpaid",
+        unpaid: "Unpaid",
         dp: "DP",
         paid: "Paid",
         refunded: "Refunded",
@@ -67,12 +67,48 @@ function getPaymentStatusText(status) {
 $(document).ready(function () {
     $("#accept-commission-btn").click(function () {
         const commissionId = $(this).data("commission-id");
-        setCommissionStatus(commissionId, "accepted");
+
+        Swal.fire({
+            title: "Accept Commission?",
+            text: "Are you sure you want to accept this request?",
+            icon: "question",
+            showCancelButton: true,
+            customClass: {
+                popup: "custom-swal-popup",
+                title: "custom-swal-title",
+                htmlContainer: "custom-swal-text",
+                confirmButton: "custom-swal-success-button",
+                cancelButton: "custom-swal-cancel-button",
+            },
+        }).then((result) => {
+            // If the user clicked "Yes"
+            if (result.isConfirmed) {
+                setCommissionStatus(commissionId, "accepted");
+            }
+        });
     });
 
     $("#decline-commission-btn").click(function () {
         const commissionId = $(this).data("commission-id");
-        setCommissionStatus(commissionId, "declined");
+
+        Swal.fire({
+            title: "Decline Commission?",
+            text: "Are you sure you want to decline this request? This action cannot be undone.",
+            icon: "warning", // Use a warning icon for declining
+            showCancelButton: true,
+            customClass: {
+                popup: "custom-swal-popup",
+                title: "custom-swal-title",
+                htmlContainer: "custom-swal-text",
+                confirmButton: "custom-swal-danger-button",
+                cancelButton: "custom-swal-cancel-button",
+            },
+        }).then((result) => {
+            // If the user clicked "Yes"
+            if (result.isConfirmed) {
+                setCommissionStatus(commissionId, "declined");
+            }
+        });
     });
 
     $("#update-progress-btn").click(function () {
@@ -86,44 +122,79 @@ $(document).ready(function () {
         const paymentStatus = $("#update-payment-select").val();
         const commissionId = $(this).data("commission-id");
 
-        // Disable button during submission
-        $(this)
-            .prop("disabled", true)
-            .html(
-                '<div class="flex items-center justify-center gap-2"><svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Saving...</div>'
-            );
+        // add a confirmation swal
+        Swal.fire({
+            title: "Are you sure?",
+            text:
+                "You are about to update the payment status to '" +
+                getPaymentStatusText(paymentStatus) +
+                "'.",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Yes, update it!",
+            customClass: {
+                popup: "custom-swal-popup",
+                title: "custom-swal-title",
+                htmlContainer: "custom-swal-text",
+                confirmButton: "custom-swal-success-button",
+                cancelButton: "custom-swal-cancel-button",
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Proceed with AJAX update
 
-        $.ajax({
-            url: `/artist/commissions/payment/${commissionId}`,
-            type: "POST",
-            data: {
-                payment_status: paymentStatus,
-            },
-            success: function (response) {
-                notie.alert({
-                    type: "success",
-                    text:
-                        "Updated Payment Status to '" +
-                        paymentStatus +
-                        "'. Reloading...",
-                });
-                setTimeout(() => location.reload(), 1000);
-            },
-            error: function (xhr, status, error) {
-                notie.alert({
-                    type: "error",
-                    text: "An error occurred while updating the payment status.",
-                });
-                console.error(
-                    "Payment status update error:",
-                    xhr.responseJSON || error
-                );
-                $("#update-payment-btn")
-                    .prop("disabled", false)
+                // Disable button during submission
+                $(this)
+                    .prop("disabled", true)
                     .html(
-                        '<div class="flex items-center justify-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Save</div>'
+                        '<div class="flex items-center justify-center gap-2"><svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Saving...</div>'
                     );
-            },
+
+                $.ajax({
+                    url: `/artist/commissions/payment/${commissionId}`,
+                    type: "POST",
+                    data: {
+                        payment_status: paymentStatus,
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success!",
+                            text:
+                                "Updated Payment Status to '" +
+                                getPaymentStatusText(paymentStatus) +
+                                "'. Reloading...",
+                            customClass: {
+                                popup: "custom-swal-popup",
+                                title: "custom-swal-title",
+                                htmlContainer: "custom-swal-text",
+                            },
+                        });
+                        setTimeout(() => location.reload(), 1000);
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error!",
+                            text: "An error occurred while updating the payment status.",
+                            customClass: {
+                                popup: "custom-swal-popup",
+                                title: "custom-swal-title",
+                                htmlContainer: "custom-swal-text",
+                            },
+                        });
+                        console.error(
+                            "Payment status update error:",
+                            xhr.responseJSON || error
+                        );
+                        $("#update-payment-btn")
+                            .prop("disabled", false)
+                            .html(
+                                '<div class="flex items-center justify-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Save</div>'
+                            );
+                    },
+                });
+            }
         });
     });
 
@@ -253,7 +324,7 @@ $(document).ready(function () {
 
         if (fileInput.files.length === 0) {
             Swal.fire({
-                icon: "warning",
+                icon: "error",
                 title: "No File Selected",
                 text: "Please select a file to upload.",
                 customClass: {
@@ -435,67 +506,89 @@ $(document).ready(function () {
 
     // Handle submit cancellation
     $("#submit-cancellation-btn").click(function () {
-        const commissionId = $("#cancel-commission-btn").data("commission-id");
-        const reason = $("#cancellation-reason-textarea").val().trim();
-
-        if (!reason || reason.length === 0 || reason === "") {
-            Swal.fire({
-                icon: "warning",
-                title: "Cancellation Reason Required",
-                text: "Please provide a cancellation reason.",
-                customClass: {
-                    popup: "custom-swal-popup",
-                    title: "custom-swal-title",
-                    htmlContainer: "custom-swal-text",
-                },
-            });
-            $("#cancellation-reason-textarea").focus();
-            return;
-        }
-
-        // Disable button during submission
-        $(this)
-            .prop("disabled", true)
-            .html(
-                '<div class="flex items-center justify-center gap-2"><svg class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Processing...</div>'
-            );
-
-        $.ajax({
-            url: `/artist/commissions/cancel/${commissionId}`,
-            type: "POST",
-            data: {
-                cancellation_reason: reason,
+        // add confirmation
+        Swal.fire({
+            title: "Cancel Commission?",
+            text: "Are you sure you want to cancel this commission? This action cannot be undone.",
+            icon: "question",
+            showCancelButton: true,
+            customClass: {
+                popup: "custom-swal-popup",
+                title: "custom-swal-title",
+                htmlContainer: "custom-swal-text",
+                confirmButton: "custom-swal-danger-button",
+                cancelButton: "custom-swal-cancel-button",
             },
-            success: function (response) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Commission cancelled successfully. Reloading...",
-                    customClass: {
-                        popup: "custom-swal-popup",
-                        title: "custom-swal-title",
-                        htmlContainer: "custom-swal-text",
-                    },
-                });
-                setTimeout(() => location.reload(), 1000);
-            },
-            error: function (xhr, status, error) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Cancellation Failed",
-                    text: "An error occurred while cancelling the commission.",
-                    customClass: {
-                        popup: "custom-swal-popup",
-                        title: "custom-swal-title",
-                        htmlContainer: "custom-swal-text",
-                    },
-                });
-                console.error("Cancellation error:", xhr.responseJSON || error);
-                $("#submit-cancellation-btn")
-                    .prop("disabled", false)
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const commissionId = $("#cancel-commission-btn").data(
+                    "commission-id"
+                );
+                const reason = $("#cancellation-reason-textarea").val().trim();
+
+                if (!reason || reason.length === 0 || reason === "") {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Cancellation Reason Required",
+                        text: "Please provide a cancellation reason.",
+                        customClass: {
+                            popup: "custom-swal-popup",
+                            title: "custom-swal-title",
+                            htmlContainer: "custom-swal-text",
+                        },
+                    });
+                    $("#cancellation-reason-textarea").focus();
+                    return;
+                }
+
+                // Disable button during submission
+                $(this)
+                    .prop("disabled", true)
                     .html(
-                        '<div class="flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Confirm Cancellation</div>'
+                        '<div class="flex items-center justify-center gap-2"><svg class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Processing...</div>'
                     );
-            },
+
+                $.ajax({
+                    url: `/artist/commissions/cancel/${commissionId}`,
+                    type: "POST",
+                    data: {
+                        cancellation_reason: reason,
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Commission cancelled successfully. Reloading...",
+                            customClass: {
+                                popup: "custom-swal-popup",
+                                title: "custom-swal-title",
+                                htmlContainer: "custom-swal-text",
+                            },
+                        });
+                        setTimeout(() => location.reload(), 1000);
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Cancellation Failed",
+                            text: "An error occurred while cancelling the commission.",
+                            customClass: {
+                                popup: "custom-swal-popup",
+                                title: "custom-swal-title",
+                                htmlContainer: "custom-swal-text",
+                            },
+                        });
+                        console.error(
+                            "Cancellation error:",
+                            xhr.responseJSON || error
+                        );
+                        $("#submit-cancellation-btn")
+                            .prop("disabled", false)
+                            .html(
+                                '<div class="flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Confirm Cancellation</div>'
+                            );
+                    },
+                });
+            }
         });
     });
 });

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdoptionDownloadController;
 use App\Http\Controllers\Artist\AdoptionFileController;
 use App\Http\Controllers\ArtistAdoptionController;
+use App\Http\Controllers\ArtistAdoptionDetailController;
 use App\Http\Controllers\ArtistCommissionController;
 use App\Http\Controllers\ArtistCommissionDetailController;
 use App\Http\Controllers\GalleryPageController;
@@ -40,9 +41,12 @@ Route::post('/register', [LoginPageController::class, 'processRegister'])->name(
 
 // Artist Routes
 Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () {
+    // gallery
+    Route::get('/gallery', [ArtistGalleryController::class, 'index'])->name('artist.gallery');
+
+    // commissions
     Route::get('/commissions', [ArtistCommissionController::class, 'index'])->name('artist.commissions');
     Route::get('/getCommissions', [ArtistCommissionController::class, 'getCommissions'])->name('artist.getCommissions');
-    Route::get('/gallery', [ArtistGalleryController::class, 'index'])->name('artist.gallery');
 
     Route::get('/commission_detail/{commission_id}', [ArtistCommissionDetailController::class, 'detail'])->name('artist.commission_detail');
     Route::post('/commissions/status/{commissionId}', [ArtistCommissionDetailController::class, 'update_progress_status'])->name('artist.commission_status_update');
@@ -51,18 +55,19 @@ Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () 
     Route::post('/commissions/payment/{commissionId}', [ArtistCommissionDetailController::class, 'update_payment_status'])->name('artist.commission_payment_update');
     Route::post('/commissions/upload/{commissionId}', [ArtistCommissionDetailController::class, 'upload_image'])->name('artist.commission_upload');
 
+    // adoptions
     Route::get('/adoptions', [ArtistAdoptionController::class, 'index'])->name('artist.adoptions');
     Route::get('/getAdoptions', [ArtistAdoptionController::class, 'getAdoptions'])->name('artist.getAdoptions');
-    Route::get('/adoption_detail/{adoption_id}', [ArtistAdoptionController::class, 'detail'])->name('artist.adoption_detail');
 
-    Route::post('adoptions/upload/{adoption}/', [AdoptionFileController::class, 'upload'])->name('adoptions.upload');
-    Route::delete('adoptions/files/{adoption}', [AdoptionFileController::class, 'deleteFile'])->name('adoptions.files.delete');
-    Route::post('adoptions/deliver/{adoption}', [AdoptionFileController::class, 'markDelivered'])->name('adoptions.deliver');
+    Route::get('/adoption_detail/{adoptionId}', [ArtistAdoptionDetailController::class, 'detail'])->name('artist.adoption_detail');
+    Route::post('/adoptions/status/{adoptionId}', [ArtistAdoptionDetailController::class, 'update_order_status'])->name('artist.adoption_status_update');
+    Route::post('/adoptions/confirm_payment/{adoptionId}', [ArtistAdoptionDetailController::class, 'confirm_payment'])->name('artist.adoption_confirm_payment');
+    Route::post('/adoptions/save_notes/{adoptionId}', [ArtistAdoptionDetailController::class, 'save_notes'])->name('artist.adoption_save_notes');
+    Route::post('/adoptions/deliver_file/{adoptionId}', [ArtistAdoptionDetailController::class, 'deliver_file'])->name('artist.adoption_deliver_file');
+
 });
 
-// Public download routes (no auth required)
-// Route::get('adoptions/{adoption}/download', [AdoptionDownloadController::class, 'index'])->name('adoptions.download');
-// Route::get('adoptions/{adoption}/download/{filename}', [AdoptionDownloadController::class, 'download'])->name('adoptions.download.file');
+// Public download routes goes here (no auth required)
 
 
 Route::post('/logout', function () {
