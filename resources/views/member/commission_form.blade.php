@@ -10,11 +10,11 @@
         {{-- Left Image --}}
         @php
             $imgPath = match($category ?? '') {
-                'Head Shot' => asset('assets/images/sample.jpeg'),
-                'Half Body' => asset('assets/images/sample.jpeg'),
-                'Full Body' => asset('assets/images/sample.jpeg'),
-                'Custom' => asset('assets/images/sample.jpeg'),
-                default => asset('assets/images/sample.jpeg'),
+                'Head Shot' => asset('assets/comm_sample/HeadShot_Sample.png'),
+                'Half Body' => asset('assets/comm_sample/HalfBody_Sample.png'),
+                'Full Body' => asset('assets/comm_sample/FullBody_Sample.png'),
+                'Custom' => asset('assets/comm_sample/Custom_Sample.jpg'),
+                default => asset('assets/comm_sample/Custom_Sample.jpg'),
             };
         @endphp
 
@@ -25,9 +25,10 @@
         </div>
 
         {{-- Right Form --}}
-        <div class="flex flex-col justify-center items-center w-[60%] h-full bg-white border-l-4 border-black p-5">
-            <h2 class="text-2xl mb-2 font-[HammersmithOne-Regular] flex justify-center">Commission Form</h2>
-            <form class="flex flex-col w-[90%] gap-4" method="post"
+        <div class="flex flex-col justify-center items-center mt-11 w-[70%] h-fit bg-white 
+    rounded-t-2xl border-t-4 border-x-4 border-black">
+            <h2 class="text-2xl mt-4 mb-2 font-[HammersmithOne-Regular] flex justify-center">Commission Form</h2>
+            <form class="flex flex-col w-[90%] gap-4 text-[#b4a6d5]" method="post"
                 action="{{ route('member.commission_store') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="category" value="{{ $category ?? '' }}">
@@ -57,7 +58,7 @@
                         class="border-3 border-[#b4a6d5] text-[#b4a6d5] rounded-md px-2 py-1 w-[70%] focus:outline-none focus:border-[#a27fe1]" required>
                 </div>
 
-                <div class="flex justify-end mt-4">
+                <div class="flex justify-end mt-2 mb-4 text-black">
                     <button type="submit"
                         class="bg-[#f3a77e] border-3 border-black rounded-md px-6 py-2 font-[HammersmithOne-Regular] hover:bg-[#e48d5f] transition duration-200">
                         Submit
