@@ -302,9 +302,15 @@ class AdoptionSeeder extends Seeder
         for ($i = 1; $i <= 8; $i++) {
             $adoptions[] = [
                 'gallery_id' => collect($eligibleGalleryIds)->random(),
-                'email' => "user{$i}@example.com",
-                'order_status' => collect(['placed', 'shipped', 'delivered', 'canceled'])->random(),
-                'payment_status' => collect(['pending', 'paid', 'failed'])->random(),
+                'buyer_name' => "User Example {$i}",
+                'buyer_email' => "user{$i}@example.com",
+                'buyer_phone' => '08123456789',
+                'price' => rand(100000, 300000),
+                'buyer_message' => "This is a message from User Example {$i}.",
+                'delivery_notes' => "Please deliver the files in high resolution.",
+                // Use 'cancelled' to match the enum defined in the migration
+                'order_status' => collect(['pending', 'confirmed', 'processing', 'delivered', 'cancelled'])->random(),
+                'payment_status' => collect(['unpaid', 'paid'])->random(),
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
