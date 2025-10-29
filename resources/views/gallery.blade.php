@@ -55,7 +55,7 @@
                     <div
                         class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 auto-rows-fr h-full p-2 sm:p-4">
                         <div
-                            class="col-span-2 row-span-2 bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
+                            class="col-span-2 row-span-2 bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
                         </div>
                         <div
                             class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
