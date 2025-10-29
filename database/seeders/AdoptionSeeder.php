@@ -214,6 +214,75 @@ class AdoptionSeeder extends Seeder
                 'completed_at' => null,
                 'created_at' => Carbon::now()->subDays(5),
             ],
+
+            // order adoption for member id 3
+            [
+                'gallery_id' => 3, // Winter Wonderland
+                'buyer_name' => 'Pengguna Biasa',
+                'buyer_email' => 'biasa@gmail.com',
+                'buyer_phone' => '081567890123',
+                'price' => 155000.00,
+                'buyer_message' => 'Excited to receive this artwork!',
+                'delivery_notes' => 'Please provide PNG format',
+                'order_status' => 'completed',
+                'payment_status' => 'paid',
+                'confirmed_at' => Carbon::now()->subDays(10),
+                'paid_at' => Carbon::now()->subDays(9),
+                'delivered_at' => Carbon::now()->subDays(7),
+                'completed_at' => Carbon::now()->subDays(5),
+                'created_at' => Carbon::now()->subDays(11)
+            ],
+
+            [
+                'gallery_id' => 3, // Winter Wonderland
+                'buyer_name' => 'Pengguna Biasa',
+                'buyer_email' => 'biasa@gmail.com',
+                'buyer_phone' => '081567890123',
+                'price' => 155000.00,
+                'buyer_message' => 'Excited to receive this artwork!',
+                'delivery_notes' => 'Please provide PNG format',
+                'order_status' => 'completed',
+                'payment_status' => 'paid',
+                'confirmed_at' => Carbon::now()->subDays(10),
+                'paid_at' => Carbon::now()->subDays(9),
+                'delivered_at' => Carbon::now()->subDays(7),
+                'completed_at' => Carbon::now()->subDays(5),
+                'created_at' => Carbon::now()->subDays(11)
+            ],
+
+            [
+                'gallery_id' => 3, // Winter Wonderland
+                'buyer_name' => 'Pengguna Biasa',
+                'buyer_email' => 'biasa@gmail.com',
+                'buyer_phone' => '081567890123',
+                'price' => 155000.00,
+                'buyer_message' => 'Excited to receive this artwork!',
+                'delivery_notes' => 'Please provide PNG format',
+                'order_status' => 'completed',
+                'payment_status' => 'paid',
+                'confirmed_at' => Carbon::now()->subDays(10),
+                'paid_at' => Carbon::now()->subDays(9),
+                'delivered_at' => Carbon::now()->subDays(7),
+                'completed_at' => Carbon::now()->subDays(5),
+                'created_at' => Carbon::now()->subDays(11)
+            ],
+
+            [
+                'gallery_id' => 3, // Winter Wonderland
+                'buyer_name' => 'Pengguna Biasa',
+                'buyer_email' => 'biasa@gmail.com',
+                'buyer_phone' => '081567890123',
+                'price' => 155000.00,
+                'buyer_message' => 'Excited to receive this artwork!',
+                'delivery_notes' => 'Please provide PNG format',
+                'order_status' => 'completed',
+                'payment_status' => 'paid',
+                'confirmed_at' => Carbon::now()->subDays(10),
+                'paid_at' => Carbon::now()->subDays(9),
+                'delivered_at' => Carbon::now()->subDays(7),
+                'completed_at' => Carbon::now()->subDays(5),
+                'created_at' => Carbon::now()->subDays(11)
+            ]
         ];
 
         foreach ($adoptions as $adoption) {

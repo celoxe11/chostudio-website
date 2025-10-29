@@ -248,6 +248,7 @@ $(document).ready(function () {
 
     function updateStatusCounts(counts) {
         $("#status-pending").text(`${counts.pending} Pending`);
+        $("#status-accepted").text(`${counts.accepted} Accepted`);
         $("#status-in-progress").text(`${counts.in_progress} In Progress`);
         $("#status-revision").text(`${counts.revision} Revision`);
     }

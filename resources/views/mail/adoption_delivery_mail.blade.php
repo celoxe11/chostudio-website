@@ -50,7 +50,7 @@
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem; color: #444;">
                     <tr>
                         <td style="padding: 4px 0; width: 40%; font-weight: 600;">Title:</td>
-                        <td style="padding: 4px 0; text-align: right;">**{{ $adoption->gallery->title }}**</td>
+                        <td style="padding: 4px 0; text-align: right;"><strong>{{ $adoption->gallery->title }}</strong></td>
                     </tr>
                     <tr>
                         <td style="padding: 4px 0; font-weight: 600;">Original File Format:</td>
@@ -67,7 +67,7 @@
 
         {{-- Optional helpful info to make the email look legitimate --}}
         <p style="font-size: 0.95rem; color: #444; margin-bottom: 18px; text-align: center;">
-            You are receiving the file via a **{{ $adoption->delivery_type }}** link as requested. Please use the button
+            You are receiving the file via a <strong>{{ $adoption->delivery_type }}</strong> link as requested. Please use the button
             below to access your high-resolution artwork.
         </p>
 
@@ -85,7 +85,7 @@
             <a href="{{ $downloadUrl }}"
                 style="display: inline-block; margin: 8px; padding: 12px 30px; background: #7dc8c1; color: #fff; font-size: 1rem; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 8px #a2e1db66;"
                 @if ($isExternal) rel="noopener noreferrer" @endif>Download
-                **{{ $adoption->gallery->title }}**</a>
+                <strong>{{ $adoption->gallery->title }}</strong></a>
             <br>
             <span style="font-size: 0.95rem; color: #444;">
                 @if ($isExternal)
@@ -95,7 +95,7 @@
                 @endif
                 <br>
                 {{-- Show the file type and delivery type for clarity --}}
-                Your requested format: **{{ $adoption->delivery_notes ?: $adoption->gallery->file_format }}**
+                Your requested format: <strong>{{ $adoption->delivery_notes ?: $adoption->gallery->file_format }}</strong>
             </span>
         </div>
 
@@ -106,7 +106,7 @@
 
 
         <div style="margin-top: 24px; text-align: center;">
-            <p style="font-size: 1rem; color: #444">Thank you for supporting **Cho.lazey**!</p>
+            <p style="font-size: 1rem; color: #444">Thank you for supporting <strong>Cho.lazey</strong>!</p>
             <hr style="margin: 18px 0; border: none; border-top: 1px solid #ddd;">
             <p style="font-size: 0.95rem; color: #444;">&copy; {{ date('Y') }} CHO Studio</p>
         </div>

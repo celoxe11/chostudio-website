@@ -25,8 +25,8 @@ class ArtistCommissionController extends Controller
                     $memberQuery->where('name', 'like', "%{$search}%")
                         ->orWhere('email', 'like', "%{$search}%");
                 })
-                ->orWhere('category', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('category', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -69,6 +69,7 @@ class ArtistCommissionController extends Controller
         // Get status counts
         $statusCounts = [
             'pending' => Commission::where('progress_status', 'pending')->count(),
+            'accepted' => Commission::where('progress_status', 'accepted')->count(),
             'in_progress' => Commission::whereIn('progress_status', ['in_progress_sketch', 'in_progress_coloring'])->count(),
             'revision' => Commission::where('progress_status', 'revision')->count(),
         ];
@@ -87,6 +88,4 @@ class ArtistCommissionController extends Controller
             'status_counts' => $statusCounts,
         ]);
     }
-
-    
 }

@@ -10,6 +10,9 @@
                     <div id="status-pending"
                         class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900 bg-yellow-500">
                         0 Pending</div>
+                    <div id="status-accepted"
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900 bg-blue-500">
+                        0 Accepted</div>
                     <div id="status-in-progress"
                         class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border-stone-900 bg-fuchsia-500">
                         0 In Progress</div>

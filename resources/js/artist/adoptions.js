@@ -241,6 +241,7 @@ $(document).ready(function () {
 
     function updateStatusCounts(counts) {
         $("#status-pending").text(`${counts.pending || 0} Pending`);
+        $("#status-confirmed").text(`${counts.confirmed || 0} confirmed`);
         $("#status-processing").text(`${counts.processing || 0} Processing`);
         $("#status-delivered").text(`${counts.delivered || 0} Delivered`);
     }

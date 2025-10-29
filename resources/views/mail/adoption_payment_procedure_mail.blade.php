@@ -12,8 +12,8 @@
 
     <div style="padding: 24px 32px 32px 32px;">
         <p style="font-size: 1.05rem; color: #444; margin-bottom: 24px; text-align: center;">
-            Great news! <strong>Cho.lazey</strong> has **confirmed your adoption** of the artwork
-            **"{{ $adoption->gallery->title }}"**. Please follow the payment instructions below to finalize your
+            Great news! <strong>Cho.lazey</strong> has <strong>confirmed your adoption</strong> of the artwork
+            <strong>"{{ $adoption->gallery->title }}"</strong>. Please follow the payment instructions below to finalize your
             purchase.
         </p>
 
@@ -66,7 +66,7 @@
                 </table>
             </div>
             <p style="font-size: 0.85rem; color: #555; margin-top: 12px; text-align: center;">
-                Please transfer the exact amount of **Rp{{ number_format($adoption->price, 0, ',', '.') }}** to the
+                Please transfer the exact amount of <strong>Rp{{ number_format($adoption->price, 0, ',', '.') }}</strong> to the
                 account above.
             </p>
         </div>
@@ -76,17 +76,17 @@
         <h3 style="font-size: 1.25rem; color: #7dc8c1; margin-bottom: 12px; margin-top: 0;">Payment Procedure</h3>
         <ol style="font-size: 1rem; color: #444; padding-left: 20px; margin-top: 0;">
             <li style="margin-bottom: 10px;">
-                Complete the bank transfer for **Rp{{ number_format($adoption->price, 0, ',', '.') }}** to the provided
+                Complete the bank transfer for <strong>Rp{{ number_format($adoption->price, 0, ',', '.') }}</strong> to the provided
                 account details.
             </li>
             <li style="margin-bottom: 10px;">
-                Take a clear screenshot or photo of the **payment receipt/proof of transfer**.
+                Take a clear screenshot or photo of the <strong>payment receipt/proof of transfer</strong>.
             </li>
             <li style="margin-bottom: 10px;">
-                **Reply to this email** with the payment proof attached (JPEG or PDF format preferred).
+                <strong>Reply to this email</strong> with the payment proof attached (JPEG or PDF format preferred).
             </li>
             <li style="margin-bottom: 10px;">
-                Once the artist verifies the transfer, your **payment status will be updated to 'Paid'**, and the
+                Once the artist verifies the transfer, your <strong>payment status will be updated to 'Paid'</strong>, and the
                 delivery process will begin!
             </li>
         </ol>

@@ -10,6 +10,9 @@
                     <div id="status-pending"
                         class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border bg-red-500">
                         0 Pending</div>
+                        <div id="status-confirmed"
+                        class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border bg-blue-500">
+                        0 Confirmed</div>
                     <div id="status-processing"
                         class="text-lg max-lg:text-base max-sm:text-sm rounded-full px-3 sm:px-4 py-1 sm:py-2 border-2 border bg-amber-500">
                         0 Processing</div>

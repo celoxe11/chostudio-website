@@ -65,7 +65,6 @@ Route::prefix('artist')->middleware(['auth', 'role:artist'])->group(function () 
     Route::post('/adoptions/save_notes/{adoptionId}', [ArtistAdoptionDetailController::class, 'save_notes'])->name('artist.adoption_save_notes');
     Route::post('/adoptions/deliver_file/{adoptionId}', [ArtistAdoptionDetailController::class, 'deliver_file'])->name('artist.adoption_deliver_file');
     Route::post('/adoptions/mark_complete/{adoptionId}', [ArtistAdoptionDetailController::class, 'mark_complete'])->name('artist.adoption_mark_complete');
-
 });
 
 // Public download routes goes here (no auth required)
@@ -74,10 +73,12 @@ Route::get('/adoption_download/{adoptionId}', [AdoptionDownloadController::class
 // Member Routes
 Route::prefix('member')->middleware(['auth', 'role:client'])->group(function () {
     Route::get('/history', [HistoryMemberController::class, 'index'])->name('member.history');
+    Route::get('/getHistory', [HistoryMemberController::class, 'getHistory'])->name('member.getHistory');
+
     Route::get('/commission_type', [CommissionMemberController::class, 'index'])->name('member.commission_type');
     Route::get('/commission_form', [CommissionMemberController::class, 'form'])->name('member.commission_form');
     Route::post('/commission_store', [CommissionMemberController::class, 'store'])->name('member.commission_store');
-    Route::get('/history/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
+    Route::get('/history/{type}/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
 });
 
 Route::post('/logout', function () {
