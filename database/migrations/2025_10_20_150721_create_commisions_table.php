@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('member_id'); // FK ke members.member_id tanpa constraint
             $table->string('category', 50);
             $table->text('description');
+            $table->text('reference_image')->nullable(); 
             $table->date('deadline')->nullable();
             $table->float('price'); 
             $table->enum('payment_status', ['pending', 'dp', 'paid', 'refunded'])->default('pending');

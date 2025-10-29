@@ -115,6 +115,16 @@ class CommissionSeeder extends Seeder
         ];
 
         $commissionId = 1;
+        // Sample reference images (external placeholders or your local assets)
+        $sampleImages = [
+            'https://picsum.photos/seed/comm1/800/600',
+            'https://picsum.photos/seed/comm2/800/600',
+            'https://picsum.photos/seed/comm3/800/600',
+            'https://picsum.photos/seed/comm4/800/600',
+            'https://picsum.photos/seed/comm5/800/600',
+            '/assets/comm_sample/sample1.jpg',
+            '/assets/comm_sample/sample2.jpg',
+        ];
         
         foreach ($scenarios as $scenario) {
             for ($i = 0; $i < $scenario['count']; $i++) {
@@ -145,6 +155,8 @@ class CommissionSeeder extends Seeder
                     'member_id' => $faker->randomElement($clientIds),
                     'category' => $faker->randomElement(['Fullbody', 'Headshot', 'Halfbody', 'Chibi', 'Custom']),
                     'description' => $faker->paragraph,
+                    // 70% chance to include a reference image
+                    'reference_image' => (rand(0, 9) < 7) ? $faker->randomElement($sampleImages) : null,
                     'deadline' => $faker->dateTimeBetween('+1 week', '+3 months'),
                     'price' => $faker->numberBetween(50000, 500000), // Rp 50.000 - Rp 500.000
                     'payment_status' => $scenario['payment_status'],
