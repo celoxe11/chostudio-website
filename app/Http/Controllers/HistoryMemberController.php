@@ -13,31 +13,62 @@ class HistoryMemberController extends Controller
         return view('member.history');
     }
 
-    public function getHistory()
+    public function getHistory(Request $request)
     {
-        // get the current authenticated user
         $user = auth()->user();
 
-        // get users commissions form the database
-        $commissions = Commission::where('member_id', $user->member_id)->get();
+        // 1. Extract Filters from Request
+        $type = $request->input('type', 'all');
+        $search = $request->input('search');
+        $commissionStatus = $request->input('commission_status', 'all');
+        $adoptionStatus = $request->input('adoption_status', 'all');
 
-        // get the adoptions if the users email is found in the adoption table
-        $adoptions = Adoption::where('buyer_email', $user->email)->get();
+        $historyData = collect();
 
-        // merge both collections and sort by created_at descending
-        $historyData = $adoptions->map(function ($adoption) {
-            return [
-                ...$adoption->toArray(),
-                'type' => 'Adoption',
-            ];
-        })->merge($commissions->map(function ($commission) {
-            return [
-                ...$commission->toArray(),
-                'type' => 'Commission',
-            ];
-        }))->sortByDesc('created_at')->values();
+        // 2. Query Commissions (if 'all' or 'commission' is selected)
+        if ($type === 'all' || strtolower($type) === 'commission') {
+            $commissions = Commission::where('member_id', $user->member_id)
+                // Apply search filter if present
+                ->when($search, function ($query, $term) {
+                    return $query->where('title', 'like', '%' . $term . '%');
+                })
+                // Apply commission status filter if not 'all'
+                ->when(strtolower($commissionStatus) !== 'all', function ($query) use ($commissionStatus) {
+                    return $query->where('progress_status', strtolower($commissionStatus));
+                })
+                ->get();
 
-        // dd($historyData);
+            $historyData = $historyData->merge($commissions->map(function ($commission) {
+                return [
+                    ...$commission->toArray(),
+                    'type' => 'Commission',
+                ];
+            }));
+        }
+
+        // 3. Query Adoptions (if 'all' or 'adoption' is selected)
+        if ($type === 'all' || strtolower($type) === 'adoption') {
+            $adoptions = Adoption::where('buyer_email', $user->email)
+                // Apply search filter if present
+                ->when($search, function ($query, $term) {
+                    return $query->where('title', 'like', '%' . $term . '%');
+                })
+                // Apply adoption status filter if not 'all'
+                ->when(strtolower($adoptionStatus) !== 'all', function ($query) use ($adoptionStatus) {
+                    return $query->where('order_status', strtolower($adoptionStatus));
+                })
+                ->get();
+
+            $historyData = $historyData->merge($adoptions->map(function ($adoption) {
+                return [
+                    ...$adoption->toArray(),
+                    'type' => 'Adoption',
+                ];
+            }));
+        }
+
+        // 4. Sort and return
+        $historyData = $historyData->sortByDesc('created_at')->values();
 
         return response()->json([
             'success' => true,
@@ -45,7 +76,18 @@ class HistoryMemberController extends Controller
         ]);
     }
 
-    public function detail($type, $id)
+    public function adoption_detail($id)
+    {
+        $item = Adoption::with("gallery")->find($id);
+
+        if (!$item) {
+            abort(404, 'History item not found.');
+        }
+
+        return view('member.history_adoption_detail', ['id' => $id]);
+    }
+
+    public function commission_detail($id)
     {
         // $item = collect($this->historyData)->firstWhere('id', $id);
 
@@ -53,6 +95,6 @@ class HistoryMemberController extends Controller
         //     abort(404, 'History item not found.');
         // }
 
-        return view('member.history_detail');
+        return view('member.history_commission_detail', ['id' => $id]);
     }
 }

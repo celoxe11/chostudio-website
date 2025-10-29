@@ -6,28 +6,15 @@
 
         {{-- The main wrapper now holds the data attributes for JavaScript --}}
         <div
-            class="w-full h-full bg-[var(--color-background)] shadow-2xl border-3 border-stone-900 rounded-2xl p-6 relative overflow-hidden">
-
-            {{-- Decorative background elements --}}
-            <div
-                class="absolute top-0 right-0 w-32 h-32 bg-stone-200 rounded-full opacity-10 -translate-y-16 translate-x-16">
-            </div>
-            <div
-                class="absolute bottom-0 left-0 w-24 h-24 bg-stone-300 rounded-full opacity-10 translate-y-12 -translate-x-12">
-            </div>
+            class="w-full h-full bg-[var(--color-background)] shadow-2xl border-3 border-stone-900 rounded-2xl p-6 relative overflow-hidden flex flex-col">
 
             {{-- header --}}
-            <div class="flex flex-col gap-6 mb-4 md:flex-row md:items-center md:justify-between relative z-10">
+            <div class="flex flex-col gap-6 mb-4 md:flex-row md:items-center md:justify-between relative z-10 flex-none">
                 <h1 class="text-4xl font-bold text-stone-900 flex items-center">History</h1>
                 <div
                     class="flex flex-col gap-5 md:flex-row md:items-center bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-stone-200">
 
-                    {{-- Search Input --}}
-                    <div class="flex gap-2">
-                        <input type="text" id="searchInput"
-                            class="w-full md:w-auto px-3 py-3 border-2 border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-300 focus:border-stone-300 bg-white transition-all duration-300 hover:shadow-md"
-                            placeholder="Search by name...">
-                    </div>
+                    {{-- (Search removed) --}}
 
                     {{-- Main Filter (Type) --}}
                     <div class="flex gap-2">
@@ -80,7 +67,8 @@
 
             {{-- History Container and Loading/Error Messages --}}
             <div id="historyContainer"
-                class="border-2 border-stone-300 overflow-y-auto h-full bg-white/50 backdrop-blur-sm rounded-xl shadow-inner relative z-10">
+                class="border-2 border-stone-300 bg-white/50 backdrop-blur-sm rounded-xl shadow-inner flex-1 min-h-0 overflow-y-auto p-2">
+
             </div>
         </div>
     </div>

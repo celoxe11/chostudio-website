@@ -1,63 +1,83 @@
-function getHistoryData() {
-    // FIX 1: Use the correct container ID defined in the HTML
+let currentFilters = {
+    type: "all",
+    commission_status: "all",
+    adoption_status: "all",
+};
+
+// Main function to build parameters and fetch data
+function getHistoryData(filters = {}) {
     const container = $("#historyContainer");
+
+    // 1. Prepare base parameters
+    const params = {
+        type: filters.type || "all",
+    };
+
+    // 2. Conditionally add the specific status filter based on the main 'type' filter
+    if (params.type === "commission") {
+        params.commission_status = filters.commission_status || "all";
+    } else if (params.type === "adoption") {
+        params.adoption_status = filters.adoption_status || "all";
+    }
 
     $.ajax({
         url: "/member/getHistory",
         method: "GET",
         dataType: "json",
+        data: params, // Sends the filters as query parameters to PHP controller
 
         beforeSend: function () {
-            // Display loading state in the correct container
+            // Display loading state (using the correct container ID)
             container.html(`
-                        <div id="loading-message" class="col-span-full row-span-full text-center p-12">
-                            <i class="fa-solid fa-spinner fa-spin mr-3 text-stone-600 text-3xl"></i>
-                            <p class="text-xl text-stone-900 mt-2">Loading history data...</p>
-                        </div>
-                    `);
+                <div id="loading-message" class="col-span-full row-span-full text-center p-12">
+                    <i class="fa-solid fa-spinner fa-spin mr-3 text-stone-600 text-3xl"></i>
+                    <p class="text-xl text-stone-900 mt-2">Loading history data...</p>
+                </div>
+            `);
         },
 
         success: function (response) {
-            // FIX 2: Implement robust data check aligned with PHP output (success flag and data array)
             const historyData =
                 response && response.success && Array.isArray(response.data)
                     ? response.data
                     : [];
 
+            // Render logic here (replace this with your actual rendering code)
             if (historyData.length === 0) {
-                // Display no results message if data is empty or invalid
-                container.html(`
-                            <div class="p-12 text-center text-lg text-stone-500">
-                                <i class="fa-solid fa-box-open mr-2 text-2xl"></i> No history found yet.
-                            </div>
-                        `);
-                return;
-            }
+                container.html(
+                    '<div class="p-12 text-center text-lg text-stone-500"><i class="fa-solid fa-box-open mr-2 text-2xl"></i> No history found for these filters.</div>'
+                );
+            } else {
+                // Build grid container and render cards
+                container.html(
+                    `<div id="history-grid" class="grid p-6 gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"></div>`
+                );
 
-            // If data is valid and non-empty, render the grid and cards
-            container.html(
-                // Adjusted grid classes slightly for responsiveness and padding (p-6)
-                `<div id="history-grid" class="grid p-6 gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"></div>`
-            );
+                const grid = $("#history-grid");
 
-            historyData.forEach((item) => {
-                const colors = getCardColors(item);
-                const status =
-                    item.type === "Commission"
-                        ? item.progress_status
-                        : item.order_status;
-                const id =
-                    item.type == "Commission"
-                        ? item.commission_id
-                        : item.adoption_id;
+                historyData.forEach(function (item) {
+                    const type = item.type
+                        ? item.type
+                        : item.hasOwnProperty("buyer_email")
+                        ? "Adoption"
+                        : "Commission";
 
-                // NOTE: Using inline styles for dynamic colors as per previous design choice.
-                // Item.title is used as the sub-heading, falling back to 'Artwork for You'.
-                $("#history-grid").append(
-                    `
-                            <a href="/member/history/${(
-                                item.type || ""
-                            ).toLowerCase()}/${id}" 
+                    const colors = getCardColors(item);
+
+                    const status =
+                        item.type === "Adoption"
+                            ? item.order_status
+                            : item.progress_status;
+
+                    // Determine detail link (adjust routes if needed)
+                    const detailUrl =
+                        type.toLowerCase() === "adoption"
+                            ? `/member/history/adoption/${item.id}`
+                            : `/member/history/commission/${item.id}`;
+
+                    const card = $(
+                        `
+                            <a href="${detailUrl}" 
                                 class="flex flex-col justify-center items-center p-4 rounded-xl hover:scale-[1.02] hover:shadow-xl transition-all duration-300 transform border-2"
                                 style="background-color: ${
                                     colors.bgColor
@@ -70,8 +90,8 @@ function getHistoryData() {
                                     <p class="text-sm" style="color: ${
                                         colors.textColor
                                     }; opacity: 0.9;">${
-                        item.title ?? "Artwork for You"
-                    }</p>
+                            item.title ?? "Artwork for You"
+                        }</p>
                                 </div>
                                 
                                 <div class="border-t border-[#ad99d0] text-center space-y-1 pt-2 mb-3 w-full">
@@ -108,24 +128,32 @@ function getHistoryData() {
                                 </button>
                             </a>
                             `
-                );
-            });
+                    );
+
+                    grid.append(card);
+                });
+            }
         },
 
         error: function (xhr, status, error) {
-            // Display error message for network/server issues
             console.error("Error fetching history data:", error);
-            container.html(`
-                        <div class="p-12 text-center text-lg text-red-600">
-                            <i class="fa-solid fa-xmark-circle mr-2 text-3xl"></i>
-                            <p class="mt-2">Failed to load history data. Please check your network or try again later.</p>
-                            <p class="text-sm text-red-400">Error: ${
-                                error || "Unknown Error"
-                            }</p>
-                        </div>
-                    `);
+            // Display error message
+            container.html(
+                '<div class="p-12 text-center text-lg text-red-600">Failed to load history.</div>'
+            );
         },
     });
+}
+
+// Function to update global state and refresh data
+function applyFilters() {
+    // Update global state from current form values
+    currentFilters.type = $("#filterSelect").val();
+    currentFilters.commission_status = $("#commissionStatusFilter").val();
+    currentFilters.adoption_status = $("#adoptionStatusFilter").val();
+
+    // Call the data fetcher with the new filters
+    getHistoryData(currentFilters);
 }
 
 $(document).ready(function () {
@@ -133,6 +161,8 @@ $(document).ready(function () {
 
     $("#filterSelect").on("change", function () {
         const selectedType = $(this).val();
+
+        // Toggle visibility of status filters
         $("#commissionStatusContainer").toggleClass(
             "hidden",
             selectedType !== "commission"
@@ -141,7 +171,19 @@ $(document).ready(function () {
             "hidden",
             selectedType !== "adoption"
         );
+
+        // Reset the status filters when type changes (to ensure 'all' is sent for the hidden one)
+        $("#commissionStatusFilter").val("all");
+        $("#adoptionStatusFilter").val("all");
+
+        applyFilters();
     });
+
+    // 3. Event listener for STATUS Filters
+    $("#commissionStatusFilter, #adoptionStatusFilter").on(
+        "change",
+        applyFilters
+    );
 });
 
 function getCardColors(item) {
@@ -266,4 +308,15 @@ function formatPrice(price) {
     // Check for potential price property differences between models
     const finalPrice = price.final_price ?? price.price ?? price;
     return "Rp. " + Number(finalPrice).toLocaleString("id-ID");
+}
+
+// Simple helper to escape HTML when inserting user-provided content into markup
+function escapeHtml(unsafe) {
+    if (unsafe == null) return "";
+    return String(unsafe)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }

@@ -75,10 +75,12 @@ Route::prefix('member')->middleware(['auth', 'role:client'])->group(function () 
     Route::get('/history', [HistoryMemberController::class, 'index'])->name('member.history');
     Route::get('/getHistory', [HistoryMemberController::class, 'getHistory'])->name('member.getHistory');
 
+    Route::get('/history/adoption/{id}', [HistoryMemberController::class, 'adoption_detail'])->name('member.history_adoption_detail');
+    Route::get('/history/commission/{id}', [HistoryMemberController::class, 'commission_detail'])->name('member.history_commission_detail');
+
     Route::get('/commission_type', [CommissionMemberController::class, 'index'])->name('member.commission_type');
     Route::get('/commission_form', [CommissionMemberController::class, 'form'])->name('member.commission_form');
     Route::post('/commission_store', [CommissionMemberController::class, 'store'])->name('member.commission_store');
-    Route::get('/history/{type}/{id}', [HistoryMemberController::class, 'detail'])->name('member.history_detail');
 });
 
 Route::post('/logout', function () {
