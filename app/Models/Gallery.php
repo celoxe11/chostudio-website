@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gallery extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'gallery';
     protected $primaryKey = 'gallery_id';
+    public $timestamps = true;
 
     protected $fillable = [
         'title',
