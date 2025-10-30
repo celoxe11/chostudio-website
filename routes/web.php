@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AdoptionDownloadController;
-use App\Http\Controllers\Artist\AdoptionFileController;
 use App\Http\Controllers\ArtistAdoptionController;
 use App\Http\Controllers\ArtistAdoptionDetailController;
 use App\Http\Controllers\ArtistCommissionController;

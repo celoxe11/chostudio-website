@@ -78,23 +78,24 @@ class HistoryMemberController extends Controller
 
     public function adoption_detail($id)
     {
-        $item = Adoption::with("gallery")->find($id);
+        $adoption = Adoption::with("gallery")->find($id);
 
-        if (!$item) {
-            abort(404, 'History item not found.');
+        if (!$adoption) {
+            abort(404, 'Adoption data not found.');
         }
 
-        return view('member.history_adoption_detail', ['id' => $id]);
+        return view('member.history_adoption_detail', ['adoption' => $adoption]);
     }
 
     public function commission_detail($id)
     {
-        // $item = collect($this->historyData)->firstWhere('id', $id);
+        $commission = Commission::with(['progressImages', 'member'])
+            ->findOrFail($id);
 
-        // if (!$item) {
-        //     abort(404, 'History item not found.');
-        // }
+        if (!$commission) {
+            abort(404, 'Commission data not found.');
+        }
 
-        return view('member.history_commission_detail', ['id' => $id]);
+        return view('member.history_commission_detail', ['commission' => $commission, 'member' => $commission->member]);
     }
 }

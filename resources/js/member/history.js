@@ -72,8 +72,8 @@ function getHistoryData(filters = {}) {
                     // Determine detail link (adjust routes if needed)
                     const detailUrl =
                         type.toLowerCase() === "adoption"
-                            ? `/member/history/adoption/${item.id}`
-                            : `/member/history/commission/${item.id}`;
+                            ? `/member/history/adoption/${item.adoption_id}`
+                            : `/member/history/commission/${item.commission_id}`;
 
                     const card = $(
                         `
