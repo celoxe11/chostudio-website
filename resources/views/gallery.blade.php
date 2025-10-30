@@ -7,7 +7,7 @@
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 sm:gap-0">
 
                 <div
-                    class="bg-[#f0ebe3] rounded-t-3xl h-full py-4 sm:py-6 px-8 sm:px-20 shadow-[0_-0.8vh_0_0_black,-0.8vh_0_0_0_black,0.8vh_0_0_0_black] sm-h-full order-2 sm:order-1">
+                    class="bg-[#f0ebe3] rounded-t-3xl h-full py-4 sm:py-6 px-8 sm:px-20 shadow-black sm-h-full order-2 sm:order-1">
                     <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-5xl text-bold font-[HammersmithOne-Regular]">Cho's
                         Studio
                     </h1>
@@ -26,14 +26,9 @@
                         class="font-[HammersmithOne-Regular] bg-[#a2e1db] h-full py-3 sm:py-4 px-4 sm:px-8 max-sm:border-2 max-sm:rounded-xl rounded-t-2xl border-t-4 border-l-4 border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-sm sm:text-lg whitespace-nowrap">
                         <button>Shop</button>
                     </div>
-                    <div class="relative inline-block">
-                        <div class="absolute translate-x-5.5 translate-y-6 bg-black rounded-t-2xl h-full w-full z-[-1]">
-                        </div>
-
-                        <div
-                            class="relative font-[HammersmithOne-Regular] bg-[#a2e1db] h-full py-3 sm:py-4 px-4 sm:px-8 max-sm:border-2 max-sm:rounded-xl rounded-t-2xl border-t-4 border-x-4 border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-sm sm:text-lg whitespace-nowrap z-10">
-                            <button>Member</button>
-                        </div>
+                    <div
+                        class="relative font-[HammersmithOne-Regular] bg-pastel-turqoise  shadow-[3vh_4vh_0_black] h-full py-3 sm:py-4 px-4 sm:px-8 max-sm:border-2 max-sm:rounded-xl rounded-t-2xl border-t-4 border-x-4 border-black hover:bg-[#b4a6d5] transition-colors duration-300 ease-in-out text-sm sm:text-lg whitespace-nowrap z-[-1]">
+                        <button>Member</button>
                     </div>
                 </div>
             </div>
@@ -52,19 +47,19 @@
                     <div
                         class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 auto-rows-fr h-full p-2 sm:p-4">
                         <div
-                            class="col-span-2 row-span-2 bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
+                            class="col-span-2 row-span-2 bg-linear-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
                         </div>
                         <div
-                            class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
+                            class="bg-linear-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
                         </div>
                         <div
-                            class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
+                            class="bg-linear-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
                         </div>
                         <div
-                            class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
+                            class="bg-linear-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
                         </div>
                         <div
-                            class="bg-gradient-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
+                            class="bg-linear-to-b from-sky-200 to-green-300 rounded-xl outline-2 outline-black shadow-[0.5vh_0.5vh_0_black]">
                         </div>
                     </div>
                     <div>
