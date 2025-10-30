@@ -300,6 +300,94 @@ $(document).ready(function () {
         });
     });
 
+    // Toggle deadline edit mode
+    $("#edit-deadline-btn").click(function () {
+        $("#deadline-display-mode").hide();
+        $("#deadline-edit-mode").removeClass("hidden").hide().slideDown(200);
+        $("#commission-deadline-input").focus();
+    });
+
+    // Cancel deadline edit
+    $("#cancel-deadline-edit-btn").click(function () {
+        const originalValue = $("#commission-deadline-input").data("raw-value");
+        $("#commission-deadline-input").val(originalValue);
+
+        $("#deadline-edit-mode").slideUp(200, function () {
+            $(this).addClass("hidden");
+            $("#deadline-display-mode").fadeIn(200);
+        });
+    });
+
+    // Handle deadline update
+    $("#update-deadline-btn").click(function () {
+        const commissionId = $(this).data("commission-id");
+        const newDeadline = $("#commission-deadline-input").val();
+
+        if (!newDeadline || newDeadline.trim() === "") {
+            Swal.fire({
+                icon: "warning",
+                title: "Invalid Deadline",
+                text: "Please enter a valid deadline.",
+                customClass: {
+                    popup: "custom-swal-popup",
+                    title: "custom-swal-title",
+                    htmlContainer: "custom-swal-text",
+                },
+            });
+            $("#commission-deadline-input").focus();
+            return;
+        }
+
+        // Disable button during submission
+        $(this)
+            .prop("disabled", true)
+            .html(
+                '<svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>'
+            );
+
+        $.ajax({
+            url: `/artist/commissions/deadline/${commissionId}`,
+            type: "POST",
+            data: {
+                deadline: newDeadline,
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success!",
+                    text: "Deadline updated. Reloading...",
+                    customClass: {
+                        popup: "custom-swal-popup",
+                        title: "custom-swal-title",
+                        htmlContainer: "custom-swal-text",
+                    },
+                });
+                setTimeout(() => location.reload(), 1000);
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Update Failed",
+                    text: "An error occurred while updating the deadline.",
+                    customClass: {
+                        popup: "custom-swal-popup",
+                        title: "custom-swal-title",
+                        htmlContainer: "custom-swal-text",
+                    },
+                });
+                console.error(
+                    "Deadline update error:",
+                    xhr.responseJSON || error
+                );
+                $("#update-deadline-btn")
+                    .prop("disabled", false)
+                    .html(
+                        '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>'
+                    );
+            },
+        });
+    });
+
     // handle file input change for progress upload
     $("#progress-file-input").change(function () {
         const fileName = $(this).val().split("\\").pop();

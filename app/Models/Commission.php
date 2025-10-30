@@ -18,6 +18,7 @@ class Commission extends Model
         'member_id',
         'category',
         'description',
+        'reference_image',
         'deadline',
         'price',
         'payment_status',

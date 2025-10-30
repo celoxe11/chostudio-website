@@ -46,10 +46,6 @@
                         <div class="space-y-4">
                             <input
                                 class="bg-[#a2e1db] font-[HammersmithOne-Regular] placeholder-[#477c77] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
-                                type="text" name="name" id="name" placeholder="Full Name"
-                                value="{{ old('name') }}">
-                            <input
-                                class="bg-[#a2e1db] font-[HammersmithOne-Regular] placeholder-[#477c77] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
                                 type="text" name="username" id="username" placeholder="Username">
                             <input
                                 class="bg-[#a2e1db] font-[HammersmithOne-Regular] placeholder-[#477c77] rounded-2xl p-4 text-base w-full focus:outline-none focus:ring-4 focus:ring-[#477c77] focus:border-transparent transition-all duration-200"
@@ -160,13 +156,12 @@
                 e.preventDefault();
 
                 const username = $('#username').val().trim();
-                const name = $('#name').val().trim();
                 const email = $('#email').val().trim();
                 const password = $('#password').val();
                 const confirmPassword = $('#password_confirmation').val();
 
                 // Basic validation
-                if (username === '' || name === '' || email === '' || password === '' || confirmPassword ===
+                if (username === '' || email === '' || password === '' || confirmPassword ===
                     '') {
                     notie.alert({
                         type: 'error',

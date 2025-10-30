@@ -52,6 +52,22 @@ class ArtistCommissionDetailController extends Controller
         ]);
     }
 
+    function update_deadline(Request $request, $commissionId)
+    {
+        $request->validate([
+            'deadline' => 'required|date|after:today'
+        ]);
+
+        $commission = Commission::findOrFail($commissionId);
+        $commission->deadline = $request->deadline;
+        $commission->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Commission deadline updated successfully.'
+        ]);
+    }
+
     function cancel(Request $request, $commissionId)
     {
         $request->validate([

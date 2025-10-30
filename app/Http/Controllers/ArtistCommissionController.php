@@ -22,7 +22,7 @@ class ArtistCommissionController extends Controller
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->whereHas('member', function ($memberQuery) use ($search) {
-                    $memberQuery->where('name', 'like', "%{$search}%")
+                    $memberQuery->where('username', 'like', "%{$search}%")
                         ->orWhere('email', 'like', "%{$search}%");
                 })
                     ->orWhere('category', 'like', "%{$search}%")

@@ -168,20 +168,74 @@
                         class="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border-2 border-orange-200 shadow-sm">
                         <label
                             class="block text-xs font-bold text-orange-700 mb-2 uppercase tracking-wide">Deadline</label>
-                        <div class="text-sm font-bold text-orange-900">
-                            {{ date('F j, Y', strtotime($commission->deadline)) }}</div>
-                        @php
-                            $daysLeft = ceil((strtotime($commission->deadline) - time()) / (60 * 60 * 24));
-                        @endphp
-                        @if ($daysLeft > 0)
-                            <div class="text-xs font-semibold text-blue-600 mt-1">
-                                {{ $daysLeft }} days left</div>
-                        @elseif($daysLeft == 0)
-                            <div class="text-xs font-semibold text-orange-600 mt-1">Due today</div>
-                        @else
-                            <div class="text-xs font-semibold text-red-600 mt-1">
-                                {{ abs($daysLeft) }} days overdue</div>
-                        @endif
+                        <div id="deadline-display-mode" class="flex items-center justify-between gap-2">
+                            <div>
+                                <div class="text-sm font-bold text-orange-900">
+                                    {{ date('F j, Y', strtotime($commission->deadline)) }}
+                                </div>
+                                @php
+                                    $daysLeft = ceil((strtotime($commission->deadline) - time()) / (60 * 60 * 24));
+                                @endphp
+                                @if ($daysLeft > 0)
+                                    <div class="text-xs font-semibold text-blue-600 mt-1">
+                                        {{ $daysLeft }} days left</div>
+                                @elseif($daysLeft == 0)
+                                    <div class="text-xs font-semibold text-orange-600 mt-1">Due today</div>
+                                @else
+                                    <div class="text-xs font-semibold text-red-600 mt-1">
+                                        {{ abs($daysLeft) }} days overdue</div>
+                                @endif
+                            </div>
+                            @if ($commission->payment_status === 'pending')
+                                <button type="button" id="edit-deadline-btn"
+                                    class="flex-shrink-0 px-2.5 py-2 rounded-lg border-2 border-orange-500 bg-white text-orange-600 font-bold shadow-md hover:shadow-lg hover:bg-orange-50 hover:-translate-y-0.5 transform transition-all duration-200"
+                                    title="Edit Deadline">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            @endif
+                        </div>
+                        <!-- Edit Mode (hidden by default) -->
+                        <div id="deadline-edit-mode" class="hidden space-y-2">
+                            <div class="flex items-center gap-2">
+                                <label for="commission-deadline-input"
+                                    class="font-bold text-orange-700 text-sm flex-shrink-0">Date</label>
+                                <input type="date" id="commission-deadline-input"
+                                    value="{{ date('Y-m-d', strtotime($commission->deadline)) }}"
+                                    data-raw-value="{{ $commission->deadline }}"
+                                    class="flex-1 min-w-0 px-3 py-2 border-2 border-orange-300 rounded-lg bg-white focus:border-orange-500 focus:ring-2 focus:ring-orange-200 focus:outline-none font-bold text-orange-700 text-sm transition-all duration-200"
+                                    placeholder="YYYY-MM-DD" />
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="button" id="update-deadline-btn"
+                                    data-commission-id="{{ $commission->commission_id }}"
+                                    class="flex-1 px-3 py-2 rounded-lg border-2 border-orange-500 bg-orange-500 text-white font-bold text-sm shadow-md hover:shadow-lg hover:bg-orange-600 hover:-translate-y-0.5 transform transition-all duration-200"
+                                    title="Save Deadline">
+                                    <div class="flex items-center justify-center gap-1.5">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        <span>Save</span>
+                                    </div>
+                                </button>
+                                <button type="button" id="cancel-deadline-edit-btn"
+                                    class="flex-1 px-3 py-2 rounded-lg border-2 border-gray-400 bg-white text-gray-600 font-bold text-sm shadow-md hover:shadow-lg hover:bg-gray-50 hover:-translate-y-0.5 transform transition-all duration-200"
+                                    title="Cancel">
+                                    <div class="flex items-center justify-center gap-1.5">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        <span>Cancel</span>
+                                    </div>
+                                </button>
+                            </div>
+                            <p class="text-xs text-orange-600">Adjust the deadline before agreement is reached</p>
+                        </div>
                     </div>
                     <div
                         class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border-2 border-blue-200 shadow-sm">

@@ -8,11 +8,11 @@
             <div class="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm">
                 <div
                     class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-sm">
-                    {{ strtoupper(substr($member->name, 0, 1)) }}
+                    {{ strtoupper(substr($member->username, 0, 1)) }}
                 </div>
                 <div>
-                    <div class="text-xl font-bold text-stone-900 mb-1">{{ $member->name }}</div>
-                    <div class="text-sm text-gray-600">{{ $member->username }}</div>
+                    <div class="text-sm text-gray-600">Username</div>
+                    <div class="text-xl font-bold text-stone-900 mb-1">{{ $member->username }}</div>
                 </div>
             </div>
 

@@ -32,7 +32,6 @@ class Member extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'username',
         'email',
         'password',
@@ -81,7 +80,6 @@ class Member extends Authenticatable
 
         // Create the member with null safety
         return self::create([
-            'name' => $data['name'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => $data['password'], // Will be automatically hashed by the 'hashed' cast

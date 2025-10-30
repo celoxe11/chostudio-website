@@ -159,7 +159,7 @@ $(document).ready(function () {
                         <tr class="bg-(--color-background)">
                             <td class="p-3 md:p-4 text-lg max-lg:text-base max-sm:text-sm max-md:p-1 border border-stone-900 align-top">
                                 <div class="font-semibold">${
-                                    c.member?.name || "N/A"
+                                    c.member?.username || "N/A"
                                 }</div>
                                 <div class="text-sm text-gray-600">${
                                     c.member?.email || "N/A"
