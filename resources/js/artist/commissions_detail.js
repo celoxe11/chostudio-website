@@ -65,6 +65,36 @@ function getPaymentStatusText(status) {
 }
 
 $(document).ready(function () {
+    const $refImageModal = $("#ref-image-modal");
+    const $modalContent = $refImageModal.find(".modal-content");
+    const animationSpeed = 150;
+
+    $modalContent.hide();
+    $refImageModal.hide();
+
+    // --- Open Modal Logic ---
+    $("#view_ref_image").click(function () {
+        $refImageModal.fadeIn(animationSpeed, function () {
+            $modalContent.slideDown(animationSpeed);
+        });
+    });
+
+    // --- Close Modal Logic (using SlideUp) ---
+    $("#close-ref-image-modal").click(function () {
+        $modalContent.slideUp(animationSpeed, function () {
+            $refImageModal.fadeOut(animationSpeed);
+        });
+    });
+
+    // Optional: Close modal when clicking outside of the content (using FadeOut)
+    $refImageModal.click(function (event) {
+        if (event.target.id === "ref-image-modal") {
+            $modalContent.slideUp(animationSpeed, function () {
+                $refImageModal.fadeOut(animationSpeed);
+            });
+        }
+    });
+
     $("#accept-commission-btn").click(function () {
         const commissionId = $(this).data("commission-id");
 

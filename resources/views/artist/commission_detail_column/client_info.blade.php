@@ -64,6 +64,13 @@
                             class="text-sm text-pink-600 hover:underline font-medium">{{ $member->instagram }}</a>
                     </div>
                 @endif
+
+                @if ($commission->reference_image)
+                    <button id="view_ref_image"
+                        class="w-full bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl text-white border-2 border-gray-300 bg-white text-gray-600 shadow-md p-3 text-xl hover:shadow-lg hover:bg-gray-50 hover:-translate-y-0.5 transform transition-all duration-200">
+                        View Reference Image
+                    </button>
+                @endif
             </div>
         </div>
     </div>
