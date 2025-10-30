@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('commissions', function (Blueprint $table) {
             $table->id('commission_id'); // PK
             $table->unsignedBigInteger('member_id'); // FK ke members.member_id tanpa constraint
-            $table->string('category', 50);
+            $table->enum('category', ["headshot", 'bustup', 'halfbody', 'fullbody', 'cartoon_bustup', 'cartoon_halfbody', 'cartoon_fullbody']);
+            $table->enum("background_type", ["none", "simple", "detailed"]);
+            $table->boolean("is_commercial_use")->default(false);
+            $table->integer("additional_characters")->default(0);
             $table->text('description');
             $table->text('reference_image')->nullable(); 
             $table->date('deadline')->nullable();
-            $table->float('price'); 
+            $table->decimal('price', 12, 2);
             $table->enum('payment_status', ['pending', 'dp', 'paid', 'refunded'])->default('pending');
             $table->enum('progress_status', ['pending', 'accepted', 'declined', 'in_progress_sketch', 'in_progress_coloring', 'review', 'revision', 'completed', 'cancelled'])->default('pending');
             

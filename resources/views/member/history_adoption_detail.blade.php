@@ -10,7 +10,7 @@
             class="w-full bg-[var(--color-background)] shadow-2xl border-3 border-stone-900 rounded-2xl p-6 lg:p-10 relative">
 
             {{-- Main Content Card (Artwork Details and Image) --}}
-            <div class="w-full rounded-xl p-4 sm:p-6 md:p-8 border-4 border-amber-500 bg-amber-50 shadow-inner">
+            <div class="w-full rounded-xl p-4 sm:p-6 md:p-8 border-4 border-amber-500 bg-amber-100 shadow-inner">
 
                 {{-- Header/Back Button and Title (Consistent Layout) --}}
                 <div class="relative mb-8 text-center border-b border-amber-200 pb-4">
@@ -28,39 +28,48 @@
                     {{-- Left Column: Artwork Image & Status (Consistent Width: lg:w-2/5) --}}
                     <div class="w-full lg:w-2/5 flex flex-col items-center space-y-6">
 
-                        <div class="bg-white rounded-xl p-3 border-2 border-gray-300 shadow-xl">
-                            {{-- Image/Preview --}}
-                            <div class="w-full rounded-xl overflow-hidden shadow-xl border-4 border-amber-400 bg-white">
-                                @if (isset($adoption->gallery->image_url))
-                                    <div class="bg-white rounded-lg shadow-inner">
-                                        <img src="{{ asset($adoption->gallery->image_url) }}" alt="Artwork Preview"
-                                            class="w-full h-full object-cover">
-                                    </div>
-                                @else
-                                    {{-- Placeholder consistent with commission's missing image structure --}}
-                                    <div
-                                        class="w-full aspect-square flex items-center justify-center bg-gray-100 text-gray-400 text-sm">
-                                        <i class="fa-solid fa-image fa-3x"></i>
-                                        <p class="ml-3">No Image Available</p>
-                                    </div>
-                                @endif
+                        <div
+                            class="bg-white rounded-xl p-3 sm:p-5 border-2 border-amber-300 shadow-inner relative">
+                            <div class="rounded-lg shadow-lg">
+                                <img src="{{ asset($adoption->gallery->image_url) }}" alt="{{ $adoption->gallery->title }}"
+                                    class="w-full h-auto max-h-60 sm:max-h-80 object-contain rounded-lg mx-auto"
+                                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMDAgMTAwVjIwME0xNTAgMTUwSDI1MCIgc3Ryb2tlPSIjOUNBM0FGIiBzdHJva2Utd2lkdGg9IjIiLz4KPHRLEHT+'" />
+                            </div>
+                            <!-- Gallery ID Badge -->
+                            <div class="absolute top-2 left-2 sm:top-5 sm:left-5 flex items-center justify-center">
+                                <div
+                                    class="inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg shadow-lg">
+                                    <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
+                                        </path>
+                                    </svg>
+                                    <span class="text-xs sm:text-sm font-bold">Gallery ID:
+                                        #{{ $adoption->gallery_id }}</span>
+                                </div>
                             </div>
                         </div>
 
                         {{-- Status Box (Consistent Styling) --}}
-                        <div
-                            class="w-full flex flex-row items-center justify-between p-5 bg-gradient-to-br from-amber-50 to-white rounded-2xl shadow-xl border-2 border-amber-300 text-gray-900">
-                            <h3
-                                class="text-xl font-extrabold text-center tracking-wide text-amber-700 flex items-center justify-center gap-2">
-                                Status
+                        <div class="w-full p-4 bg-white rounded-xl shadow-lg border-2 border-amber-300 text-gray-800">
+                            <h3 class="text-lg font-extrabold text-center mb-3 border-b border-amber-100 pb-2">Status
                             </h3>
-                            <div class="flex flex-col sm:flex-row justify-center items-center gap-2">
+
+                            {{-- Payment Status --}}
+                            <div class="flex justify-between items-center py-2">
+                                <span class="font-bold">Payment:</span>
                                 <div
-                                    class="px-4 py-1 rounded-full text-white {{ $adoption->payment_status_color }} text-base font-semibold shadow">
+                                    class="px-3 py-1 rounded-full text-white {{ $adoption->payment_status_color }} text-sm font-medium shadow-md">
                                     {{ $adoption->payment_status_text }}
                                 </div>
+                            </div>
+
+                            {{-- Order Status --}}
+                            <div class="flex justify-between items-center py-2 border-t border-amber-100 mt-1">
+                                <span class="font-bold">Order:</span>
                                 <div
-                                    class="px-4 py-1 rounded-full text-white {{ $adoption->order_status_color }} text-base font-semibold shadow">
+                                    class="px-3 py-1 rounded-full text-white {{ $adoption->order_status_color }} text-sm font-medium shadow-md">
                                     {{ $adoption->order_status_text }}
                                 </div>
                             </div>
@@ -68,7 +77,7 @@
                     </div>
 
                     {{-- Right Column: Details and Description (Consistent Width: lg:w-3/5) --}}
-                    <div class="w-full lg:w-3/5 flex flex-col space-y-6 text-gray-700">
+                    <div class="w-full lg:w-3/5 flex flex-col space-y-3 text-gray-700">
 
                         {{-- Core Details Grid (Consistent Grid and Box Styling) --}}
                         <div class="grid grid-cols-3 gap-4 text-sm">
@@ -121,7 +130,7 @@
                         </div>
 
                         <div
-                            class="w-full p-5 bg-gradient-to-br from-white to-amber-50 rounded-2xl shadow-xl border-2 border-amber-300">
+                            class="w-full p-5 bg-linear-to-br from-white to-amber-50 rounded-2xl shadow-xl border-2 border-amber-300">
                             <p
                                 class="font-bold text-lg mb-3 border-b border-amber-200 pb-2 flex items-center gap-2 text-amber-700">
                                 Transaction Timeline

@@ -19,7 +19,7 @@ class CommissionProgress extends Model
         'commission_id',
         'image_link',
         'stage',
-        'revision_notes',
+        'status_notes',
     ];
 
     public $timestamps = true;

@@ -17,13 +17,15 @@ class Commission extends Model
     protected $fillable = [
         'member_id',
         'category',
+        'background_type',
+        'is_commercial_use',
+        'additional_characters',
         'description',
         'reference_image',
         'deadline',
         'price',
         'payment_status',
         'progress_status',
-        'status_notes',
         'cancellation_reason',
         'cancelled_by',
         'cancelled_at',
@@ -35,6 +37,8 @@ class Commission extends Model
     protected $casts = [
         'deadline' => 'date',
         'cancelled_at' => 'datetime',
+        'is_commercial_use' => 'boolean',
+        'additional_characters' => 'integer',
         'started_at' => 'datetime',
         'completed_at' => 'datetime',
         'fully_paid_at' => 'datetime',
@@ -168,5 +172,31 @@ class Commission extends Model
         ];
 
         return $texts[$this->payment_status] ?? 'Unknown';
+    }
+
+    public function getBackgroundTypeTextAttribute()
+    {
+        $texts = [
+            'none' => 'None',
+            'simple' => 'Simple',
+            'detailed' => 'Detailed',
+        ];
+
+        return $texts[$this->background_type] ?? 'Unknown';
+    }
+
+    public function getCategoryTextAttribute()
+    {
+        $texts = [
+            'headshot' => 'Headshot',
+            'bustup' => 'Bust Up',
+            'halfbody' => 'Half Body',
+            'fullbody' => 'Full Body',
+            'cartoon_bustup' => 'Cartoon Bust Up',
+            'cartoon_halfbody' => 'Cartoon Half Body',
+            'cartoon_fullbody' => 'Cartoon Full Body',
+        ];
+
+        return $texts[$this->category] ?? 'Unknown';
     }
 }

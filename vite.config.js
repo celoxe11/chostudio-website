@@ -14,6 +14,7 @@ export default defineConfig({
                 "resources/js/artist/adoptions.js",
                 "resources/js/artist/adoption_detail.js",
                 "resources/js/member/history.js",
+                "resources/js/member/history_commission_detail.js",
             ],
             refresh: true,
         }),
