@@ -17,7 +17,8 @@ class Adoption extends Model
         'gallery_id',
         'email',
         'order_status',
-        'payment_status'
+        'payment_status',
+        'payment_confirmation'
     ];
 
     // Relasi ke gallery

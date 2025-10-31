@@ -1,4 +1,5 @@
 <?php
+// database/seeders/AdoptionSeeder.php
 
 namespace Database\Seeders;
 
@@ -9,32 +10,29 @@ class AdoptionSeeder extends Seeder
 {
     public function run(): void
     {
-        // Ambil gallery_id dari gallery yang available atau sold
-        $eligibleGalleryIds = DB::table('gallery')
-            ->whereIn('status', ['available', 'sold'])
-            ->pluck('gallery_id')
-            ->toArray();
+        DB::table('adoptions')->delete();
 
-        // Kalau belum ada data gallery, amanin dulu
-        if (empty($eligibleGalleryIds)) {
-            $this->command->warn('⚠️ Tidak ada gallery dengan status available/sold untuk adopsi!');
+        $soldGalleries = DB::table('gallery')->where('status', 'sold')->get();
+
+        if ($soldGalleries->isEmpty()) {
+            $this->command->warn('⚠️ No "sold" galleries found to seed adoptions.');
             return;
         }
 
         $adoptions = [];
-
-        for ($i = 1; $i <= 8; $i++) {
+        foreach ($soldGalleries as $gallery) {
             $adoptions[] = [
-                'gallery_id' => collect($eligibleGalleryIds)->random(),
-                'email' => "user{$i}@example.com",
-                'order_status' => collect(['placed', 'shipped', 'delivered', 'canceled'])->random(),
-                'payment_status' => collect(['pending', 'paid', 'failed'])->random(),
+                'gallery_id' => $gallery->gallery_id,
+                'email' => "buyer" . $gallery->gallery_id . "@example.com",
+                'payment_confirmation' => null,
+                'order_status' => 'delivered',
+                'payment_status' => 'paid',
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
 
         DB::table('adoptions')->insert($adoptions);
-        $this->command->info('✅ AdoptionSeeder: 8 data inserted');
+        $this->command->info('✅ AdoptionSeeder: ' . count($adoptions) . ' dummy adoptions inserted.');
     }
 }
