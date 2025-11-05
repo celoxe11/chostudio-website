@@ -15,33 +15,35 @@ class Adoption extends Model
 
     protected $fillable = [
         'gallery_id',
-        'buyer_name',
-        'buyer_email',
-        'buyer_phone',
+        // 'buyer_name',
+        // 'buyer_email',
+        // 'buyer_phone',
+        'email',
         'price',
-        'buyer_message', // pesan untuk artist dari customer
-        'delivery_notes', // catatan untuk artist sendiri
+        // 'buyer_message', // pesan untuk artist dari customer
+        // 'delivery_notes', // catatan untuk artist sendiri
         'order_status',
         'payment_status',
-        'confirmed_at',
-        'paid_at',
-        'delivered_at',
-        'completed_at',
-        'delivery_type',
-        'delivery_file',
-        'files_uploaded_at',
+        // 'confirmed_at',
+        // 'paid_at',
+        // 'delivered_at',
+        // 'completed_at',
+        // 'delivery_type',
+        // 'delivery_file',
+        // 'files_uploaded_at',
+        // 'payment_confirmation'
     ];
 
-    protected $casts = [
-        'confirmed_at' => 'datetime',
-        'paid_at' => 'datetime',
-        'delivered_at' => 'datetime',
-        'completed_at' => 'datetime',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
-        'files_uploaded_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'confirmed_at' => 'datetime',
+    //     'paid_at' => 'datetime',
+    //     'delivered_at' => 'datetime',
+    //     'completed_at' => 'datetime',
+    //     'created_at' => 'datetime',
+    //     'updated_at' => 'datetime',
+    //     'deleted_at' => 'datetime',
+    //     'files_uploaded_at' => 'datetime',
+    // ];
 
     /**
      * relationship to Gallery model
