@@ -1,4 +1,5 @@
 <?php
+// database/seeders/AdoptionSeeder.php
 
 namespace Database\Seeders;
 
@@ -291,15 +292,15 @@ class AdoptionSeeder extends Seeder
             ->pluck('gallery_id')
             ->toArray();
 
-        // Kalau belum ada data gallery, amanin dulu
-        if (empty($eligibleGalleryIds)) {
-            $this->command->warn('⚠️ Tidak ada gallery dengan status available/sold untuk adopsi!');
+        $soldGalleries = DB::table('gallery')->where('status', 'sold')->get();
+
+        if ($soldGalleries->isEmpty()) {
+            $this->command->warn('⚠️ No "sold" galleries found to seed adoptions.');
             return;
         }
 
         $adoptions = [];
-
-        for ($i = 1; $i <= 8; $i++) {
+        foreach ($soldGalleries as $gallery) {
             $adoptions[] = [
                 'gallery_id' => collect($eligibleGalleryIds)->random(),
                 'buyer_name' => "User Example {$i}",
@@ -317,6 +318,6 @@ class AdoptionSeeder extends Seeder
         }
 
         DB::table('adoptions')->insert($adoptions);
-        $this->command->info('✅ AdoptionSeeder: 8 data inserted');
+        $this->command->info('✅ AdoptionSeeder: ' . count($adoptions) . ' dummy adoptions inserted.');
     }
 }
