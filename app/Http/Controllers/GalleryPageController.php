@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewAdoptionNotification; // Pastikan Anda sudah membuat Mailable ini
+use Illuminate\Support\Facades\Log;
 
 class GalleryPageController extends Controller
 {
@@ -72,10 +73,10 @@ class GalleryPageController extends Controller
         // Kirim email notifikasi ke Anda (artist/admin)
         // GANTI DENGAN EMAIL ANDA SENDIRI!
         try {
-            Mail::to('ophelia@c23@mhs.istts.ac.id')->send(new NewAdoptionNotification($adoption));
+            // Mail::to('ophelia@c23@mhs.istts.ac.id')->send(new NewAdoptionNotification($adoption));
         } catch (\Exception $e) {
             // Jika email gagal, jangan gagalkan seluruh proses, tapi catat errornya
-            \Log::error('Email sending failed for adoption ID ' . $adoption->adoption_id . ': ' . $e->getMessage());
+            Log::error('Email sending failed for adoption ID ' . $adoption->adoption_id . ': ' . $e->getMessage());
         }
 
         return response()->json(['success' => true, 'message' => 'Submission successful!']);
