@@ -90,14 +90,21 @@
                     <div id="designGrid"
                         class="grid grid-cols-3 sm:grid-cols-4 gap-2 flex-1 h-fit transition-all duration-300">
                         @forelse ($designs as $design)
+                            @php
+                                // If image_url is already an absolute URL or already under /storage, use it as-is.
+                                $imageUrl = preg_match('/^https?:\/\//', $design->image_url) || str_starts_with($design->image_url, '/storage')
+                                    ? $design->image_url
+                                    : Storage::url($design->image_url);
+                            @endphp
                             <div class="design-item cursor-pointer bg-gradient-to-b from-yellow-100 to-orange-200 rounded-md shadow-[0.4vh_0.4vh_0_black] hover:shadow-[0.6vh_0.6vh_0_black] hover:-translate-y-[0.3vh] transition-all duration-200"
                                 data-id="{{ $design->gallery_id }}"
                                 data-title="{{ $design->title }}"
                                 data-price="Rp {{ number_format($design->price, 0, ',', '.') }}"
                                 data-format="{{ $design->file_format }}"
-                                data-image="{{ Storage::url($design->image_url) }}">
-                                <img src="{{ Storage::url($design->image_url) }}" alt="{{ $design->title }}"
-                                    class="w-full h-full object-cover rounded-sm border-2 border-black">
+                                data-image="{{ $imageUrl }}">
+                                <img src="{{ $imageUrl }}" alt="{{ $design->title }}"
+                                    class="w-full h-full object-cover rounded-sm border-2 border-black"
+                                    onerror="handleBrokenImage(this)">
                             </div>
                         @empty
                             <p class="col-span-full text-center text-gray-500">No designs available for adoption at the moment.</p>
@@ -184,7 +191,27 @@
     </div>
 
     <script>
+            // expose server upload limit (bytes) to client so we can validate before sending
+            @php
+                $u = ini_get('upload_max_filesize');
+                $last = strtolower(substr($u, -1));
+                $mult = ($last === 'g') ? 1024*1024*1024 : (($last === 'm') ? 1024*1024 : (($last === 'k') ? 1024 : 1));
+                $uploadMaxBytes = ((int)$u) * $mult;
+            @endphp
+            const SERVER_UPLOAD_MAX = {{ $uploadMaxBytes }}; // bytes
         document.addEventListener('DOMContentLoaded', function() {
+            // Handle broken images: remove the containing card and log an error to console
+            window.handleBrokenImage = function(img) {
+                try {
+                    const card = img.closest('.design-item');
+                    const id = card ? card.dataset.id || card.dataset.index : null;
+                    console.error('Broken image detected, removing card', { id: id, src: img.src });
+                    if (card) card.remove();
+                    // keep modal/preview placeholders intact; preview image errors will only log
+                } catch (e) {
+                    console.error('Error handling broken image', e);
+                }
+            };
             // Elemen UI
             const buyButton = document.getElementById('buyButton');
             const purchaseModal = document.getElementById('purchaseModal');
@@ -260,9 +287,25 @@
             // LOGIKA SUBMIT FORM DENGAN AJAX (FETCH)
             purchaseForm.addEventListener('submit', function(event) {
                 event.preventDefault();
+                formErrors.innerHTML = '';
+
+                const fileInput = document.getElementById('paymentProof');
+                const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+                if (!file) {
+                    formErrors.innerHTML = 'Please upload your payment proof image.';
+                    return;
+                }
+
+                // Protect against server-side PHP upload limits (show friendly message)
+                if (typeof SERVER_UPLOAD_MAX !== 'undefined' && file.size > SERVER_UPLOAD_MAX) {
+                    const mb = Math.round(SERVER_UPLOAD_MAX / 1024 / 1024);
+                    formErrors.innerHTML = `File too large. Server allows up to ${mb} MB. Please resize your image or contact the admin.`;
+                    return;
+                }
+
                 submitButton.disabled = true;
                 submitButton.textContent = 'Submitting...';
-                formErrors.innerHTML = '';
 
                 const formData = new FormData(this);
 
@@ -274,15 +317,19 @@
                             'Accept': 'application/json',
                         },
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
+                    .then(async response => {
+                        const json = await response.json().catch(() => null);
+                        return { ok: response.ok, json };
+                    })
+                    .then(({ ok, json }) => {
+                        if (ok && json && json.success) {
                             formView.classList.add('hidden');
                             thankYouView.classList.remove('hidden');
                         } else {
+                            const errors = (json && json.errors) ? json.errors : { general: ['Failed to submit.'] };
                             let errorMessages = '<strong>Please fix the following errors:</strong><ul>';
-                            for (const key in data.errors) {
-                                errorMessages += `<li>- ${data.errors[key][0]}</li>`;
+                            for (const key in errors) {
+                                errorMessages += `<li>- ${errors[key][0]}</li>`;
                             }
                             errorMessages += '</ul>';
                             formErrors.innerHTML = errorMessages;

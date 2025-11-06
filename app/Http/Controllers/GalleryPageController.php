@@ -34,10 +34,18 @@ class GalleryPageController extends Controller
         $validator = Validator::make($request->all(), [
             'gallery_id' => 'required|exists:gallery,gallery_id',
             'email' => 'required|email|max:255',
-            'paymentProof' => 'required|image|mimes:jpeg,png,jpg|max:2048', // maks 2MB
+            // allow up to 5MB since some phones send larger images
+            'paymentProof' => 'required|image|mimes:jpeg,png,jpg|max:5120', // max 5MB
         ]);
 
         if ($validator->fails()) {
+            // Log helpful debug info for failing validation (do not log file contents)
+            \Log::warning('Adoption validation failed', [
+                'errors' => $validator->errors()->toArray(),
+                'request_keys' => array_keys($request->all()),
+                'has_file' => $request->hasFile('paymentProof'),
+            ]);
+
             return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
         }
 
@@ -56,14 +64,25 @@ class GalleryPageController extends Controller
             $filePath = $file->storeAs('payment_confirmations', $fileName, 'public');
         }
 
-        // Buat record adopsi baru di DB, TANPA MENYIMPAN PRICE
-        $adoption = Adoption::create([
+        // Build adoption data matching current DB schema (buyer_*, delivery_*, order/payment enums)
+        $adoptionData = [
             'gallery_id' => $galleryItem->gallery_id,
-            'email' => $request->email,
-            'payment_confirmation' => $filePath, // Menyimpan path file bukti bayar
-            'order_status' => 'placed', // Status order awal
-            'payment_status' => 'processing', // Status pembayaran awal setelah submit bukti
-        ]);
+            // front-end sends only email; name/phone not collected here so leave empty/null as appropriate
+            'buyer_name' => $request->input('name', ''),
+            'buyer_email' => $request->email,
+            'buyer_phone' => $request->input('phone', null),
+            'price' => $galleryItem->price ?? 0,
+            'buyer_message' => $request->input('message', null),
+            // delivery_type 'upload_file' indicates buyer uploaded a file (payment proof)
+            'delivery_type' => 'upload_file',
+            'delivery_file' => $filePath, // store uploaded file path here
+            'files_uploaded_at' => $filePath ? now() : null,
+            // Use enum values that exist in the DB (order_status default is 'pending', payment_status default is 'unpaid')
+            'order_status' => 'pending',
+            'payment_status' => 'unpaid',
+        ];
+
+        $adoption = Adoption::create($adoptionData);
         
         // Setelah transaksi dibuat, ubah status galeri menjadi 'sold'
         $galleryItem->status = 'sold';

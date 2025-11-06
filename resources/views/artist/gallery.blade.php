@@ -35,7 +35,8 @@
             </div>
 
             <!-- Form Inputs -->
-            <form id="artworkForm" class="flex flex-col w-full max-w-md">
+            <form id="artworkForm" class="flex flex-col w-full max-w-md" method="POST" action="{{ route('artist.gallery.store') }}" enctype="multipart/form-data">
+                @csrf
                 <label class="text-sm flex items-center gap-2 mb-3 select-none cursor-pointer">
                     Enable Purchase? 
                     <input id="purchaseCheckbox" type="checkbox" class="w-4 h-4 accent-[#f6a88a]">
@@ -43,17 +44,17 @@
 
                 {{-- KUNCI: Mengembalikan styling asli Anda ke setiap input --}}
                 <div class="mb-3">
-                    <input id="titleInput" type="text" placeholder="Insert Title..." class="border rounded-lg px-3 py-2 w-full sm:w-[80%] focus:ring-2 focus:ring-[#c9b8e3] outline-none">
+                    <input id="titleInput" name="title" type="text" placeholder="Insert Title..." class="border rounded-lg px-3 py-2 w-full sm:w-[80%] focus:ring-2 focus:ring-[#c9b8e3] outline-none">
                     <p class="error-message"></p>
                 </div>
 
                 <div class="mb-3">
-                    <textarea id="descInput" placeholder="Description" class="border rounded-lg px-3 py-2 w-full sm:w-[80%] h-[80px] resize-none focus:ring-2 focus:ring-[#c9b8e3] outline-none"></textarea>
+                    <textarea id="descInput" name="description" placeholder="Description" class="border rounded-lg px-3 py-2 w-full sm:w-[80%] h-[80px] resize-none focus:ring-2 focus:ring-[#c9b8e3] outline-none"></textarea>
                     <p class="error-message"></p>
                 </div>
 
                 <div class="mb-4">
-                     <select id="fileTypeInput" class="border rounded-lg px-3 py-2 w-full sm:w-[80%] focus:ring-2 focus:ring-[#c9b8e3] outline-none">
+                     <select id="fileTypeInput" name="file_format" class="border rounded-lg px-3 py-2 w-full sm:w-[80%] focus:ring-2 focus:ring-[#c9b8e3] outline-none">
                         <option value="">-- Select File Type --</option>
                         <optgroup label="🎨 Digital Illustration">
                             <option value="psd">PSD (Photoshop)</option>
@@ -69,7 +70,7 @@
 
                 {{-- Kontainer Harga (Awalnya tersembunyi) --}}
                 <div id="priceContainer" class="mb-4 hidden transition-all duration-500">
-                    <input id="priceInput" type="number" placeholder="Price" class="border rounded-lg px-3 py-2 w-full sm:w-[80%] focus:ring-2 focus:ring-[#c9b8e3] outline-none">
+                    <input id="priceInput" name="price" type="number" placeholder="Price" class="border rounded-lg px-3 py-2 w-full sm:w-[80%] focus:ring-2 focus:ring-[#c9b8e3] outline-none">
                     <p class="error-message"></p>
                 </div>
             
@@ -103,7 +104,7 @@
                         data-file="{{ $item['file_type'] ?? '' }}"
                         data-purchase="{{ $item['purchase'] ?? false }}"
                     >
-                        <img src="{{ $item['image_url'] }}" alt="Image" class="rounded-md object-cover w-full h-full border-2 border-black ">
+                        <img src="{{ $item['image_url'] }}" alt="Image" class="rounded-md object-cover w-full h-full border-2 border-black " onerror="handleBrokenImage(this)">
                     </div>
                 @endforeach
             </div>
@@ -244,14 +245,76 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ========== ✨ Validasi & Aksi Form ========== //
-    artworkForm.addEventListener('submit', (e) => {
+    artworkForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            if (editMode) {
-                alert(`Simulating UPDATE for item index: ${currentIndex}`);
-            } else {
-                alert('Simulating ADD for new artwork!');
+        if (!validateForm()) return;
+
+        // Prepare form data
+        const formData = new FormData(artworkForm);
+        if (imageFile) {
+            formData.set('image', imageFile);
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = editMode ? 'Updating...' : 'Adding...';
+
+        try {
+            const res = await fetch(artworkForm.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            });
+
+            const data = await res.json();
+            if (!res.ok || !data.success) {
+                const errors = data.errors || {general: ['Failed to save.']};
+                // Show first error (simple)
+                const firstKey = Object.keys(errors)[0];
+                const firstMsg = Array.isArray(errors[firstKey]) ? errors[firstKey][0] : errors[firstKey];
+                document.querySelector('.error-message').textContent = firstMsg;
+                submitBtn.disabled = false;
+                submitBtn.textContent = editMode ? 'Update' : 'Add';
+                return;
             }
+
+            // Insert new card into grid
+            const g = data.gallery;
+            const card = document.createElement('div');
+            card.className = 'design-item cursor-pointer aspect-square bg-gradient-to-b from-yellow-100 to-orange-200 rounded-md shadow-[0.4vh_0.4vh_0_black] hover:shadow-[0.6vh_0.6vh_0_black] hover:-translate-y-[0.3vh] transition-all duration-200';
+            card.dataset.index = g.gallery_id;
+            card.dataset.image = g.image_url;
+            card.dataset.title = g.title || '';
+            card.dataset.desc = g.description || '';
+            card.dataset.price = g.price || '';
+            card.dataset.file = g.file_format || '';
+            card.dataset.purchase = (g.price ? 'true' : 'false');
+
+            const img = document.createElement('img');
+            img.src = g.image_url;
+            // If the image fails to load, remove the card and log to console
+            img.onerror = function() {
+                try {
+                    console.error('Broken image detected for newly added gallery item', { id: g.gallery_id, src: g.image_url });
+                    if (card && card.parentNode) card.parentNode.removeChild(card);
+                } catch (e) { console.error('Error removing broken image card', e); }
+            };
+            img.alt = 'Image';
+            img.className = 'rounded-md object-cover w-full h-full border-2 border-black';
+            card.appendChild(img);
+
+            galleryGrid.prepend(card);
+
+            resetForm();
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Add';
+
+        } catch (err) {
+            console.error(err);
+            document.querySelector('.error-message').textContent = 'Unexpected error. Try again.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = editMode ? 'Update' : 'Add';
         }
     });
 

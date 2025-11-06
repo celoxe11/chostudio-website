@@ -15,10 +15,16 @@ class Adoption extends Model
 
     protected $fillable = [
         'gallery_id',
-        'email',
+        'buyer_name',
+        'buyer_email',
+        'buyer_phone',
+        'price',
+        'buyer_message',
+        'delivery_type',
+        'delivery_file',
+        'files_uploaded_at',
         'order_status',
-        'payment_status',
-        'payment_confirmation'
+        'payment_status'
     ];
 
     // Relasi ke gallery
