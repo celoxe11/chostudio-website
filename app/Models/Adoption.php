@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Adoption extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'adoptions';
     protected $primaryKey = 'adoption_id';
@@ -15,19 +16,13 @@ class Adoption extends Model
 
     protected $fillable = [
         'gallery_id',
-        'buyer_name',
-        'buyer_email',
-        'buyer_phone',
-        'price',
-        'buyer_message',
-        'delivery_type',
-        'delivery_file',
-        'files_uploaded_at',
+        'email',
+        'payment_confirmation',
         'order_status',
-        'payment_status'
+        'payment_status',
     ];
 
-    // Relasi ke gallery
+    // Relasi ke Gallery
     public function gallery()
     {
         return $this->belongsTo(Gallery::class, 'gallery_id', 'gallery_id');

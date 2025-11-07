@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ChoStudio - Adoption Confirmation</title>
+    <title>ChoStudio Adoption Notification</title>
     <style>
         body {
             font-family: 'Poppins', 'Arial', sans-serif;
@@ -23,11 +23,11 @@
         }
         .header {
             background: linear-gradient(135deg, #f7d89c, #f0ad4e);
+            color: #2c2c2c;
             text-align: center;
             padding: 30px 20px;
         }
         .header h1 {
-            color: #2c2c2c;
             margin: 0;
             font-size: 24px;
             font-weight: 600;
@@ -41,14 +41,18 @@
             color: #f0ad4e;
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+        .section p {
+            margin: 0 0 12px;
+            color: #444;
         }
         .details-list {
             list-style: none;
             padding: 0;
-            margin: 0;
+            margin: 10px 0 0;
         }
         .details-list li {
             display: flex;
@@ -77,14 +81,14 @@
             font-size: 13px;
         }
         .footer p {
-            margin: 5px 0;
+            margin: 0;
         }
-        .message {
+        .artwork-box {
             background: #fff8ec;
-            border-left: 4px solid #f0ad4e;
+            border: 1px solid #f5d9a7;
+            border-radius: 8px;
             padding: 15px 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
+            margin-top: 10px;
         }
         .cta {
             text-align: center;
@@ -109,43 +113,45 @@
     <div class="container">
         <!-- HEADER -->
         <div class="header">
-            <h1>🧡 Thank You for Adopting an Artwork!</h1>
+            <h1>🧡 New Adoption Submission Received!</h1>
         </div>
 
-        <!-- MESSAGE -->
+        <!-- INTRO -->
         <div class="section">
-            <div class="message">
-                <p>Hi <strong>{{ $adoption->buyer_name ?? 'Art Lover' }}</strong>,</p>
-                <p>Thank you for your support and interest in adopting one of our artworks.  
-                Your adoption request has been received and will be processed soon.</p>
-            </div>
+            <p>Hai <strong>Admin ChoStudio</strong>,</p>
+            <p>Ada pengajuan adopsi baru yang masuk ke sistem. Berikut detail lengkapnya:</p>
         </div>
 
         <!-- ARTWORK DETAILS -->
         <div class="section">
             <h2>Artwork Details</h2>
-            <ul class="details-list">
-                <li><span class="label">Gallery ID:</span> <span class="value">#{{ $adoption->gallery->gallery_id ?? $adoption->gallery_id }}</span></li>
-                <li><span class="label">Title:</span> <span class="value">{{ $adoption->gallery->title ?? '-' }}</span></li>
-                <li><span class="label">Price:</span> <span class="value highlight">Rp {{ number_format($adoption->price ?? ($adoption->gallery->price ?? 0), 0, ',', '.') }}</span></li>
-            </ul>
+            <div class="artwork-box">
+                <ul class="details-list">
+                    <li><span class="label">Gallery ID:</span> <span class="value">#{{ $adoption->gallery->gallery_id ?? $adoption->gallery_id }}</span></li>
+                    <li><span class="label">Title:</span> <span class="value">{{ $adoption->gallery->title ?? '-' }}</span></li>
+                    <li><span class="label">Price:</span> <span class="value highlight">Rp {{ number_format($adoption->price ?? ($adoption->gallery->price ?? 0), 0, ',', '.') }}</span></li>
+                </ul>
+            </div>
         </div>
 
-        <!-- TRANSACTION DETAILS -->
+        <!-- TRANSACTION INFO -->
         <div class="section">
-            <h2>Transaction Information</h2>
+            <h2>Transaction Info</h2>
             <ul class="details-list">
                 <li><span class="label">Adoption ID:</span> <span class="value">#{{ $adoption->adoption_id ?? '-' }}</span></li>
-                <li><span class="label">Buyer Email:</span> <span class="value">{{ $adoption->buyer_email ?? '-' }}</span></li>
-                <li><span class="label">Buyer Name:</span> <span class="value">{{ $adoption->buyer_name ?? '-' }}</span></li>
+                <li><span class="label">Your Email:</span> <span class="value">{{ $adoption->email ?? '-' }}</span></li>
                 <li><span class="label">Order Status:</span> <span class="value highlight">{{ strtoupper($adoption->order_status ?? '-') }}</span></li>
                 <li><span class="label">Payment Status:</span> <span class="value highlight">{{ strtoupper($adoption->payment_status ?? '-') }}</span></li>
             </ul>
         </div>
 
+        <!-- CTA -->
+        <div class="section cta">
+            <a href="{{ url('/admin/adoptions') }}">View in Dashboard</a>
+        </div>
+
         <!-- FOOTER -->
         <div class="footer">
-            <p>We truly appreciate your support for local artists 💛</p>
             <p>© {{ date('Y') }} <strong>ChoStudio</strong>. Handcrafted with passion 🖌️</p>
         </div>
     </div>
