@@ -34,6 +34,8 @@ Route::get('/register', [LoginPageController::class, 'register'])->name('registe
 Route::get('/termsnconditions', [LoginPageController::class, 'termsnconditions'])->name('termsnconditions');
 Route::get('/home', [HomePageController::class, 'index'])->name('home');
 Route::get('/gallery', [GalleryPageController::class, 'index'])->name('gallery');
+// Route for adoption (purchase) submissions from the public gallery page
+Route::post('/gallery/adopt', [GalleryPageController::class, 'store'])->name('gallery.adopt');
 
 Route::post('/login', [LoginPageController::class, 'processLogin'])->name('process_login');
 Route::post('/register', [LoginPageController::class, 'processRegister'])->name('process_register');
