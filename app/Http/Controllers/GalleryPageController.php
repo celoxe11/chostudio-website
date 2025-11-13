@@ -137,27 +137,27 @@ class GalleryPageController extends Controller
         return response()->json(['success' => true, 'message' => 'Submission successful!']);
     }
 
-    public function show($id)
-    {
-        $gallery = Gallery::findOrFail($id);
-        return view('gallery.index', compact('gallery'));
-    }
+    // public function show($id)
+    // {
+    //     $gallery = Gallery::findOrFail($id);
+    //     return view('gallery.index', compact('gallery'));
+    // }
 
-    public function processAdoption(Request $request, $id)
-    {
-        $gallery = Gallery::findOrFail($id);
+    // public function processAdoption(Request $request, $id)
+    // {
+    //     $gallery = Gallery::findOrFail($id);
         
-        $adoption = Adoption::create([
-            'gallery_id' => $gallery->id,
-            'adoption_id' => 'ADP' . time(),
-            'email' => $request->email,
-            'payment_status' => 'pending',
-            // Add other necessary fields
-        ]);
+    //     $adoption = Adoption::create([
+    //         'gallery_id' => $gallery->id,
+    //         'adoption_id' => 'ADP' . time(),
+    //         'email' => $request->email,
+    //         'payment_status' => 'pending',
+    //         // Add other necessary fields
+    //     ]);
 
-        // Send email
-        Mail::to($adoption->email)->send(new NewAdoptionMail($adoption));
+    //     // Send email
+    //     Mail::to($adoption->email)->send(new NewAdoptionMail($adoption));
 
-        return back()->with('success', 'Email sent successfully!');
-    }
+    //     return back()->with('success', 'Email sent successfully!');
+    // }
 }
